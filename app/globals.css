@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-bg: #0A0A0B;
+  --color-surface: #111113;
+  --color-surface-2: #1A1A1E;
+  --color-primary: #E8512A;
+  --color-primary-2: #F07A50;
+  --color-cream: #F5ECD7;
+  --color-muted: #6B6B72;
+  --color-border: #222226;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--color-cream);
+  background: var(--color-bg);
+  min-height: 100vh;
+}
+
+/* Grain overlay */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 50;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.04;
+}
+
+/* Custom selection */
+::selection {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* Coral crosshair cursor — always visible on desktop */
+@media (pointer: fine) {
+  html, body, *, *::before, *::after {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='4' fill='%23E8512A'/%3E%3C/svg%3E") 10 10, crosshair !important;
+  }
+  a, button, [role="button"], input, select, textarea, label {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='6' fill='%23E8512A' opacity='0.6'/%3E%3Ccircle cx='12' cy='12' r='3' fill='%23E8512A'/%3E%3C/svg%3E") 12 12, pointer !important;
+  }
+}
+
+/* Animated star field */
+.stars {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, rgba(245,236,215,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 30% 60%, rgba(245,236,215,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 50% 10%, rgba(245,236,215,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 70% 80%, rgba(245,236,215,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 40%, rgba(245,236,215,0.4) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 15% 75%, rgba(232,81,42,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 85% 15%, rgba(245,236,215,0.3) 0%, transparent 100%);
+  animation: star-drift 60s linear infinite;
+}
+.stars-2 {
+  background-image:
+    radial-gradient(1px 1px at 25% 45%, rgba(245,236,215,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 55% 35%, rgba(245,236,215,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 75% 65%, rgba(245,236,215,0.2) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 45% 85%, rgba(232,81,42,0.2) 0%, transparent 100%),
+    radial-gradient(1px 1px at 95% 55%, rgba(245,236,215,0.35) 0%, transparent 100%);
+  animation: star-drift 90s linear infinite reverse;
+}
+.stars-3 {
+  background-image:
+    radial-gradient(1px 1px at 5% 90%, rgba(245,236,215,0.25) 0%, transparent 100%),
+    radial-gradient(1px 1px at 40% 5%, rgba(245,236,215,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 65% 50%, rgba(245,236,215,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 80% 30%, rgba(245,236,215,0.2) 0%, transparent 100%);
+  animation: star-drift 120s linear infinite;
+}
+@keyframes star-drift {
+  from { transform: translateY(0) translateX(0); }
+  to   { transform: translateY(-20px) translateX(10px); }
+}
+
+/* Reduced motion — keep layouts, disable animations */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
