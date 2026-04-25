@@ -208,10 +208,10 @@ export default function DemoPage() {
         </h2>
 
         <div className="relative pl-10 flex flex-col gap-6 max-w-2xl">
-          <div className="absolute left-2 top-0 w-[2px] h-full bg-border" />
+          <div className="absolute left-[19px] top-0 w-[2px] h-full bg-border" />
           {/* Animated fill line */}
           <motion.div
-            className="absolute left-2 top-0 w-[2px] bg-primary origin-top"
+            className="absolute left-[19px] top-0 w-[2px] bg-primary origin-top"
             initial={{ scaleY: 0 }}
             whileInView={{ scaleY: 1 }}
             viewport={{ once: true }}
