@@ -40,32 +40,28 @@ export const Logo: React.FC<LogoProps> = ({
             </filter>
           </defs>
           <g filter="url(#shadow)">
-            {/* Compass / Star */}
+            {/* Outer interlaced structure */}
+            <g stroke="url(#roamGradient)" strokeWidth="12" strokeLinecap="square" strokeLinejoin="miter" fill="none">
+              <path d="M 65 35 L 85 50 L 65 65" />
+              <path d="M 35 35 L 15 50 L 35 65" />
+              <path d="M 35 35 L 50 15 L 65 35" />
+              <path d="M 35 65 L 50 85 L 65 65" />
+              
+              <rect x="35" y="35" width="30" height="30" transform="rotate(45 50 50)" />
+            </g>
+            
+            {/* The 8-pointed Star */}
             <path
-              d="M50 15 L55 45 L85 50 L55 55 L50 85 L45 55 L15 50 L45 45 Z"
+              d="M 50 10 L 55 40 L 78 22 L 60 45 L 90 50 L 60 55 L 78 78 L 55 60 L 50 90 L 45 60 L 22 78 L 40 55 L 10 50 L 40 45 L 22 22 L 45 40 Z"
               fill="url(#roamGradient)"
-            />
-            {/* Square 1 */}
-            <rect
-              x="30"
-              y="30"
-              width="40"
-              height="40"
-              stroke="url(#roamGradient)"
-              strokeWidth="6"
-              transform="rotate(45 50 50)"
-              fill="none"
-            />
-            {/* Square 2 */}
-            <rect
-              x="25"
-              y="25"
-              width="50"
-              height="50"
-              stroke="url(#roamGradient)"
+              stroke="var(--color-bg)"
               strokeWidth="2"
-              transform="rotate(45 50 50)"
-              fill="none"
+            />
+            {/* Inner star highlight */}
+            <path
+              d="M 50 20 L 53 44 L 68 32 L 56 47 L 80 50 L 56 53 L 68 68 L 53 56 L 50 80 L 47 56 L 32 68 L 44 53 L 20 50 L 44 47 L 32 32 L 47 44 Z"
+              fill="var(--color-cream)"
+              opacity="0.9"
             />
           </g>
         </svg>

@@ -294,27 +294,31 @@ export const AutoNavigationSimulation: React.FC = () => {
         </p>
       </div>
       <div className="relative w-full h-[440px] border border-border bg-surface/40">
-        <div className="absolute top-3 left-3 z-10 font-mono text-[11px] tracking-widest text-primary uppercase">
-          [ Auto-Nav Simulation ]
-        </div>
-        <div className="absolute top-3 right-3 z-10 font-mono text-[11px] tracking-widest text-muted uppercase">
-          Click grid · Select {selecting === "start" ? "START" : "END"}
-        </div>
-        <div className="absolute top-11 right-3 z-10 flex gap-2">
-          <button
-            type="button"
-            onClick={handleStart}
-            className="font-mono text-[10px] tracking-widest uppercase border border-primary px-3 py-1 bg-bg/80 text-primary hover:bg-primary hover:text-white transition-colors"
-          >
-            Start
-          </button>
-          <button
-            type="button"
-            onClick={handleReset}
-            className="font-mono text-[10px] tracking-widest uppercase border border-border px-3 py-1 bg-bg/80 text-cream/80 hover:border-primary hover:text-primary transition-colors"
-          >
-            Reset
-          </button>
+        <div className="absolute top-0 left-0 w-full p-3 flex flex-col md:flex-row justify-between items-start md:items-center gap-2 pointer-events-none z-10">
+          <div className="font-mono text-[10px] md:text-[11px] tracking-widest text-primary uppercase bg-bg/80 px-2 py-1">
+            [ Auto-Nav Simulation ]
+          </div>
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
+            <div className="font-mono text-[10px] md:text-[11px] tracking-widest text-muted uppercase bg-bg/80 px-2 py-1">
+              Click grid · Select {selecting === "start" ? "START" : "END"}
+            </div>
+            <div className="flex gap-2 pointer-events-auto">
+              <button
+                type="button"
+                onClick={handleStart}
+                className="font-mono text-[10px] tracking-widest uppercase border border-primary px-3 py-1 bg-bg/80 text-primary hover:bg-primary hover:text-white transition-colors"
+              >
+                Start
+              </button>
+              <button
+                type="button"
+                onClick={handleReset}
+                className="font-mono text-[10px] tracking-widest uppercase border border-border px-3 py-1 bg-bg/80 text-cream/80 hover:border-primary hover:text-primary transition-colors"
+              >
+                Reset
+              </button>
+            </div>
+          </div>
         </div>
         {error && (
           <div className="absolute bottom-3 right-3 z-10 font-mono text-[10px] tracking-widest uppercase border border-primary bg-bg/90 text-primary px-2 py-1">

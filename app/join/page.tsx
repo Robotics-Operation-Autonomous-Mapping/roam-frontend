@@ -167,7 +167,7 @@ export default function JoinPage() {
                   transition={{ delay: 0.4 + i * 0.15, duration: 0.5 }}
                   className="relative"
                 >
-                  <div className="absolute -left-[34px] top-[5px] w-3 h-3 rounded-full bg-bg border-2 border-primary z-10" />
+                  <div className="absolute -left-[38px] top-[5px] w-3 h-3 rounded-full bg-bg border-2 border-primary z-10" />
                   <p className="font-sans text-cream/90 leading-relaxed">{gain}</p>
                 </motion.div>
               ))}

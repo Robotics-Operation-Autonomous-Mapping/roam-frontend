@@ -110,7 +110,7 @@ export default function DemoPage() {
           <div>
             <p className="font-mono text-xs text-muted mb-1 uppercase tracking-widest">Target</p>
             <p className="font-mono text-cream font-bold tracking-wider">
-              FIRST AUTONOMOUS NAVIGATION TEST → Q4 2025
+              FIRST AUTONOMOUS NAVIGATION TEST → Q4 2026
             </p>
           </div>
           <div className="sm:ml-auto flex items-center gap-3">
@@ -127,7 +127,7 @@ export default function DemoPage() {
             { end: 15,   label: "TEAM MEMBERS",     suffix: "",  prefix: "" },
             { end: 1,    label: "PROTOTYPE VERSION", suffix: "",  prefix: "V" },
             { end: 5,    label: "DEPARTMENTS",       suffix: "",  prefix: "" },
-            { end: 2025, label: "TARGET YEAR",       suffix: "",  prefix: "" },
+            { end: 2026, label: "TARGET YEAR",       suffix: "",  prefix: "" },
           ].map(({ end, label, suffix, prefix }, i) => (
             <motion.div
               key={label}
@@ -165,15 +165,15 @@ export default function DemoPage() {
         {/* Canvas overlays */}
         <div className="absolute inset-0 pointer-events-none z-10 p-6 flex flex-col justify-between">
           {/* Top row */}
-          <div className="flex justify-between items-start">
-            <div className="bg-bg/80 backdrop-blur-sm border border-border px-4 py-2 flex items-center gap-3">
-              <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              <span className="font-mono text-xs text-primary tracking-widest">
+          <div className="flex flex-col md:flex-row justify-between items-start gap-2">
+            <div className="bg-bg/80 backdrop-blur-sm border border-border px-4 py-2 flex items-center gap-3 w-full md:w-auto">
+              <div className="w-2 h-2 rounded-full bg-primary animate-pulse shrink-0" />
+              <span className="font-mono text-xs text-primary tracking-widest truncate">
                 SIMULATION ACTIVE
               </span>
             </div>
-            <div className="bg-bg/80 backdrop-blur-sm border border-border px-4 py-2">
-              <span className="font-mono text-xs text-muted tracking-widest">
+            <div className="bg-bg/80 backdrop-blur-sm border border-border px-4 py-2 w-full md:w-auto">
+              <span className="font-mono text-[10px] md:text-xs text-muted tracking-widest break-words flex flex-wrap">
                 8,000 pts &nbsp;|&nbsp; ~4 Hz scan rate &nbsp;|&nbsp; Simulated
               </span>
             </div>

@@ -23,7 +23,7 @@ export const StatCounter: React.FC<StatCounterProps> = ({
 }) => {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-10px" });
 
   // Normalise: values < 100 are treated as seconds (legacy), ≥100 as ms
   const durationMs = duration < 100 ? duration * 1000 : duration;
