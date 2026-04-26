@@ -17,7 +17,6 @@ export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
-  if (pathname?.startsWith("/admin")) return null;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,6 +30,8 @@ export const Navbar = () => {
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [pathname]);
+
+  if (pathname?.startsWith("/admin")) return null;
 
   return (
     <>

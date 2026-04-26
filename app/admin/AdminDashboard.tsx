@@ -117,8 +117,7 @@ const DetailPanel: React.FC<{
   app: Application;
   onClose: () => void;
   onStatusChange: (id: string, status: AppStatus, notes: string) => Promise<void>;
-  userEmail: string;
-}> = ({ app, onClose, onStatusChange, userEmail }) => {
+}> = ({ app, onClose, onStatusChange }) => {
   const [status, setStatus]   = useState<AppStatus>(app.status);
   const [notes, setNotes]     = useState(app.reviewer_notes ?? "");
   const [saving, setSaving]   = useState(false);
@@ -580,7 +579,6 @@ export default function AdminDashboard({
             app={selected}
             onClose={() => setSelected(null)}
             onStatusChange={handleStatusChange}
-            userEmail={userEmail}
           />
         </>
       )}
