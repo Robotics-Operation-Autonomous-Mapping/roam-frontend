@@ -3,7 +3,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-
 // ─── Content ─────────────────────────────────────────────────────────────────
 const ROLES = [
   {
@@ -235,14 +234,11 @@ export default function JoinPage() {
               IF YOU WANT TO HELP SHAPE THIS FROM DAY ONE — NOW IS THE TIME.
             </h2>
             <a
-              href="#apply"
+              href="/apply"
               className="inline-block bg-bg text-cream font-sans font-bold uppercase tracking-widest px-10 py-4 hover:bg-surface-2 transition-colors min-h-[44px]"
             >
               APPLY NOW →
             </a>
-            <p className="font-mono text-xs text-bg/70 mt-6 uppercase tracking-widest">
-              [ Microsoft Forms link — coming soon ]
-            </p>
           </motion.div>
         </div>
       </section>

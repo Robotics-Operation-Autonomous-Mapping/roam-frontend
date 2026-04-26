@@ -1,8 +1,12 @@
+"use client";
 import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Logo } from "@/components/ui/Logo";
 
 export const Footer = () => {
+  const pathname = usePathname();
+  if (pathname?.startsWith("/admin")) return null;
   return (
     <footer className="w-full border-t border-primary bg-bg pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-6">
@@ -47,7 +51,12 @@ export const Footer = () => {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-mono text-muted uppercase">
           <p>© 2025 ROAM Robotics Club</p>
-          <p>Built by Builders</p>
+          <div className="flex gap-4 items-center">
+            <p>Built by Builders</p>
+            <Link href="/admin" style={{ color: "#1A2535", fontSize: 10 }}>
+              Admin Portal
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
