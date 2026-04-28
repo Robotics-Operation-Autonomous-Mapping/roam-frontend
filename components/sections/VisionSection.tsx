@@ -34,7 +34,7 @@ export const VisionSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
           {DOMAINS.map((domain, i) => (
             <motion.div
               key={domain.title}
