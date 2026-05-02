@@ -146,8 +146,7 @@ export const MarsHero: React.FC<MarsHeroProps> = ({ onRoverArrived }) => {
   const arrivedRef  = useRef(false);
   const uiControls  = useAnimation();
 
-  // ── Scanline wipe state via CSS custom property ──────────────────────────
-  const scanRef = useRef<HTMLDivElement>(null);
+
 
   useEffect(() => {
     const wrap = wrapRef.current;

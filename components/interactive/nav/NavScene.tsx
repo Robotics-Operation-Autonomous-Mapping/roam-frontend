@@ -2,9 +2,8 @@
 
 import React, { useMemo, useRef } from "react";
 import { OrbitControls, Sky, Environment, ContactShadows } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { CP, GRID_SIZE, type Cell, type Obstacle } from "./types";
+import { GRID_SIZE, type Cell, type Obstacle } from "./types";
 import { toWorld, toCell } from "./pathfinding";
 import { Building } from "./Buildings";
 import {
@@ -29,7 +28,6 @@ interface NavSceneProps {
 const DaylightGrid: React.FC = () => {
   const ref = useRef<THREE.GridHelper>(null);
   return (
-    // @ts-ignore – gridHelper accepts these args
     <gridHelper
       ref={ref}
       args={[GRID_SIZE, GRID_SIZE, "#334455", "#1a2a35"]}
@@ -79,7 +77,6 @@ export const NavScene: React.FC<NavSceneProps> = ({
   start,
   end,
   path,
-  visited,
   obstacles,
   shouldRun,
   speed,

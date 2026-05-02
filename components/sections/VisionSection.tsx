@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useRef, useEffect, useState, useCallback } from "react";
-import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
+import React, { useRef, useEffect, useState } from "react";
+import { motion, useInView } from "framer-motion";
 
 // ─── Terrain Mapping Canvas ───────────────────────────────────────────────────
 const TerrainCanvas: React.FC<{ active: boolean }> = ({ active }) => {
@@ -378,6 +378,8 @@ const EnvCanvas: React.FC<{ active: boolean }> = ({ active }) => {
 
       const isActive = activeRef.current;
       t += 0.01;
+      const targetWind = isActive ? 0.35 : 0.12;
+      currentWind += (targetWind - currentWind) * 0.05;
 
       // Atmosphere gradient layers
       const atmo = ctx.createLinearGradient(0, 0, 0, H);

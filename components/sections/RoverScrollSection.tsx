@@ -4,7 +4,7 @@ import React, { useRef, useState, useEffect, useCallback } from "react";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { Button } from "@/components/ui/Button";
+
 import { CanvasErrorBoundary } from "@/components/ui/CanvasErrorBoundary";
 
 const RoverCanvas = dynamic(() => import("@/components/rover/RoverCanvas"), {
@@ -62,14 +62,7 @@ export const RoverScrollSection = () => {
   const TOTAL_SCROLL =
     typeof window !== "undefined" ? window.innerHeight * 6 : 4000;
 
-  const handleSeeRover = useCallback(() => {
-    if (!containerRef.current) return;
-    const start = containerRef.current.offsetTop;
-    window.scrollTo({
-      top: start + window.innerHeight,
-      behavior: "smooth",
-    });
-  }, []);
+
 
   useEffect(() => {
     if (containerRef.current) {

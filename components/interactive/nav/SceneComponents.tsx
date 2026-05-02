@@ -4,14 +4,13 @@ import React, { useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Line } from "@react-three/drei";
 import * as THREE from "three";
-import { CP, type Cell } from "./types";
-import { toWorld } from "./pathfinding";
+import { CP } from "./types";
 
 // ─── Glowing path line ────────────────────────────────────────────────────────
 
 export const GlowPath: React.FC<{ points: [number, number, number][] }> = ({ points }) => {
-  if (points.length < 2) return null;
   const v3 = useMemo(() => points.map((p) => new THREE.Vector3(...p)), [points]);
+  if (points.length < 2) return null;
   return (
     <>
       <Line points={v3} color={CP.cyan} lineWidth={3} />

@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 
 import { gsap } from "@/lib/gsap";
@@ -146,6 +146,7 @@ const PointCloudScene: React.FC<{
   onIntroComplete: () => void;
 }> = ({ scanProgress, scanDone, userControl, onIntroComplete }) => {
   const pointsRef   = useRef<THREE.Points>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const controlsRef = useRef<any>(null);
   const { positions, colors, scanPositions } = usePointCloud(POINT_COUNT);
 
@@ -163,7 +164,7 @@ const PointCloudScene: React.FC<{
   });
 
   // Gently rotate after scan, stop when user grabs
-  useFrame((_, delta) => {
+  useFrame(() => {
     if (!controlsRef.current || !scanDone || userControl) return;
     controlsRef.current.autoRotate = true;
     controlsRef.current.autoRotateSpeed = 0.35;
@@ -389,7 +390,7 @@ const HUD: React.FC<{
 export default function PointCloudCanvas() {
   const [scanProgress, setScanProgress] = useState(0);
   const [scanDone,     setScanDone]      = useState(false);
-  const [introComplete,setIntroComplete] = useState(false);
+
   const [userControl,  setUserControl]   = useState(false);
   const rafScan = useRef<gsap.core.Tween | null>(null);
 
@@ -405,16 +406,13 @@ export default function PointCloudCanvas() {
       onComplete: () => {
         setScanDone(true);
         // After the scan + intro camera hold, hand off to user
-        setTimeout(() => setIntroComplete(true), INTRO_HOLD * 1000);
         setTimeout(() => setUserControl(true), (INTRO_HOLD + 0.8) * 1000);
       },
     });
     return () => { rafScan.current?.kill(); };
   }, []);
 
-  const handleIntroComplete = useCallback(() => {
-    setIntroComplete(true);
-  }, []);
+  const handleIntroComplete = useCallback(() => {}, []);
 
   return (
     <div

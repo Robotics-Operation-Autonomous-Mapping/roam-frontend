@@ -185,7 +185,7 @@ export default function SponsorPage() {
             className="font-display text-[clamp(3rem,10vw,7.5rem)] leading-[0.88] tracking-tight text-cream mb-8 max-w-5xl"
           >
             THE ROVER<br />
-            DOESN'T BUILD<br />
+            DOESN&apos;T BUILD<br />
             <span className="text-primary">ITSELF.</span>
           </motion.h1>
 
@@ -195,8 +195,8 @@ export default function SponsorPage() {
             transition={{ duration: 0.6, delay: 0.25 }}
             className="font-mono text-base md:text-lg text-cream/60 max-w-[540px] leading-relaxed tracking-wide mb-12"
           >
-            Behind every bolt, every sensor, every line of autonomous code — there's a
-            team of students who refuse to accept limits. Your sponsorship doesn't just
+            Behind every bolt, every sensor, every line of autonomous code — there&apos;s a
+            team of students who refuse to accept limits. Your sponsorship doesn&apos;t just
             fund hardware. It launches careers, proves concepts, and puts your brand
             at the frontier of what students can achieve.
           </motion.p>
@@ -336,12 +336,12 @@ export default function SponsorPage() {
             >
               <SectionLabel className="mb-4">Contact</SectionLabel>
               <h2 className="font-display text-[clamp(2rem,5vw,4rem)] leading-[0.9] tracking-tight text-cream mb-6">
-                LET'S BUILD<br />
+                LET&apos;S BUILD<br />
                 <span className="text-primary">SOMETHING.</span>
               </h2>
               <p className="font-mono text-sm text-cream/50 leading-relaxed tracking-wide max-w-sm">
                 Questions about packages, custom deals, or just want to know more about
-                what we're building? We'd love to hear from you.
+                what we&apos;re building? We&apos;d love to hear from you.
               </p>
             </motion.div>
 

@@ -63,7 +63,7 @@ export default function Home() {
                 </h2>
                 <p className="font-mono text-sm text-cream/50 leading-relaxed tracking-wide max-w-sm">
                   Your sponsorship puts a student-built rover on the competition
-                  field — and your brand at the frontier of what's possible.
+                  field — and your brand at the frontier of what&apos;s possible.
                 </p>
               </motion.div>
 

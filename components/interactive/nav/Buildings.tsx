@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React from "react";
 import * as THREE from "three";
-import { CP, type Obstacle } from "./types";
+import { type Obstacle } from "./types";
 
 // ─── Procedural window-grid texture ──────────────────────────────────────────
 // Creates a DataTexture with dark-glass grid — no external file needed.
@@ -181,8 +181,7 @@ export const Building: React.FC<{ obs: Obstacle }> = ({ obs }) => {
   // ── The Pentagon ───────────────────────────────────────────────────────────
   if (obs.type === "pentagon") {
     // Generate a pentagon shape with a hole
-    const pentagonGeo = useMemo(() => {
-      const rOuter = (Math.min(obs.w, obs.d) / 2) * 1.05;
+    const rOuter = (Math.min(obs.w, obs.d) / 2) * 1.05;
       const rInner = rOuter * 0.45;
       
       const shape = new THREE.Shape();
@@ -205,12 +204,10 @@ export const Building: React.FC<{ obs: Obstacle }> = ({ obs }) => {
       }
       hole.closePath();
       shape.holes.push(hole);
-
-      return new THREE.ExtrudeGeometry(shape, {
+      const pentagonGeo = new THREE.ExtrudeGeometry(shape, {
         depth: obs.h,
         bevelEnabled: false,
       });
-    }, [obs.w, obs.d, obs.h]);
 
     return (
       <group position={[obs.x, 0, obs.z]}>
