@@ -7,8 +7,11 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { StatCounter } from "@/components/ui/StatCounter";
 
 const PathPlanningSandbox = dynamic(
-  () => import("@/components/interactive/PathPlanningSandbox").then((m) => m.PathPlanningSandbox),
-  { ssr: false }
+  () =>
+    import("@/components/interactive/PathPlanningSandbox").then(
+      (m) => m.PathPlanningSandbox,
+    ),
+  { ssr: false },
 );
 
 const DISCIPLINES = [
@@ -30,7 +33,10 @@ export const AboutSection = () => {
             BUILT BY BUILDERS
           </h2>
           <p className="font-sans text-lg text-cream/80 mb-12 max-w-xl leading-relaxed">
-            ROAM is a newly founded robotics club driven by curiosity, innovation, and hands-on engineering. Our mission is to bring together students from different technical backgrounds to build advanced autonomous systems from the ground up.
+            ROAM is a newly founded robotics club driven by curiosity,
+            innovation, and hands-on engineering. Our mission is to bring
+            together students from different technical backgrounds to build
+            advanced autonomous systems from the ground up.
           </p>
 
           {/* Stats Row */}

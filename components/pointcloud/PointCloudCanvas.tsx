@@ -116,7 +116,11 @@ export default function PointCloudCanvas() {
     <div className="absolute inset-0 w-full h-full">
       <Canvas
         camera={{ position: [0, 12, 20], fov: 55 }}
-        dpr={typeof window !== "undefined" ? Math.min(window.devicePixelRatio, 2) : 1}
+        dpr={
+          typeof window !== "undefined"
+            ? Math.min(window.devicePixelRatio, 2)
+            : 1
+        }
         gl={{ antialias: false }}
         aria-label="Interactive 3D LiDAR point cloud simulation of outdoor terrain"
       >

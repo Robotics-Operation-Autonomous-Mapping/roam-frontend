@@ -1,4 +1,10 @@
-import React, { forwardRef, useImperativeHandle, useRef, useMemo, useEffect } from "react";
+import React, {
+  forwardRef,
+  useImperativeHandle,
+  useRef,
+  useMemo,
+  useEffect,
+} from "react";
 import * as THREE from "three";
 
 type Transform = {
@@ -133,19 +139,89 @@ export const RoverModel = forwardRef<RoverModelHandle, RoverModelProps>(
     const initialOpacity = assembled ? 1 : 0;
     const materials = useMemo(
       () => ({
-        chassis: new THREE.MeshStandardMaterial({ color: "#3A4252", metalness: 0.75, roughness: 0.35, emissive: "#0E1015", emissiveIntensity: 0.25, transparent: true, opacity: initialOpacity }),
-        computeBay: new THREE.MeshStandardMaterial({ color: "#323949", metalness: 0.75, roughness: 0.35, emissive: "#0C0F14", emissiveIntensity: 0.2, transparent: true, opacity: initialOpacity }),
-        mast: new THREE.MeshStandardMaterial({ color: "#4A5264", metalness: 0.7, roughness: 0.35, transparent: true, opacity: initialOpacity }),
-        coral: new THREE.MeshStandardMaterial({ color: "#E8512A", metalness: 0.65, roughness: 0.3, emissive: "#E8512A", emissiveIntensity: 0.3, transparent: true, opacity: initialOpacity }),
-        glass: new THREE.MeshStandardMaterial({ color: "#6BA8F0", metalness: 0.2, roughness: 0.08, emissive: "#2A4B72", emissiveIntensity: 0.25, transparent: true, opacity: assembled ? 0.85 : 0 }),
-        rubber: new THREE.MeshStandardMaterial({ color: "#2C2E35", metalness: 0.02, roughness: 0.85, transparent: true, opacity: initialOpacity }),
-        suspension: new THREE.MeshStandardMaterial({ color: "#3A3F4D", metalness: 0.65, roughness: 0.35, transparent: true, opacity: initialOpacity }),
-        antenna: new THREE.MeshStandardMaterial({ color: "#8B919F", metalness: 0.55, roughness: 0.45, transparent: true, opacity: initialOpacity }),
-        solar: new THREE.MeshPhysicalMaterial({ color: "#1A3A5C", metalness: 0.5, roughness: 0.2, iridescence: 0.8, iridescenceIOR: 1.5, transparent: true, opacity: initialOpacity }),
-        battery: new THREE.MeshStandardMaterial({ color: "#2F3544", metalness: 0.7, roughness: 0.35, transparent: true, opacity: initialOpacity }),
+        chassis: new THREE.MeshStandardMaterial({
+          color: "#3A4252",
+          metalness: 0.75,
+          roughness: 0.35,
+          emissive: "#0E1015",
+          emissiveIntensity: 0.25,
+          transparent: true,
+          opacity: initialOpacity,
+        }),
+        computeBay: new THREE.MeshStandardMaterial({
+          color: "#323949",
+          metalness: 0.75,
+          roughness: 0.35,
+          emissive: "#0C0F14",
+          emissiveIntensity: 0.2,
+          transparent: true,
+          opacity: initialOpacity,
+        }),
+        mast: new THREE.MeshStandardMaterial({
+          color: "#4A5264",
+          metalness: 0.7,
+          roughness: 0.35,
+          transparent: true,
+          opacity: initialOpacity,
+        }),
+        coral: new THREE.MeshStandardMaterial({
+          color: "#E8512A",
+          metalness: 0.65,
+          roughness: 0.3,
+          emissive: "#E8512A",
+          emissiveIntensity: 0.3,
+          transparent: true,
+          opacity: initialOpacity,
+        }),
+        glass: new THREE.MeshStandardMaterial({
+          color: "#6BA8F0",
+          metalness: 0.2,
+          roughness: 0.08,
+          emissive: "#2A4B72",
+          emissiveIntensity: 0.25,
+          transparent: true,
+          opacity: assembled ? 0.85 : 0,
+        }),
+        rubber: new THREE.MeshStandardMaterial({
+          color: "#2C2E35",
+          metalness: 0.02,
+          roughness: 0.85,
+          transparent: true,
+          opacity: initialOpacity,
+        }),
+        suspension: new THREE.MeshStandardMaterial({
+          color: "#3A3F4D",
+          metalness: 0.65,
+          roughness: 0.35,
+          transparent: true,
+          opacity: initialOpacity,
+        }),
+        antenna: new THREE.MeshStandardMaterial({
+          color: "#8B919F",
+          metalness: 0.55,
+          roughness: 0.45,
+          transparent: true,
+          opacity: initialOpacity,
+        }),
+        solar: new THREE.MeshPhysicalMaterial({
+          color: "#1A3A5C",
+          metalness: 0.5,
+          roughness: 0.2,
+          iridescence: 0.8,
+          iridescenceIOR: 1.5,
+          transparent: true,
+          opacity: initialOpacity,
+        }),
+        battery: new THREE.MeshStandardMaterial({
+          color: "#2F3544",
+          metalness: 0.7,
+          roughness: 0.35,
+          transparent: true,
+          opacity: initialOpacity,
+        }),
       }),
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      []
+      [],
     );
 
     // Dispose materials on unmount
@@ -155,9 +231,10 @@ export const RoverModel = forwardRef<RoverModelHandle, RoverModelProps>(
       };
     }, [materials]);
 
-    const setRef = (name: RoverPartName) => (el: THREE.Mesh | THREE.Group | null) => {
-      partsRefs.current[name] = el;
-    };
+    const setRef =
+      (name: RoverPartName) => (el: THREE.Mesh | THREE.Group | null) => {
+        partsRefs.current[name] = el;
+      };
 
     /**
      * Returns start position/rotation for a named part.
@@ -180,59 +257,115 @@ export const RoverModel = forwardRef<RoverModelHandle, RoverModelProps>(
 
     return (
       <group>
-        <mesh ref={setRef("chassis")} material={materials.chassis} {...startProps("chassis")}>
+        <mesh
+          ref={setRef("chassis")}
+          material={materials.chassis}
+          {...startProps("chassis")}
+        >
           <boxGeometry args={[2.4, 0.35, 1.6]} />
         </mesh>
 
-        <mesh ref={setRef("computeBay")} material={materials.computeBay} {...startProps("computeBay")}>
+        <mesh
+          ref={setRef("computeBay")}
+          material={materials.computeBay}
+          {...startProps("computeBay")}
+        >
           <boxGeometry args={[1.0, 0.4, 1.2]} />
         </mesh>
 
-        <mesh ref={setRef("jetsonLeft")} material={materials.computeBay} {...startProps("jetsonLeft")}>
+        <mesh
+          ref={setRef("jetsonLeft")}
+          material={materials.computeBay}
+          {...startProps("jetsonLeft")}
+        >
           <boxGeometry args={[0.2, 0.08, 0.25]} />
         </mesh>
 
-        <mesh ref={setRef("jetsonRight")} material={materials.computeBay} {...startProps("jetsonRight")}>
+        <mesh
+          ref={setRef("jetsonRight")}
+          material={materials.computeBay}
+          {...startProps("jetsonRight")}
+        >
           <boxGeometry args={[0.2, 0.08, 0.25]} />
         </mesh>
 
-        <mesh ref={setRef("sensorMast")} material={materials.mast} {...startProps("sensorMast")}>
+        <mesh
+          ref={setRef("sensorMast")}
+          material={materials.mast}
+          {...startProps("sensorMast")}
+        >
           <cylinderGeometry args={[0.04, 0.04, 0.9]} />
         </mesh>
 
-        <mesh ref={setRef("lidarFront")} material={materials.coral} {...startProps("lidarFront")}>
+        <mesh
+          ref={setRef("lidarFront")}
+          material={materials.coral}
+          {...startProps("lidarFront")}
+        >
           <cylinderGeometry args={[0.12, 0.12, 0.1]} />
         </mesh>
 
-        <mesh ref={setRef("lidarRear")} material={materials.coral} {...startProps("lidarRear")}>
+        <mesh
+          ref={setRef("lidarRear")}
+          material={materials.coral}
+          {...startProps("lidarRear")}
+        >
           <cylinderGeometry args={[0.12, 0.12, 0.1]} />
         </mesh>
 
-        <mesh ref={setRef("cameraBar")} material={materials.mast} {...startProps("cameraBar")}>
+        <mesh
+          ref={setRef("cameraBar")}
+          material={materials.mast}
+          {...startProps("cameraBar")}
+        >
           <boxGeometry args={[0.6, 0.08, 0.08]} />
         </mesh>
 
-        <mesh ref={setRef("cameraLensL")} material={materials.glass} {...startProps("cameraLensL")}>
+        <mesh
+          ref={setRef("cameraLensL")}
+          material={materials.glass}
+          {...startProps("cameraLensL")}
+        >
           <cylinderGeometry args={[0.04, 0.04, 0.06]} />
         </mesh>
 
-        <mesh ref={setRef("cameraLensR")} material={materials.glass} {...startProps("cameraLensR")}>
+        <mesh
+          ref={setRef("cameraLensR")}
+          material={materials.glass}
+          {...startProps("cameraLensR")}
+        >
           <cylinderGeometry args={[0.04, 0.04, 0.06]} />
         </mesh>
 
-        <mesh ref={setRef("irCamera")} material={materials.coral} {...startProps("irCamera")}>
+        <mesh
+          ref={setRef("irCamera")}
+          material={materials.coral}
+          {...startProps("irCamera")}
+        >
           <boxGeometry args={[0.08, 0.1, 0.06]} />
         </mesh>
 
-        <mesh ref={setRef("antenna")} material={materials.antenna} {...startProps("antenna")}>
+        <mesh
+          ref={setRef("antenna")}
+          material={materials.antenna}
+          {...startProps("antenna")}
+        >
           <cylinderGeometry args={[0.02, 0.02, 0.5]} />
         </mesh>
 
-        <mesh ref={setRef("solarPanel")} material={materials.solar} {...startProps("solarPanel")}>
+        <mesh
+          ref={setRef("solarPanel")}
+          material={materials.solar}
+          {...startProps("solarPanel")}
+        >
           <boxGeometry args={[0.5, 0.02, 0.4]} />
         </mesh>
 
-        <mesh ref={setRef("battery")} material={materials.battery} {...startProps("battery")}>
+        <mesh
+          ref={setRef("battery")}
+          material={materials.battery}
+          {...startProps("battery")}
+        >
           <boxGeometry args={[0.8, 0.2, 0.6]} />
         </mesh>
 
@@ -240,14 +373,18 @@ export const RoverModel = forwardRef<RoverModelHandle, RoverModelProps>(
         {(["FL", "FR", "ML", "MR", "RL", "RR"] as const).map((pos) => {
           const partName = `wheel${pos}` as RoverPartName;
           return (
-          <group ref={setRef(partName)} key={`wheel${pos}`} {...startProps(partName)}>
-            <mesh material={materials.rubber}>
-              <cylinderGeometry args={[0.28, 0.28, 0.18, 16]} />
-            </mesh>
-            <mesh material={materials.coral}>
-              <cylinderGeometry args={[0.1, 0.1, 0.2, 8]} />
-            </mesh>
-          </group>
+            <group
+              ref={setRef(partName)}
+              key={`wheel${pos}`}
+              {...startProps(partName)}
+            >
+              <mesh material={materials.rubber}>
+                <cylinderGeometry args={[0.28, 0.28, 0.18, 16]} />
+              </mesh>
+              <mesh material={materials.coral}>
+                <cylinderGeometry args={[0.1, 0.1, 0.2, 8]} />
+              </mesh>
+            </group>
           );
         })}
 
@@ -255,19 +392,19 @@ export const RoverModel = forwardRef<RoverModelHandle, RoverModelProps>(
         {(["FL", "FR", "ML", "MR", "RL", "RR"] as const).map((pos) => {
           const partName = `suspension${pos}` as RoverPartName;
           return (
-          <mesh
-            ref={setRef(partName)}
-            key={`suspension${pos}`}
-            material={materials.suspension}
-            {...startProps(partName)}
-          >
-            <boxGeometry args={[0.6, 0.06, 0.06]} />
-          </mesh>
+            <mesh
+              ref={setRef(partName)}
+              key={`suspension${pos}`}
+              material={materials.suspension}
+              {...startProps(partName)}
+            >
+              <boxGeometry args={[0.6, 0.06, 0.06]} />
+            </mesh>
           );
         })}
       </group>
     );
-  }
+  },
 );
 
 RoverModel.displayName = "RoverModel";

@@ -6,8 +6,11 @@ import dynamic from "next/dynamic";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 
 const ExplodedSensorRig = dynamic(
-  () => import("@/components/interactive/ExplodedSensorRig").then((m) => m.ExplodedSensorRig),
-  { ssr: false }
+  () =>
+    import("@/components/interactive/ExplodedSensorRig").then(
+      (m) => m.ExplodedSensorRig,
+    ),
+  { ssr: false },
 );
 
 const TECH_SPECS = [
@@ -17,7 +20,7 @@ const TECH_SPECS = [
   { component: "Raspberry Pi", desc: "Control & Integration Hub" },
   { component: "LiFePO4 Battery", desc: "Reliable Mobile Power" },
   { component: "Dual LiDAR Sensors", desc: "High-Precision 3D Mapping" },
-  { component: "16\" Wheels", desc: "All-Terrain Mobility" },
+  { component: '16" Wheels', desc: "All-Terrain Mobility" },
   { component: "Custom Chassis", desc: "Modular Electronics Platform" },
 ];
 
@@ -63,13 +66,21 @@ export const TechStackSection = () => {
             <svg viewBox="0 0 400 400" className="w-full h-full opacity-80">
               <defs>
                 <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor="var(--color-primary)" stopOpacity="0.5" />
-                  <stop offset="100%" stopColor="var(--color-bg)" stopOpacity="0" />
+                  <stop
+                    offset="0%"
+                    stopColor="var(--color-primary)"
+                    stopOpacity="0.5"
+                  />
+                  <stop
+                    offset="100%"
+                    stopColor="var(--color-bg)"
+                    stopOpacity="0"
+                  />
                 </radialGradient>
               </defs>
-              
+
               {/* Connections */}
-              <motion.path 
+              <motion.path
                 d="M200 200 L100 100 M200 200 L300 100 M200 200 L100 300 M200 200 L300 300 M200 200 L200 50 M200 200 L50 200"
                 stroke="var(--color-border)"
                 strokeWidth="2"
@@ -80,26 +91,61 @@ export const TechStackSection = () => {
               />
 
               {/* Central Node */}
-              <motion.circle 
-                cx="200" cy="200" r="20" fill="var(--color-surface)" stroke="var(--color-primary)" strokeWidth="2"
-                initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.5 }}
+              <motion.circle
+                cx="200"
+                cy="200"
+                r="20"
+                fill="var(--color-surface)"
+                stroke="var(--color-primary)"
+                strokeWidth="2"
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5 }}
               />
-              <motion.circle cx="200" cy="200" r="40" fill="url(#glow)" 
-                animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0.8, 0.5] }} transition={{ repeat: Infinity, duration: 2 }}
+              <motion.circle
+                cx="200"
+                cy="200"
+                r="40"
+                fill="url(#glow)"
+                animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0.8, 0.5] }}
+                transition={{ repeat: Infinity, duration: 2 }}
               />
 
               {/* Peripheral Nodes */}
               {[
-                { cx: 100, cy: 100 }, { cx: 300, cy: 100 }, { cx: 100, cy: 300 },
-                { cx: 300, cy: 300 }, { cx: 200, cy: 50 }, { cx: 50, cy: 200 }
+                { cx: 100, cy: 100 },
+                { cx: 300, cy: 100 },
+                { cx: 100, cy: 300 },
+                { cx: 300, cy: 300 },
+                { cx: 200, cy: 50 },
+                { cx: 50, cy: 200 },
               ].map((pos, i) => (
-                <motion.g key={i} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 1 + i * 0.1 }}>
-                  <circle cx={pos.cx} cy={pos.cy} r="12" fill="var(--color-surface)" stroke="var(--color-border)" strokeWidth="2" />
-                  <circle cx={pos.cx} cy={pos.cy} r="4" fill="var(--color-cream)" />
+                <motion.g
+                  key={i}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 1 + i * 0.1 }}
+                >
+                  <circle
+                    cx={pos.cx}
+                    cy={pos.cy}
+                    r="12"
+                    fill="var(--color-surface)"
+                    stroke="var(--color-border)"
+                    strokeWidth="2"
+                  />
+                  <circle
+                    cx={pos.cx}
+                    cy={pos.cy}
+                    r="4"
+                    fill="var(--color-cream)"
+                  />
                 </motion.g>
               ))}
             </svg>
-            
+
             <div className="absolute bottom-4 left-4 font-mono text-xs text-muted">
               [ SYSTEM ARCHITECTURE VISUALIZATION ]
             </div>

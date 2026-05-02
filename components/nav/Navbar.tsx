@@ -11,6 +11,7 @@ const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Join Us", href: "/join" },
   { label: "Demo", href: "/demo" },
+  { label: "Sponsors", href: "/sponsors" },
 ];
 
 export const Navbar = () => {
@@ -38,7 +39,9 @@ export const Navbar = () => {
       <header
         className={cn(
           "fixed top-0 left-0 w-full z-50 transition-all duration-300",
-          scrolled ? "bg-bg/80 backdrop-blur-md border-b border-primary/50 py-4" : "bg-transparent py-6"
+          scrolled
+            ? "bg-bg/80 backdrop-blur-md border-b border-primary/50 py-4"
+            : "bg-transparent py-6",
         )}
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
@@ -54,14 +57,21 @@ export const Navbar = () => {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="relative font-sans text-sm uppercase tracking-widest hover:text-primary transition-colors"
+                  className={cn(
+                    "relative font-sans text-sm uppercase tracking-widest hover:text-primary transition-colors",
+                    link.href === "/sponsors" && !isActive && "text-primary/70",
+                  )}
                 >
                   {link.label}
                   {isActive && (
                     <motion.div
                       layoutId="nav-indicator"
                       className="absolute -bottom-2 left-0 w-full h-[2px] bg-primary"
-                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 30,
+                      }}
                     />
                   )}
                 </Link>
@@ -76,7 +86,10 @@ export const Navbar = () => {
             aria-label="Toggle Menu"
           >
             <motion.div
-              animate={{ rotate: mobileMenuOpen ? 45 : 0, y: mobileMenuOpen ? 5 : 0 }}
+              animate={{
+                rotate: mobileMenuOpen ? 45 : 0,
+                y: mobileMenuOpen ? 5 : 0,
+              }}
               className="w-full h-[2px] bg-cream"
             />
             <motion.div
@@ -84,7 +97,10 @@ export const Navbar = () => {
               className="w-full h-[2px] bg-cream"
             />
             <motion.div
-              animate={{ rotate: mobileMenuOpen ? -45 : 0, y: mobileMenuOpen ? -13 : 0 }}
+              animate={{
+                rotate: mobileMenuOpen ? -45 : 0,
+                y: mobileMenuOpen ? -13 : 0,
+              }}
               className="w-full h-[2px] bg-cream"
             />
           </button>
@@ -113,7 +129,9 @@ export const Navbar = () => {
                     href={link.href}
                     className={cn(
                       "font-display text-4xl uppercase tracking-widest",
-                      pathname === link.href ? "text-primary" : "text-cream hover:text-primary transition-colors"
+                      pathname === link.href
+                        ? "text-primary"
+                        : "text-cream hover:text-primary transition-colors",
                     )}
                   >
                     {link.label}

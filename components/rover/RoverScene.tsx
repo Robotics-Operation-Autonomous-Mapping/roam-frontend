@@ -1,6 +1,11 @@
 import React, { forwardRef, useImperativeHandle, useRef, useMemo } from "react";
 import * as THREE from "three";
-import { EMPTY_ROVER_PARTS, RoverModel, RoverModelHandle, RoverPartsMap } from "./RoverModel";
+import {
+  EMPTY_ROVER_PARTS,
+  RoverModel,
+  RoverModelHandle,
+  RoverPartsMap,
+} from "./RoverModel";
 
 export interface RoverSceneHandle {
   getParts: () => RoverPartsMap;
@@ -35,12 +40,27 @@ export const RoverScene = forwardRef<RoverSceneHandle>((_props, ref) => {
       <ambientLight color="#1A1A2E" intensity={0.9} />
       <hemisphereLight args={["#F5ECD7", "#1A1A2E", 0.55]} />
       <pointLight position={[3, 5, 3]} color="#E8512A" intensity={3.2} />
-      <spotLight position={[-4, 8, 4]} angle={0.3} penumbra={0.8} intensity={3.2} castShadow />
-      <directionalLight position={[0, 10, 0]} intensity={0.55} color="#F5ECD7" />
+      <spotLight
+        position={[-4, 8, 4]}
+        angle={0.3}
+        penumbra={0.8}
+        intensity={3.2}
+        castShadow
+      />
+      <directionalLight
+        position={[0, 10, 0]}
+        intensity={0.55}
+        color="#F5ECD7"
+      />
       <directionalLight position={[5, 4, 2]} intensity={0.45} color="#D9E7FF" />
 
       {/* Grid Floor */}
-      <gridHelper args={[40, 40, "#E8512A", "#E8512A"]} position={[0, -0.6, 0]} material-opacity={0.15} material-transparent />
+      <gridHelper
+        args={[40, 40, "#E8512A", "#E8512A"]}
+        position={[0, -0.6, 0]}
+        material-opacity={0.15}
+        material-transparent
+      />
 
       {/* Rover Model */}
       <RoverModel ref={modelRef} />
@@ -55,7 +75,13 @@ export const RoverScene = forwardRef<RoverSceneHandle>((_props, ref) => {
             itemSize={3}
           />
         </bufferGeometry>
-        <pointsMaterial size={0.05} color="#E8512A" transparent opacity={0} sizeAttenuation />
+        <pointsMaterial
+          size={0.05}
+          color="#E8512A"
+          transparent
+          opacity={0}
+          sizeAttenuation
+        />
       </points>
     </group>
   );

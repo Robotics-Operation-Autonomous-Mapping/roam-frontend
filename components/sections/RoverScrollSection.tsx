@@ -33,7 +33,8 @@ const ASSEMBLY_PHASES = [
   },
   {
     label: "PHASE 04 / SENSOR SUITE",
-    title: "Dual LiDAR. Stereo RGB. IR thermal. Eyes that see in every dimension.",
+    title:
+      "Dual LiDAR. Stereo RGB. IR thermal. Eyes that see in every dimension.",
   },
   {
     label: "PHASE 05 / OPERATIONAL",
@@ -58,7 +59,8 @@ export const RoverScrollSection = () => {
   const sectionTopRef = useRef<number>(0);
 
   const [activePhase, setActivePhase] = useState(-1); // -1 = hero visible
-  const TOTAL_SCROLL = typeof window !== "undefined" ? window.innerHeight * 6 : 4000;
+  const TOTAL_SCROLL =
+    typeof window !== "undefined" ? window.innerHeight * 6 : 4000;
 
   const handleSeeRover = useCallback(() => {
     if (!containerRef.current) return;
@@ -134,82 +136,101 @@ export const RoverScrollSection = () => {
           transition={{ duration: 0.25 }}
           className="absolute inset-0 z-20 flex flex-col justify-center items-center text-center pointer-events-none"
         >
-            {/* Star field */}
-            <div className="absolute inset-0 overflow-hidden">
-              <div className="stars" />
-              <div className="stars stars-2" />
-              <div className="stars stars-3" />
-            </div>
+          {/* Star field */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="stars" />
+            <div className="stars stars-2" />
+            <div className="stars stars-3" />
+          </div>
 
-            <div className="relative z-10 w-full max-w-7xl mx-auto px-6 flex flex-col items-center pointer-events-auto">
-              {/* Label */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-              >
-                <SectionLabel className="mb-8">AUTONOMOUS SYSTEMS CLUB</SectionLabel>
-              </motion.div>
-
-              {/* Clip-path wipe headline */}
-              <h1 className="font-display flex flex-col items-center mb-8">
-                {["EXPLORE.", "UNDERSTAND.", "RECREATE."].map((word, i) => (
-                  <div key={i} className="overflow-hidden">
-                    <motion.span
-                      className="block text-[clamp(3.5rem,12vw,8rem)] leading-[0.85] tracking-tight text-cream"
-                      initial={{ clipPath: "inset(100% 0 0 0)" }}
-                      animate={{ clipPath: "inset(0% 0 0 0)" }}
-                      transition={{
-                        duration: 0.8,
-                        delay: 0.2 + i * 0.12,
-                        ease: [0.16, 1, 0.3, 1],
-                      }}
-                    >
-                      {word}
-                    </motion.span>
-                  </div>
-                ))}
-              </h1>
-
-              {/* Subline */}
-              <motion.p
-                className="font-sans text-lg md:text-xl text-cream/90 max-w-[560px] mx-auto mb-12 leading-relaxed"
-                initial={{ clipPath: "inset(100% 0 0 0)", opacity: 0 }}
-                animate={{ clipPath: "inset(0% 0 0 0)", opacity: 1 }}
-                transition={{ duration: 0.7, delay: 0.5 }}
-              >
-                Building intelligent autonomous systems that explore, understand,
-                and digitally recreate the world around them.
-              </motion.p>
-
-              {/* CTAs */}
-              <motion.div
-                className="flex flex-col sm:flex-row items-center gap-6"
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-              >
-                <Button href="/join" variant="primary">Apply Now</Button>
-                <Button variant="ghost" onClick={handleSeeRover}>See the Rover ↓</Button>
-              </motion.div>
-            </div>
-
-            {/* Scroll indicator */}
+          <div className="relative z-10 w-full max-w-7xl mx-auto px-6 flex flex-col items-center pointer-events-auto">
+            {/* Label */}
             <motion.div
-              className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center text-primary pointer-events-none"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 1.2 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <motion.div
-                animate={{ y: [0, 8, 0] }}
-                transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-              >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="6 9 12 15 18 9" />
-                </svg>
-              </motion.div>
+              <SectionLabel className="mb-8">
+                AUTONOMOUS SYSTEMS CLUB
+              </SectionLabel>
             </motion.div>
+
+            {/* Clip-path wipe headline */}
+            <h1 className="font-display flex flex-col items-center mb-8">
+              {["EXPLORE.", "UNDERSTAND.", "RECREATE."].map((word, i) => (
+                <div key={i} className="overflow-hidden">
+                  <motion.span
+                    className="block text-[clamp(3.5rem,12vw,8rem)] leading-[0.85] tracking-tight text-cream"
+                    initial={{ clipPath: "inset(100% 0 0 0)" }}
+                    animate={{ clipPath: "inset(0% 0 0 0)" }}
+                    transition={{
+                      duration: 0.8,
+                      delay: 0.2 + i * 0.12,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                  >
+                    {word}
+                  </motion.span>
+                </div>
+              ))}
+            </h1>
+
+            {/* Subline */}
+            <motion.p
+              className="font-sans text-lg md:text-xl text-cream/90 max-w-[560px] mx-auto mb-12 leading-relaxed"
+              initial={{ clipPath: "inset(100% 0 0 0)", opacity: 0 }}
+              animate={{ clipPath: "inset(0% 0 0 0)", opacity: 1 }}
+              transition={{ duration: 0.7, delay: 0.5 }}
+            >
+              Building intelligent autonomous systems that explore, understand,
+              and digitally recreate the world around them.
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div
+              className="flex flex-col sm:flex-row items-center gap-6"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+            >
+              <Button href="/join" variant="primary">
+                Apply Now
+              </Button>
+              <Button variant="ghost" onClick={handleSeeRover}>
+                See the Rover ↓
+              </Button>
+            </motion.div>
+          </div>
+
+          {/* Scroll indicator */}
+          <motion.div
+            className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center text-primary pointer-events-none"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 1.2 }}
+          >
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{
+                repeat: Infinity,
+                duration: 1.5,
+                ease: "easeInOut",
+              }}
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </motion.div>
+          </motion.div>
         </motion.div>
       )}
 
@@ -222,12 +243,12 @@ export const RoverScrollSection = () => {
           transition={{ duration: 0.2 }}
           className="absolute top-[12%] left-[6%] z-20 pointer-events-none w-[88%] md:w-[42%]"
         >
-            <div className="bg-bg/75 backdrop-blur-sm px-6 py-5 border-l-2 border-primary">
-              <SectionLabel>{ASSEMBLY_PHASES[activePhase]?.label}</SectionLabel>
-              <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-cream tracking-wide uppercase leading-none mt-2">
-                {ASSEMBLY_PHASES[activePhase]?.title}
-              </h2>
-            </div>
+          <div className="bg-bg/75 backdrop-blur-sm px-6 py-5 border-l-2 border-primary">
+            <SectionLabel>{ASSEMBLY_PHASES[activePhase]?.label}</SectionLabel>
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-cream tracking-wide uppercase leading-none mt-2">
+              {ASSEMBLY_PHASES[activePhase]?.title}
+            </h2>
+          </div>
         </motion.div>
       )}
     </section>

@@ -18,13 +18,13 @@ export const Logo: React.FC<LogoProps> = ({
   return (
     <div className={`flex items-center gap-2 ${className}`}>
       {variant !== "wordmark-only" && (
-        <div 
-          style={{ 
+        <div
+          style={{
             width: iconSize,
             height: iconSize,
             position: "relative",
             display: "flex",
-            alignItems: "center"
+            alignItems: "center",
           }}
         >
           <Image
@@ -34,7 +34,7 @@ export const Logo: React.FC<LogoProps> = ({
             sizes={`${iconSize}px`}
             style={{
               objectFit: "contain",
-              mixBlendMode: "screen"
+              mixBlendMode: "screen",
             }}
             className="hover:opacity-90 transition-opacity"
             priority
@@ -70,5 +70,3 @@ export const Logo: React.FC<LogoProps> = ({
     </div>
   );
 };
-
-

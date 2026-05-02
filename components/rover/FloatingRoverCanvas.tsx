@@ -25,24 +25,24 @@ const FloatingRoverInner: React.FC<{ parked: boolean }> = ({ parked }) => {
       roverGroupRef.current.position.x = THREE.MathUtils.lerp(
         roverGroupRef.current.position.x,
         driveWave * 0.6,
-        0.06
+        0.06,
       );
       roverGroupRef.current.position.z = THREE.MathUtils.lerp(
         roverGroupRef.current.position.z,
         0.06 + Math.abs(driveWave) * 0.08,
-        0.08
+        0.08,
       );
     } else {
       roverGroupRef.current.rotation.set(Math.PI / 10, -Math.PI / 5, 0);
       roverGroupRef.current.position.x = THREE.MathUtils.lerp(
         roverGroupRef.current.position.x,
         0.45,
-        0.06
+        0.06,
       );
       roverGroupRef.current.position.z = THREE.MathUtils.lerp(
         roverGroupRef.current.position.z,
         0.14,
-        0.06
+        0.06,
       );
     }
   });
@@ -54,7 +54,12 @@ const FloatingRoverInner: React.FC<{ parked: boolean }> = ({ parked }) => {
       {/* Lights */}
       <ambientLight color="#1A1A2E" intensity={0.7} />
       <pointLight position={[3, 5, 3]} color="#E8512A" intensity={2.5} />
-      <spotLight position={[-3, 8, 2]} angle={0.4} penumbra={0.8} intensity={2} />
+      <spotLight
+        position={[-3, 8, 2]}
+        angle={0.4}
+        penumbra={0.8}
+        intensity={2}
+      />
       <directionalLight position={[0, 10, 0]} intensity={0.4} color="#F5ECD7" />
 
       {/* Fully assembled rover — no scatter, full opacity */}
@@ -63,8 +68,18 @@ const FloatingRoverInner: React.FC<{ parked: boolean }> = ({ parked }) => {
       {/* Headlights turn on when parked */}
       {parked && (
         <>
-          <pointLight position={[-0.45, 0.45, 0.95]} color="#F5ECD7" intensity={1.6} distance={4} />
-          <pointLight position={[0.45, 0.45, 0.95]} color="#F5ECD7" intensity={1.6} distance={4} />
+          <pointLight
+            position={[-0.45, 0.45, 0.95]}
+            color="#F5ECD7"
+            intensity={1.6}
+            distance={4}
+          />
+          <pointLight
+            position={[0.45, 0.45, 0.95]}
+            color="#F5ECD7"
+            intensity={1.6}
+            distance={4}
+          />
         </>
       )}
     </group>
@@ -75,7 +90,9 @@ interface FloatingRoverCanvasProps {
   parked: boolean;
 }
 
-const FloatingRoverCanvas: React.FC<FloatingRoverCanvasProps> = ({ parked }) => {
+const FloatingRoverCanvas: React.FC<FloatingRoverCanvasProps> = ({
+  parked,
+}) => {
   return (
     <Canvas
       camera={{ position: [5, 3, 5], fov: 42 }}

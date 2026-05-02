@@ -11,7 +11,7 @@ interface RoverCanvasProps {
 
 const RoverCanvasComponent: React.FC<RoverCanvasProps> = ({ containerRef }) => {
   const sceneRef = useRef<RoverSceneHandle | null>(null);
-  
+
   // Wire up GSAP scroll trigger
   useRoverScroll(sceneRef, containerRef);
 
@@ -19,8 +19,16 @@ const RoverCanvasComponent: React.FC<RoverCanvasProps> = ({ containerRef }) => {
     <div className="rover-canvas-wrapper absolute inset-0 pointer-events-none w-full h-full z-10">
       <Canvas
         camera={{ position: [8, 5, 8], fov: 45 }}
-        dpr={typeof window !== "undefined" ? (window.innerWidth < 768 ? 1 : Math.min(window.devicePixelRatio, 2)) : 1}
-        gl={{ antialias: typeof window !== "undefined" && window.innerWidth > 768 }}
+        dpr={
+          typeof window !== "undefined"
+            ? window.innerWidth < 768
+              ? 1
+              : Math.min(window.devicePixelRatio, 2)
+            : 1
+        }
+        gl={{
+          antialias: typeof window !== "undefined" && window.innerWidth > 768,
+        }}
         frameloop="always" // Use always since we animate via GSAP directly modifying position over time
         aria-label="Interactive 3D rover assembly scene"
       >

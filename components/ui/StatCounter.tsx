@@ -16,7 +16,7 @@ interface StatCounterProps {
 export const StatCounter: React.FC<StatCounterProps> = ({
   end,
   label,
-  duration = 2000,   // milliseconds
+  duration = 2000, // milliseconds
   className,
   prefix = "",
   suffix = "",
@@ -52,7 +52,9 @@ export const StatCounter: React.FC<StatCounterProps> = ({
   return (
     <div ref={ref} className={cn("flex flex-col items-start", className)}>
       <div className="font-mono text-4xl md:text-5xl text-cream mb-2">
-        {prefix}{count}{suffix}
+        {prefix}
+        {count}
+        {suffix}
       </div>
       <div className="font-mono text-sm text-muted uppercase tracking-widest">
         {label}

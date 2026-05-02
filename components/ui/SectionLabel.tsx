@@ -6,9 +6,17 @@ interface SectionLabelProps {
   className?: string;
 }
 
-export const SectionLabel: React.FC<SectionLabelProps> = ({ children, className }) => {
+export const SectionLabel: React.FC<SectionLabelProps> = ({
+  children,
+  className,
+}) => {
   return (
-    <div className={cn("font-mono text-xs text-primary uppercase tracking-[0.3em] mb-4", className)}>
+    <div
+      className={cn(
+        "font-mono text-xs text-primary uppercase tracking-[0.3em] mb-4",
+        className,
+      )}
+    >
       [ {children} ]
     </div>
   );

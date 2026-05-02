@@ -30,7 +30,10 @@ export const VisionSection = () => {
             WE BELIEVE ROBOTICS SHOULD DO MORE THAN MOVE.
           </h2>
           <p className="font-sans text-lg text-cream/80">
-            ROAM aims to become a hub for ambitious builders who want to create autonomous machines that solve real-world problems in mapping, exploration, infrastructure inspection, and environmental monitoring.
+            ROAM aims to become a hub for ambitious builders who want to create
+            autonomous machines that solve real-world problems in mapping,
+            exploration, infrastructure inspection, and environmental
+            monitoring.
           </p>
         </div>
 
@@ -47,14 +50,12 @@ export const VisionSection = () => {
             >
               {/* Subtle hover glow */}
               <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-              
+
               <div className="text-4xl mb-6">{domain.icon}</div>
               <h3 className="font-sans font-bold text-xl text-cream mb-2">
                 {domain.title}
               </h3>
-              <p className="font-sans text-cream/70">
-                {domain.description}
-              </p>
+              <p className="font-sans text-cream/70">{domain.description}</p>
             </motion.div>
           ))}
         </div>
