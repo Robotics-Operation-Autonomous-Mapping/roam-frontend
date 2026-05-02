@@ -502,8 +502,8 @@ const Scene: React.FC<{
 }> = ({ activeId, setActiveId }) => {
   return (
     <>
-      <ambientLight intensity={0.65} />
-      <directionalLight position={[4, 6, 4]} intensity={0.85} color="#F5ECD7" />
+      <ambientLight intensity={0.85} />
+      <directionalLight position={[4, 6, 4]} intensity={15} color="#F5ECD7" />
       <pointLight position={[0, 2.5, 0]} intensity={1.2} color="#E8512A" />
       <gridHelper
         args={[14, 14, "#E8512A", "#333333"]}

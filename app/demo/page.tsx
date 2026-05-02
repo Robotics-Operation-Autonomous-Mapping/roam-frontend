@@ -162,31 +162,7 @@ export default function DemoPage() {
           <PointCloudCanvas />
         </CanvasErrorBoundary>
 
-        {/* Canvas overlays */}
-        <div className="absolute inset-0 pointer-events-none z-10 p-6 flex flex-col justify-between">
-          {/* Top row */}
-          <div className="flex flex-col md:flex-row justify-between items-start gap-2">
-            <div className="bg-bg/80 backdrop-blur-sm border border-border px-4 py-2 flex items-center gap-3 w-full md:w-auto">
-              <div className="w-2 h-2 rounded-full bg-primary animate-pulse shrink-0" />
-              <span className="font-mono text-xs text-primary tracking-widest truncate">
-                SIMULATION ACTIVE
-              </span>
-            </div>
-            <div className="bg-bg/80 backdrop-blur-sm border border-border px-4 py-2 w-full md:w-auto">
-              <span className="font-mono text-[10px] md:text-xs text-muted tracking-widest break-words flex flex-wrap">
-                8,000 pts &nbsp;|&nbsp; ~4 Hz scan rate &nbsp;|&nbsp; Simulated
-              </span>
-            </div>
-          </div>
-          {/* Bottom */}
-          <div className="flex justify-center">
-            <div className="bg-bg/80 backdrop-blur-sm border border-border px-4 py-2">
-              <span className="font-mono text-xs text-muted tracking-widest">
-                DRAG TO ORBIT · SCROLL TO ZOOM · CLICK TO RESET
-              </span>
-            </div>
-          </div>
-        </div>
+
       </div>
 
       {/* Explanatory paragraph */}

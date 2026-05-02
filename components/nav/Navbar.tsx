@@ -21,7 +21,8 @@ export const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 80);
+      // Threshold for showing the navbar
+      setScrolled(window.scrollY > 120);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -36,12 +37,21 @@ export const Navbar = () => {
 
   return (
     <>
-      <header
+      <motion.header
+        initial={{ y: -100, opacity: 0 }}
+        animate={{
+          y: scrolled ? 0 : -100,
+          opacity: scrolled ? 1 : 0,
+        }}
+        transition={{
+          duration: 0.8,
+          ease: [0.16, 1, 0.3, 1], // Super smooth "Out-Quart" easing
+        }}
         className={cn(
-          "fixed top-0 left-0 w-full z-50 transition-all duration-300",
+          "fixed top-0 left-0 w-full z-50",
           scrolled
             ? "bg-bg/80 backdrop-blur-md border-b border-primary/50 py-4"
-            : "bg-transparent py-6",
+            : "bg-transparent py-8 pointer-events-none",
         )}
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
@@ -105,7 +115,7 @@ export const Navbar = () => {
             />
           </button>
         </div>
-      </header>
+      </motion.header>
 
       {/* Mobile Menu */}
       <AnimatePresence>

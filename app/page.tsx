@@ -1,53 +1,54 @@
 "use client";
 
-import React from "react";
+import React, { useCallback, useRef } from "react";
+import dynamic from "next/dynamic";
+import { AboutSection }    from "@/components/sections/AboutSection";
+import { VisionSection }   from "@/components/sections/VisionSection";
+import { TechStackSection} from "@/components/sections/TechStackSection";
+import { JoinCTASection }  from "@/components/sections/JoinCTASection";
+
+
+const MarsHero = dynamic(
+  () => import("@/components/hero/MarsHero"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full min-h-screen bg-[#0A0A0B]" aria-hidden="true" />
+    ),
+  }
+);
+
+// Rover scene removed as per user request
+
+// ─── Sponsor CTA (same bento block as before) ────────────────────────────────
 import { motion } from "framer-motion";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { Button } from "@/components/ui/Button";
-import { AboutSection } from "@/components/sections/AboutSection";
-import { VisionSection } from "@/components/sections/VisionSection";
-import { TechStackSection } from "@/components/sections/TechStackSection";
-import { JoinCTASection } from "@/components/sections/JoinCTASection";
+import { Button }       from "@/components/ui/Button";
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function Home() {
+  const scrollUnlocked = useRef(false);
+
+  const handleRoverArrived = useCallback(() => {
+    scrollUnlocked.current = true;
+  }, []);
+
   return (
     <div className="flex flex-col w-full">
-      <section className="relative min-h-screen bg-bg overflow-hidden flex items-center">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="stars" />
-          <div className="stars stars-2" />
-          <div className="stars stars-3" />
-        </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-6 py-24 w-full text-center">
-          <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <SectionLabel className="mb-6">AUTONOMOUS SYSTEMS CLUB</SectionLabel>
-            <h1 className="font-display text-[clamp(3.5rem,12vw,8rem)] leading-[0.85] tracking-tight text-cream mb-8">
-              EXPLORE.<br />UNDERSTAND.<br />RECREATE.
-            </h1>
-            <p className="font-sans text-lg md:text-xl text-cream/90 max-w-[560px] mx-auto mb-12 leading-relaxed">
-              Building intelligent autonomous systems that explore, understand, and digitally recreate the world around them.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <Button href="/join" variant="primary">Apply Now</Button>
-              <Button href="/demo" variant="ghost">Explore the Demo</Button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
 
-      {/* ── Rest of page ── */}
+      <MarsHero onRoverArrived={handleRoverArrived} />
       <div className="relative z-10 bg-bg">
         <AboutSection />
         <VisionSection />
         <TechStackSection />
         <JoinCTASection />
 
-        {/* ── SPONSOR CTA ── ADDED ───────────────────────────────────────────── */}
+        {/* ── Sponsor CTA ──────────────────────────────────────────────────── */}
         <section className="border-t border-white/10">
           <div className="max-w-7xl mx-auto px-6 py-24 w-full">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/10">
 
-              {/* Left — copy */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -66,7 +67,6 @@ export default function Home() {
                 </p>
               </motion.div>
 
-              {/* Right — highlights + CTA */}
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -87,14 +87,15 @@ export default function Home() {
                   ))}
                 </ul>
                 <div className="pt-2">
-                  <Button href="/sponsors" variant="primary">View Sponsorship Packages</Button>
+                  <Button href="/sponsors" variant="primary">
+                    View Sponsorship Packages
+                  </Button>
                 </div>
               </motion.div>
 
             </div>
           </div>
         </section>
-        {/* ── END SPONSOR CTA ─────────────────────────────────────────────────── */}
 
       </div>
     </div>
