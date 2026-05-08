@@ -24,11 +24,17 @@ export const WhyPartner = () => (
       className="mb-20"
     >
       <SectionLabel className="mb-6">Why Partner With Us</SectionLabel>
-      <h2 className="font-display text-[clamp(4rem,10vw,7rem)] leading-[0.8] tracking-tighter text-cream max-w-4xl uppercase">
+      <h2 className="font-display text-[clamp(4rem,10vw,7rem)] leading-[0.8] tracking-tighter text-cream max-w-4xl uppercase mb-8">
         YOUR BRAND.<br />
         <span className="text-primary">OUR TERRAIN.</span>
       </h2>
-      <div className="h-[1px] w-full bg-gradient-to-r from-primary/40 to-transparent mt-10" />
+      <p className="font-mono text-base md:text-lg text-cream/50 max-w-2xl leading-relaxed tracking-wide">
+        Behind every bolt, every sensor, every line of autonomous code — there&apos;s a
+        team of students who refuse to accept limits. Your sponsorship doesn&apos;t just
+        fund hardware. It launches careers, proves concepts, and puts your brand
+        at the frontier of what students can achieve.
+      </p>
+      <div className="h-[1px] w-full bg-gradient-to-r from-primary/40 to-transparent mt-12" />
     </motion.div>
 
     <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10">

@@ -45,26 +45,25 @@ export const Logo: React.FC<LogoProps> = ({
       {variant !== "icon-only" && (
         <svg
           height={wordmarkHeight}
-          viewBox="0 0 160 50"
+          viewBox="0 0 200 50"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           style={{ width: "auto" }}
         >
           <text
             x="0"
-            y="42"
-            fontFamily="var(--font-display), sans-serif"
-            fontSize="52"
-            fontWeight="400"
-            letterSpacing="0.05em"
+            y="38"
+            fontFamily="var(--font-mono)"
+            fontSize="32"
+            fontWeight="700"
+            letterSpacing="0.2em"
             fill="var(--color-primary)"
-            stroke="var(--color-cream)"
-            strokeWidth="1"
-            strokeOpacity="0.8"
-            style={{ paintOrder: "stroke fill" }}
+            className="tracking-[0.2em]"
           >
             ROAM
           </text>
+          {/* Subtle underline detail for the 'technical ID' look */}
+          <rect x="0" y="44" width="24" height="2" fill="var(--color-primary)" />
         </svg>
       )}
     </div>

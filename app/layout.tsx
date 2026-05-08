@@ -1,9 +1,16 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { bebasNeue, dmSans, jetbrainsMono } from "@/lib/fonts";
 import { Navbar } from "@/components/nav/Navbar";
 import { Footer } from "@/components/footer/Footer";
 import { PageTransition } from "@/components/ui/PageTransition";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#0A0A0B",
+};
 
 export const metadata: Metadata = {
   title: {
