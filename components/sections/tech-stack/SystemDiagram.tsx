@@ -29,6 +29,16 @@ const NH = 34; // node rect height
 
 export const SystemDiagram = () => {
   const nodeMap = useMemo(() => Object.fromEntries(NODES.map(n => [n.id, n])), []);
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  const particleCount = isMobile ? [0] : [0, 0.5];
 
   return (
     <div className="flex flex-col justify-center pointer-events-auto relative h-full">
@@ -77,16 +87,25 @@ export const SystemDiagram = () => {
                   strokeDasharray="5 5"
                   opacity="0.3"
                 />
-                {/* Data Packet Animation */}
-                {[0, 0.5].map((offset) => (
-                  <circle key={offset} r="2" fill={from.color}>
-                    <animateMotion
-                      dur={`${edge.dur}s`}
-                      repeatCount="indefinite"
-                      begin={`${offset * edge.dur}s`}
-                      path={`M${from.cx},${from.cy} L${to.cx},${to.cy}`}
-                    />
-                  </circle>
+                {/* Data Packet Animation - Responsive count */}
+                {particleCount.map((offset) => (
+                  <motion.circle
+                    key={offset}
+                    r="2"
+                    fill={from.color}
+                    initial={{ offsetDistance: "0%" }}
+                    animate={{ offsetDistance: "100%" }}
+                    transition={{
+                      duration: edge.dur,
+                      repeat: Infinity,
+                      ease: "linear",
+                      delay: i * 0.2 + (offset * edge.dur)
+                    }}
+                    style={{
+                      offsetPath: `path('M${from.cx},${from.cy} L${to.cx},${to.cy}')`,
+                      motionPath: `path('M${from.cx},${from.cy} L${to.cx},${to.cy}')`
+                    }}
+                  />
                 ))}
               </g>
             );
@@ -94,12 +113,7 @@ export const SystemDiagram = () => {
 
           {/* Peripheral Nodes */}
           {NODES.filter(n => n.id !== "core").map((node, i) => (
-            <motion.g key={node.id}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5 + i * 0.08 }}
-            >
+            <g key={node.id}>
               <rect
                 x={node.cx - NW / 2} y={node.cy - NH / 2}
                 width={NW} height={NH} rx="4"
@@ -141,16 +155,11 @@ export const SystemDiagram = () => {
                 animate={{ opacity: [1, 0.3, 1] }}
                 transition={{ duration: 2, repeat: Infinity, delay: i * 0.5 }}
               />
-            </motion.g>
+            </g>
           ))}
 
           {/* Core Node */}
-          <motion.g
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-          >
+          <g>
             <motion.circle
               cx="200" cy="200" r="35"
               fill="none" stroke="#E8512A" strokeWidth="1"
@@ -161,7 +170,7 @@ export const SystemDiagram = () => {
             <text x="200" y="196" textAnchor="middle" fontSize="7.5" fontFamily="var(--font-mono)" fill="#E8512A" fontWeight="bold" letterSpacing="1">AUTONOMY</text>
             <text x="200" y="206" textAnchor="middle" fontSize="7.5" fontFamily="var(--font-mono)" fill="#E8512A" fontWeight="bold" letterSpacing="1">CORE</text>
             <text x="200" y="215" textAnchor="middle" fontSize="4.5" fontFamily="var(--font-mono)" fill="var(--color-cream)" opacity="0.4">SoC PLATFORM</text>
-          </motion.g>
+          </g>
 
           {/* Corner Decor */}
           {[ [15, 15], [385, 15], [15, 385], [385, 385] ].map(([x, y], i) => (

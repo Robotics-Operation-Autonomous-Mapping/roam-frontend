@@ -15,7 +15,7 @@ const ExplodedSensorRig = dynamic(
 
 export const TechStackSection = () => {
   return (
-    <section className="relative w-full py-32 z-10 pointer-events-none overflow-hidden">
+    <section className="relative w-full py-20 z-10 pointer-events-none overflow-hidden">
       {/* Subtle Background Glow */}
       <div className="absolute top-1/4 -right-1/4 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
       
@@ -34,7 +34,7 @@ export const TechStackSection = () => {
         </p>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-24 items-start mb-40">
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-24 items-start mb-24">
         <TechSpecs />
         <div className="sticky top-24">
           <SystemDiagram />

@@ -9,7 +9,7 @@ export const SponsorHero = () => {
     "mailto:schulichroam@gmail.com?subject=Sponsorship%20Inquiry%20%E2%80%94%20General&body=Hi%20ROAM%20team%2C%0A%0AI%27d%20like%20to%20learn%20more%20about%20sponsoring%20ROAM.%0A%0AOrganization%3A%20%0AContact%20Name%3A%20%0AMessage%3A%20";
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden border-b border-white/10 pt-20">
+    <section className="relative min-h-screen flex flex-col justify-center items-center text-center overflow-hidden border-b border-white/10">
       {/* Background Decor */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
         <div className="absolute top-1/4 -right-20 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px]" />
@@ -49,7 +49,7 @@ export const SponsorHero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.25 }}
-          className="font-mono text-base md:text-lg text-cream/60 max-w-[540px] leading-relaxed tracking-wide mb-12"
+          className="font-mono text-base md:text-lg text-cream/60 max-w-[540px] mx-auto leading-relaxed tracking-wide mb-12"
         >
           Behind every bolt, every sensor, every line of autonomous code — there&apos;s a
           team of students who refuse to accept limits. Your sponsorship doesn&apos;t just

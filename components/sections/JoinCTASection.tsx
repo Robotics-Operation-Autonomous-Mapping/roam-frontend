@@ -8,7 +8,7 @@ export const JoinCTASection = () => {
   return (
     <section
       id="join-cta"
-      className="relative w-full py-32 bg-bg z-10 pointer-events-auto border-t border-border"
+      className="relative w-full py-20 bg-bg z-10 pointer-events-auto border-t border-border"
     >
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2">
         <div>

@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/Button";
 
 export const SponsorCTA = () => (
   <section className="border-t border-white/10">
-    <div className="max-w-7xl mx-auto px-6 py-32 md:py-48 w-full">
+    <div className="max-w-7xl mx-auto px-6 py-24 md:py-32 w-full">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -45,7 +45,7 @@ export const SponsorCTA = () => (
           ))}
         </ul>
         <div className="shrink-0">
-          <Button href="/sponsors" variant="primary" className="px-12 py-5 text-base">
+          <Button href="/sponsors" variant="primary" className="px-8 py-4 text-sm md:px-12 md:py-5 md:text-base">
             View Sponsorship Packages
           </Button>
         </div>
