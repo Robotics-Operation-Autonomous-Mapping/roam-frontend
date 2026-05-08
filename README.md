@@ -1,75 +1,106 @@
-# ROAM — Robotics Operation for Autonomous Mapping
+# ROAM — Engineering Intelligence Portal
 
-ROAM is the official digital presence of the ROAM Robotics Club, a student-led engineering initiative focused on building intelligent autonomous systems capable of exploring, understanding, and digitally recreating the world around them.
+> **Robotics Operation for Autonomous Mapping**
+> *Building machines that read the world. Student engineers. Serious technology.*
 
-The website is a high-fidelity technical showcase, featuring an immersive scroll-driven 3D experience, procedural geometry, and real-time mapping simulations.
+ROAM is a high-fidelity digital infrastructure for the ROAM Robotics Club. It serves as both a public-facing portal and a technical demonstration of the autonomous mapping capabilities being developed. The platform is designed to emulate an industrial "Mission Control" aesthetic, prioritizing precision, technical depth, and immersive 3D visualization.
 
-## 🚀 Key Features
+---
 
-- **Immersive Rover Assembly**: A scroll-driven 3D experience using Three.js and GSAP that demonstrates the modular engineering of the ROAM rover.
-- **Live Demo Page**: Interactive 3D point cloud simulation showcasing the "Digital Twin" generation capabilities.
-- **Technical Stack Display**: Industrial bento-grid layout highlighting the core hardware and software stack (NVIDIA Jetson, LiDAR, ROS2, etc.).
-- **Mobile-First Industrial Design**: A dark-mode, high-contrast aesthetic built for performance and accessibility.
-- **Procedural 3D Architecture**: Zero external model files — all 3D assets are built entirely in code for maximum performance and flexibility.
+## 📡 Mission Architecture
 
-## 🛠️ Technology Stack
+The ROAM portal is built on a "Digital Twin" philosophy, ensuring that every software component reflects the high-precision engineering of the physical rover.
 
-- **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
-- **3D Engine**: [Three.js](https://threejs.org/) with [React Three Fiber](https://r3f.docs.pmnd.rs/) & [@react-three/drei](https://github.com/pmndrs/drei)
-- **Animations**: [GSAP](https://gsap.com/) (ScrollTrigger) & [Framer Motion](https://www.framer.com/motion/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **State & Logic**: Custom React Hooks for 3D state and scroll orchestration.
+### 🧠 Core Perception Array
+*   **High-Resolution LiDAR**: Real-time spatial mapping and obstacle avoidance.
+*   **Stereo Vision System**: Depth perception and visual odometry for GPS-denied environments.
+*   **9-DOF IMU**: High-precision orientation and acceleration tracking.
+*   **RTK-GNSS**: Centimeter-level positioning for global navigation.
 
-## 📦 Getting Started
+### 🔋 Autonomy Platform
+*   **Edge AI Compute**: Onboard processing for real-time sensor fusion.
+*   **Pathfinding Engine**: Advanced A* and Dijkstra implementations for dynamic obstacle navigation.
+*   **Mission Clock**: Real-time mission telemetry and system status monitoring.
 
-### Prerequisites
+---
 
-- Node.js 18+ 
-- npm or yarn
+## 🛠️ Technical Stack
 
-### Installation
+The platform utilizes a modern, performance-first stack to handle complex 3D rendering and real-time simulations in the browser.
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-org/roam-website.git
-   ```
+| Layer | Technology |
+| :--- | :--- |
+| **Framework** | Next.js 14 (App Router) |
+| **Rendering** | Three.js + React Three Fiber |
+| **Logic** | TypeScript (Strict) |
+| **Styling** | Tailwind CSS (Design Tokens) |
+| **Animation** | GSAP (ScrollTrigger) + Framer Motion |
+| **Environment** | Supabase (Data Management) |
 
-2. Navigate to the frontend directory:
-   ```bash
-   cd roam-frontend
-   ```
+---
 
-3. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-4. Run the development server:
-   ```bash
-   npm run dev
-   ```
-
-5. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## 🏗️ Project Structure
+## 📂 System Manifest
 
 ```text
 roam-frontend/
 ├── app/                  # Next.js App Router (Pages & Layouts)
-├── components/           
-│   ├── rover/            # Rover 3D model & assembly logic
-│   ├── pointcloud/       # Point cloud simulation
-│   ├── sections/         # Page sections (Hero, About, Tech)
-│   └── ui/               # Reusable UI components
-├── lib/                  # Shared utilities (GSAP, colors, fonts)
-└── public/               # Static assets
+├── components/           # Component-Driven Architecture
+│   ├── hero/             # Immersive 3D landing experiences
+│   ├── interactive/      # 3D Simulators & Exploded Rig views
+│   │   ├── rig/          # 3D Sensor Rig sub-components
+│   │   └── nav/          # Pathfinding & Navigation logic
+│   ├── sections/         # Domain-specific page sections
+│   └── ui/               # Design System primitives (Buttons, Labels)
+├── lib/                  # Shared utilities & Animation providers
+└── public/               # Static assets & 3D textures
 ```
 
-## 🔧 Maintenance & Development
+---
 
-For detailed information on the architectural decisions, design system, and how to extend the 3D components, please refer to the [INTERNAL_DEVELOPMENT.md](./INTERNAL_DEVELOPMENT.md) guide.
+## 🚀 Deployment & Operation
 
-## 📄 License
+### Environmental Prerequisites
+*   **Runtime**: Node.js 18.17.0 or higher.
+*   **Package Manager**: npm v9.0.0 or higher.
 
-This project is proprietary to the ROAM Robotics Club. All rights reserved.
+### Command Procedures
+
+1. **Initialize Dependencies**:
+   ```bash
+   npm install
+   ```
+
+2. **Launch Intelligence Center (Development)**:
+   ```bash
+   npm run dev
+   ```
+
+3. **Verify System Integrity (Linting)**:
+   ```bash
+   npm run lint
+   ```
+
+4. **Generate Production Manifest (Build)**:
+   ```bash
+   npm run build
+   ```
+
+---
+
+## 🛡️ Engineering Standards
+
+*   **Design Tokens**: All styles must adhere to the central design system defined in `globals.css` and the Tailwind configuration.
+*   **Aesthetics**: Prioritize the "Engineering Intelligence" brand—mono-spaced typography, Coral primary accents, and high-contrast surfaces.
+*   **Performance**: 3D scenes must utilize procedural geometry where possible to minimize external asset overhead.
+
+---
+
+## 📄 Operational License
+
+This software and all associated assets are proprietary to the **ROAM Robotics Club**. All rights reserved. No unauthorized reproduction or redistribution is permitted.
+
+---
+
+<p align="center">
+  <b>ROAM // 2026 // ATLAS-1 MISSION STATUS: ACTIVE</b>
+</p>
