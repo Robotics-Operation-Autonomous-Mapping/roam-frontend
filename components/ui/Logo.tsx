@@ -52,18 +52,15 @@ export const Logo: React.FC<LogoProps> = ({
         >
           <text
             x="0"
-            y="38"
+            y="42"
             fontFamily="var(--font-mono)"
-            fontSize="32"
-            fontWeight="700"
-            letterSpacing="0.2em"
+            fontSize="45"
+            fontWeight="900"
+            letterSpacing="1  px"
             fill="var(--color-primary)"
-            className="tracking-[0.2em]"
           >
             ROAM
           </text>
-          {/* Subtle underline detail for the 'technical ID' look */}
-          <rect x="0" y="44" width="24" height="2" fill="var(--color-primary)" />
         </svg>
       )}
     </div>
