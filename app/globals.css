@@ -20,15 +20,15 @@
   --status-rejected-rgb: 217, 64, 64;
   --status-waitlisted-rgb: 155, 89, 182;
 
-  /* Admin Dashboard Theme */
-  --admin-bg: #0F172A;
-  --admin-bg-dark: #0A0D14;
-  --admin-surface: #1E293B;
-  --admin-surface-2: #334155;
-  --admin-text: #F1F5F9;
-  --admin-muted: #475569;
-  --admin-border: #1A2535;
-  --admin-accent: #E8512A;
+  /* Admin Dashboard Theme - Lightened for better visibility */
+  --admin-bg: #151518;
+  --admin-bg-dark: #0F0F12;
+  --admin-surface: #222226;
+  --admin-surface-2: #2D2D33;
+  --admin-text: var(--color-cream);
+  --admin-muted: #888890;
+  --admin-border: #333338;
+  --admin-accent: var(--color-primary);
 }
 
 html {

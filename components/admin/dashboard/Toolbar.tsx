@@ -24,23 +24,32 @@ export const Toolbar: React.FC<ToolbarProps> = ({
       onChange={(e) => setSearch(e.target.value)}
       placeholder="Search name, UCID, email..."
       style={{
-        flex: 1, minWidth: 200, background: "#1E293B", border: "1px solid #334155",
-        color: "#F1F5F9", fontFamily: "monospace", fontSize: 12,
+        flex: 1, minWidth: 200, background: "var(--admin-surface)", border: "1px solid var(--admin-border)",
+        color: "var(--admin-text)", fontFamily: "monospace", fontSize: 12,
         padding: "9px 14px", outline: "none",
       }}
-      onFocus={(e) => (e.target.style.borderColor = "#E8512A")}
-      onBlur={(e) => (e.target.style.borderColor = "#1A2535")}
+      onFocus={(e) => (e.target.style.borderColor = "var(--admin-accent)")}
+      onBlur={(e) => (e.target.style.borderColor = "var(--admin-border)")}
     />
     <select
       value={sortBy}
       onChange={(e) => setSortBy(e.target.value as SortOption)}
-      style={{ background: "#0D1220", border: "1px solid #1A2535", color: "#8899BB", fontFamily: "monospace", fontSize: 11, padding: "9px 12px", outline: "none", cursor: "pointer" }}
+      style={{ 
+        background: "var(--admin-bg-dark)", 
+        border: "1px solid var(--admin-border)", 
+        color: "var(--admin-muted)", 
+        fontFamily: "monospace", 
+        fontSize: 11, 
+        padding: "9px 12px", 
+        outline: "none", 
+        cursor: "pointer" 
+      }}
     >
       <option value="newest">Newest First</option>
       <option value="oldest">Oldest First</option>
       <option value="name">Name A→Z</option>
     </select>
-    <div style={{ fontFamily: "monospace", fontSize: 10, color: "#334455", letterSpacing: "0.1em" }}>
+    <div style={{ fontFamily: "monospace", fontSize: 10, color: "var(--admin-muted)", letterSpacing: "0.1em" }}>
       {resultCount} result{resultCount !== 1 ? "s" : ""}
     </div>
   </div>

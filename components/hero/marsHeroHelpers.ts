@@ -101,11 +101,39 @@ export function drawRover(
   rx: number,
   ry: number,
   scale: number,
-  primaryColor: string = "#E8512A"
+  primaryColor: string = "#E8512A",
+  time: number = 0
 ) {
   const s = scale;
   ctx.save();
   ctx.translate(rx, ry);
+
+  // LiDAR Sweep Beam
+  ctx.save();
+  const sweepAngle = Math.sin(time * 2.5) * 0.35; // Sweeps up and down
+  ctx.translate(0, -30 * s); 
+  ctx.rotate(sweepAngle);
+  
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.lineTo(140 * s, -28 * s);
+  ctx.lineTo(140 * s, 28 * s);
+  ctx.closePath();
+  
+  const lidarGradient = ctx.createLinearGradient(0, 0, 140 * s, 0);
+  lidarGradient.addColorStop(0, `${primaryColor}2A`); // Hex with alpha for subtle glow
+  lidarGradient.addColorStop(1, "transparent");
+  ctx.fillStyle = lidarGradient;
+  ctx.fill();
+  
+  // Laser core
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.lineTo(110 * s, 0);
+  ctx.strokeStyle = `${primaryColor}55`;
+  ctx.lineWidth = 1 * s;
+  ctx.stroke();
+  ctx.restore();
 
   // Shadow
   ctx.beginPath();

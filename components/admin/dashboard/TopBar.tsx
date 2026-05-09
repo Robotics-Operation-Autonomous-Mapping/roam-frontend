@@ -20,7 +20,7 @@ export const TopBar: React.FC<TopBarProps> = ({
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
-      background: "#0D1220",
+      background: "var(--admin-bg-dark)",
     }}
   >
     <div style={{ display: "flex", alignItems: "center", gap: 12 }}>

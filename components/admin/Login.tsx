@@ -4,21 +4,22 @@ import React from "react";
 
 const pageStyles: React.CSSProperties = {
   minHeight: "100vh",
-  background: "#0F172A",
+  background: "var(--admin-bg)",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
   fontFamily: "monospace",
   backgroundImage:
-    "radial-gradient(ellipse at 20% 0%, rgba(232,81,42,0.05) 0%, transparent 55%), radial-gradient(ellipse at 80% 100%, rgba(34,68,170,0.07) 0%, transparent 55%)",
+    "radial-gradient(ellipse at 20% 0%, rgba(232,81,42,0.05) 0%, transparent 55%), radial-gradient(ellipse at 80% 100%, rgba(232,81,42,0.05) 0%, transparent 55%)",
 };
 
 const cardStyles: React.CSSProperties = {
   width: "100%",
   maxWidth: 420,
-  border: "1px solid #334155",
-  background: "#1E293B",
+  border: "1px solid var(--admin-border)",
+  background: "var(--admin-bg-dark)",
   padding: "40px 36px",
+  borderRadius: "8px",
 };
 
 const labelStyles: React.CSSProperties = {
@@ -26,15 +27,15 @@ const labelStyles: React.CSSProperties = {
   fontSize: 10,
   letterSpacing: "0.18em",
   textTransform: "uppercase",
-  color: "#556677",
+  color: "var(--admin-muted)",
   marginBottom: 6,
 };
 
 const inputStyles: React.CSSProperties = {
   width: "100%",
-  background: "#0F172A",
-  border: "1px solid #334155",
-  color: "#F1F5F9",
+  background: "var(--admin-bg)",
+  border: "1px solid var(--admin-border)",
+  color: "var(--admin-text)",
   fontFamily: "monospace",
   fontSize: 13,
   padding: "10px 14px",
@@ -45,7 +46,7 @@ const inputStyles: React.CSSProperties = {
 
 const btnStyles: React.CSSProperties = {
   width: "100%",
-  background: "#E8512A",
+  background: "var(--admin-accent)",
   color: "#fff",
   border: "none",
   fontFamily: "monospace",
@@ -56,6 +57,7 @@ const btnStyles: React.CSSProperties = {
   cursor: "pointer",
   marginTop: 8,
   transition: "opacity 0.2s",
+  borderRadius: "4px",
 };
 
 interface LoginProps {
@@ -77,10 +79,10 @@ export const LoginForm: React.FC<LoginProps> = ({
         <div style={{ fontSize: 10, letterSpacing: "0.22em", color: "#E8512A", textTransform: "uppercase", marginBottom: 10 }}>
           ROAM — Internal Portal
         </div>
-        <h1 style={{ fontFamily: "'Georgia', serif", fontSize: 22, fontWeight: 400, color: "#D0E0F0", margin: 0 }}>
+        <h1 style={{ fontFamily: "var(--font-display)", fontSize: 22, fontWeight: 400, color: "var(--admin-text)", margin: 0, textTransform: "uppercase", letterSpacing: "0.05em" }}>
           Admin Access
         </h1>
-        <p style={{ fontSize: 11, color: "#334455", marginTop: 8, letterSpacing: "0.05em" }}>
+        <p style={{ fontSize: 11, color: "var(--admin-muted)", marginTop: 8, letterSpacing: "0.05em" }}>
           Restricted to authorized team members only.
         </p>
       </div>
@@ -111,7 +113,7 @@ export const LoginForm: React.FC<LoginProps> = ({
         </div>
 
         {error && (
-          <div style={{ fontSize: 11, color: "#E8512A", border: "1px solid #E8512A", padding: "10px 14px", marginBottom: 16, letterSpacing: "0.05em" }}>
+          <div style={{ fontSize: 11, color: "var(--admin-accent)", border: "1px solid var(--admin-accent)", padding: "10px 14px", marginBottom: 16, letterSpacing: "0.05em" }}>
             {error}
           </div>
         )}
@@ -121,7 +123,7 @@ export const LoginForm: React.FC<LoginProps> = ({
         </button>
       </form>
 
-      <div style={{ marginTop: 28, paddingTop: 20, borderTop: "1px solid #0F1825", fontSize: 10, color: "#1E2D3D", letterSpacing: "0.12em", textAlign: "center" }}>
+      <div style={{ marginTop: 28, paddingTop: 20, borderTop: "1px solid var(--admin-border)", fontSize: 10, color: "var(--admin-muted)", letterSpacing: "0.12em", textAlign: "center" }}>
         ROAM AUTONOMOUS ROVER TEAM — UNIVERSITY OF CALGARY
       </div>
     </div>
@@ -135,12 +137,12 @@ export const RestrictedView: React.FC<{ onBack: () => void }> = ({ onBack }) => 
       <div style={{ fontSize: 10, letterSpacing: "0.2em", color: "#E8512A", textTransform: "uppercase", marginBottom: 12 }}>
         Access Restricted
       </div>
-      <p style={{ color: "#556677", fontSize: 13, lineHeight: 1.8, marginBottom: 24 }}>
+      <p style={{ color: "var(--admin-muted)", fontSize: 13, lineHeight: 1.8, marginBottom: 24 }}>
         This is an internal team tool.
       </p>
-      <p style={{ color: "#445566", fontSize: 12, lineHeight: 1.8, marginBottom: 28 }}>
+      <p style={{ color: "var(--admin-muted)", fontSize: 12, lineHeight: 1.8, marginBottom: 28 }}>
         If you think you need access to this, talk to{" "}
-        <span style={{ color: "#C8D8E8" }}>Vyapak Bansal</span>.
+        <span style={{ color: "var(--admin-accent)" }}>Vyapak Bansal</span>.
       </p>
       <button
         onClick={onBack}

@@ -142,12 +142,17 @@ export const MarsHero: React.FC<MarsHeroProps> = ({ onRoverArrived }) => {
       alpha: Math.random() * 0.3 + 0.05,
     }));
 
-    const rover = { x: -0.04, tx: 0.44, speed: 0.00035 };
+    const rover = { x: -0.04, tx: 0.44, speed: 0.0002 };
     const SCAN_DURATION = 1600;
+    
+    // Shooting Star state
+    const shootingStar = { x: -1, y: -1, length: 0, angle: 0, speed: 0, opacity: 0 };
     
     let W = 0, H = 0;
     let scanStart = -1;
     let startTime = -1;
+    let lastTime = -1;
+    let currentRoverY = -1;
     let uiStarted = false;
 
     // ─── Resize Handling ──────────────────────────────────────────────────────
@@ -183,6 +188,38 @@ export const MarsHero: React.FC<MarsHeroProps> = ({ onRoverArrived }) => {
         ctx.fill();
       }
 
+      // Shooting Star
+      if (Math.random() < 0.002 && shootingStar.opacity <= 0) { // Occurs rarely
+        shootingStar.x = Math.random() * W;
+        shootingStar.y = Math.random() * (H * 0.3);
+        shootingStar.length = Math.random() * 80 + 40;
+        shootingStar.angle = (Math.PI / 4) + (Math.random() * 0.2 - 0.1); // ~45 deg down
+        shootingStar.speed = Math.random() * 15 + 15;
+        shootingStar.opacity = 1;
+      }
+
+      if (shootingStar.opacity > 0) {
+        ctx.save();
+        ctx.translate(shootingStar.x, shootingStar.y);
+        ctx.rotate(shootingStar.angle);
+        
+        const grad = ctx.createLinearGradient(0, 0, -shootingStar.length, 0);
+        grad.addColorStop(0, `rgba(255,255,255,${shootingStar.opacity})`);
+        grad.addColorStop(1, "transparent");
+        
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(-shootingStar.length, 0);
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+        ctx.restore();
+
+        shootingStar.x += Math.cos(shootingStar.angle) * shootingStar.speed;
+        shootingStar.y += Math.sin(shootingStar.angle) * shootingStar.speed;
+        shootingStar.opacity -= 0.02; // Fades out
+      }
+
       // Distant silhouette
       ctx.beginPath();
       ctx.moveTo(0, H);
@@ -206,13 +243,15 @@ export const MarsHero: React.FC<MarsHeroProps> = ({ onRoverArrived }) => {
       ctx.fillRect(0, H * 0.91, W, H * 0.09);
     };
 
-    const drawActors = (ctx: CanvasRenderingContext2D, px: number, t: number) => {
+    const drawActors = (ctx: CanvasRenderingContext2D, px: number, t: number, dt: number) => {
+      const dt60 = dt * 60; // Normalize dt to 60 FPS
+
       // Dust Particles
       const windBias = (px / W - 0.5) * 0.0001;
       for (const d of dust) {
-        d.x += d.vx + windBias;
-        d.y += d.vy;
-        d.life += 0.003;
+        d.x += (d.vx + windBias) * dt60;
+        d.y += d.vy * dt60;
+        d.life += 0.003 * dt60;
         if (d.life > d.maxLife || d.x < 0 || d.x > 1) {
           d.x = Math.random();
           d.y = 0.88 + Math.random() * 0.1;
@@ -228,17 +267,25 @@ export const MarsHero: React.FC<MarsHeroProps> = ({ onRoverArrived }) => {
 
       // Rover Update
       if (t > 0.3 && rover.x < rover.tx) {
-        rover.x += rover.speed;
+        rover.x += rover.speed * dt60;
       } else if (rover.x >= rover.tx && !arrivedRef.current) {
+        rover.x = rover.tx;
         arrivedRef.current = true;
         onRoverArrived?.();
       }
 
       // Rover Render
       if (rover.x > 0) {
-        const gY = getTerrainY(ridge3, Math.max(0, rover.x));
-        const roverRealY = gY * H - 3;
-        const roverScale = 0.7 + (Math.max(0, rover.x) / rover.tx) * 0.38;
+        const targetY = getTerrainY(ridge3, Math.max(0, rover.x)) * H - 3;
+        
+        // Initialize Y if first frame
+        if (currentRoverY < 0) currentRoverY = targetY;
+        
+        // Low-pass filter (spring) to smooth out sharp corners in terrain
+        currentRoverY += (targetY - currentRoverY) * 0.15 * dt60;
+        
+        const roverRealY = currentRoverY;
+        const roverScale = 0.95 + (Math.max(0, rover.x) / rover.tx) * 0.45;
         const rx = rover.x * W;
 
         // Dust trail
@@ -260,7 +307,7 @@ export const MarsHero: React.FC<MarsHeroProps> = ({ onRoverArrived }) => {
         ctx.fillRect(rx - 60, roverRealY - 60, 120, 120);
         ctx.restore();
 
-        drawRover(ctx, rx, roverRealY, roverScale, primaryColor);
+        drawRover(ctx, rx, roverRealY, roverScale, primaryColor, t);
       }
     };
 
@@ -300,6 +347,10 @@ export const MarsHero: React.FC<MarsHeroProps> = ({ onRoverArrived }) => {
       rafRef.current = requestAnimationFrame(frame);
       if (startTime < 0) startTime = now;
       if (scanStart < 0) scanStart = now;
+      if (lastTime < 0) lastTime = now;
+
+      const dt = Math.min((now - lastTime) / 1000, 0.1); // Cap dt at 100ms
+      lastTime = now;
 
       const t = (now - startTime) / 1000;
       const scanPct = Math.min(1, (now - scanStart) / SCAN_DURATION);
@@ -320,7 +371,7 @@ export const MarsHero: React.FC<MarsHeroProps> = ({ onRoverArrived }) => {
       const px = mouseRef.current.x;
 
       drawEnvironment(ctx, px);
-      drawActors(ctx, px, t);
+      drawActors(ctx, px, t, dt);
       drawUIOverlay(ctx, scanPct);
     };
 

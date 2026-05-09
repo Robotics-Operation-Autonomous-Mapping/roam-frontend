@@ -34,22 +34,38 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
     return data.publicUrl;
   };
 
+  const ensureAbsoluteUrl = (url: string) => {
+    if (!url) return "";
+    if (url.startsWith("http://") || url.startsWith("https://")) return url;
+    return `https://${url}`;
+  };
+
   return (
     <div
       style={{
         position: "fixed",
-        top: 0,
-        right: 0,
-        bottom: 0,
-        width: "min(700px, 100vw)",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        width: "80%",
+        height: "80%",
         background: "var(--admin-bg)",
-        borderLeft: "1px solid var(--admin-border)",
+        border: "1px solid var(--admin-border)",
         zIndex: 100,
         display: "flex",
         flexDirection: "column",
-        boxShadow: "-10px 0 40px rgba(0,0,0,0.5)",
+        boxShadow: "0 20px 50px rgba(0,0,0,0.8)",
+        borderRadius: "12px",
+        overflow: "hidden",
+        animation: "modalEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
       }}
     >
+      <style>{`
+        @keyframes modalEnter {
+          from { opacity: 0; transform: translate(-50%, -45%) scale(0.95); }
+          to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+      `}</style>
       {/* Header */}
       <div
         style={{
@@ -120,21 +136,28 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
 
           {/* Section: Motivation */}
           <Section title="Motivation & Goals">
-            <DetailGroup
-              label="Why ROAM?"
-              value={app.why_join}
-              isLongText
-            />
-            <DetailGroup
-              label="Hope to Learn"
-              value={app.hope_to_learn}
-              isLongText
-            />
-            <DetailGroup
-              label="Previous Project"
-              value={app.project_description}
-              isLongText
-            />
+            <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+              <DetailGroup
+                label="Why ROAM?"
+                value={app.why_join}
+                isLongText
+              />
+              <DetailGroup
+                label="Rover Excitement"
+                value={app.rover_excitement}
+                isLongText
+              />
+              <DetailGroup
+                label="Hope to Learn"
+                value={app.hope_to_learn}
+                isLongText
+              />
+              <DetailGroup
+                label="Previous Project"
+                value={app.project_description}
+                isLongText
+              />
+            </div>
           </Section>
 
           {/* Section: Technical */}
@@ -151,7 +174,7 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
             </div>
           </Section>
 
-          {/* Section: Commitment & Culture */}
+          {/* Section: Commitment & Fit */}
           <Section title="Commitment & Fit">
             <div
               style={{
@@ -165,11 +188,54 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
                 label="Attend Meetings?"
                 value={app.attend_meetings}
               />
+              <DetailGroup
+                label="Intense Periods?"
+                value={app.intense_periods}
+              />
+              <DetailGroup
+                label="Other Clubs?"
+                value={app.other_clubs}
+              />
             </div>
+            {app.which_clubs && (
+              <div style={{ marginTop: 24 }}>
+                <DetailGroup
+                  label="Which Clubs"
+                  value={app.which_clubs}
+                  isLongText
+                />
+              </div>
+            )}
             <div style={{ marginTop: 24 }}>
               <DetailGroup
                 label="Team Environment"
                 value={app.team_environment}
+                isLongText
+              />
+            </div>
+          </Section>
+
+          {/* Section: Culture & Personality */}
+          <Section title="Culture & Personality">
+            <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "24px" }}>
+              <DetailGroup
+                label="Hobbies"
+                value={app.hobbies}
+                isLongText
+              />
+              <DetailGroup
+                label="Favorite Song"
+                value={app.favorite_song ?? undefined}
+                isLongText
+              />
+              <DetailGroup
+                label="Interesting Thing"
+                value={app.interesting_thing}
+                isLongText
+              />
+              <DetailGroup
+                label="Why Bet On You?"
+                value={app.why_bet_on_you}
                 isLongText
               />
             </div>
@@ -190,7 +256,7 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
               )}
               {app.linkedin && (
                 <a
-                  href={app.linkedin}
+                  href={ensureAbsoluteUrl(app.linkedin)}
                   target="_blank"
                   rel="noreferrer"
                   style={linkBtnStyle}
@@ -200,7 +266,7 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
               )}
               {app.github && (
                 <a
-                  href={app.github}
+                  href={ensureAbsoluteUrl(app.github)}
                   target="_blank"
                   rel="noreferrer"
                   style={linkBtnStyle}
@@ -210,7 +276,7 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
               )}
               {app.portfolio && (
                 <a
-                  href={app.portfolio}
+                  href={ensureAbsoluteUrl(app.portfolio)}
                   target="_blank"
                   rel="noreferrer"
                   style={linkBtnStyle}
@@ -250,7 +316,7 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
             placeholder="Enter evaluation notes..."
             style={{
               width: "100%",
-              minHeight: 80,
+              minHeight: 50,
               background: "var(--admin-surface)",
               border: "1px solid var(--admin-border)",
               color: "var(--admin-text)",

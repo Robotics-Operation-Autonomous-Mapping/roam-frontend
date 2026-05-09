@@ -56,7 +56,7 @@ export const Logo: React.FC<LogoProps> = ({
             fontFamily="var(--font-mono)"
             fontSize="45"
             fontWeight="900"
-            letterSpacing="1  px"
+            letterSpacing="1px"
             fill="var(--color-primary)"
           >
             ROAM

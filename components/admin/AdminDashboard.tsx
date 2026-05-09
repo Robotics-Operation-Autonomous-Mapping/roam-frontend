@@ -148,7 +148,7 @@ export default function AdminDashboard({
               style={{
                 fontFamily: "monospace",
                 fontSize: 11,
-                color: "#334455",
+                color: "var(--admin-muted)",
                 letterSpacing: "0.2em",
                 textTransform: "uppercase",
                 textAlign: "center",
@@ -162,7 +162,7 @@ export default function AdminDashboard({
               style={{
                 fontFamily: "monospace",
                 fontSize: 11,
-                color: "#334455",
+                color: "var(--admin-muted)",
                 letterSpacing: "0.1em",
                 textAlign: "center",
                 padding: 60,
@@ -184,13 +184,26 @@ export default function AdminDashboard({
         <>
           <div
             onClick={() => setSelected(null)}
-            style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.4)", zIndex: 40 }}
+            style={{
+              position: "fixed",
+              inset: 0,
+              background: "rgba(0,0,0,0.8)",
+              backdropFilter: "blur(8px)",
+              zIndex: 90,
+              animation: "fadeIn 0.3s ease-out",
+            }}
           />
           <DetailPanel
             app={selected}
             onClose={() => setSelected(null)}
             onStatusChange={handleStatusChange}
           />
+          <style>{`
+            @keyframes fadeIn {
+              from { opacity: 0; }
+              to { opacity: 1; }
+            }
+          `}</style>
         </>
       )}
 
