@@ -8,7 +8,7 @@ export const MissionClock: React.FC = () => {
   useEffect(() => {
     // Start with a random baseline for more "realistic" mission elapsed time
     setTick(Math.floor(Math.random() * 5000) + 12000);
-    const id = setInterval(() => setTick(t => t + 1), 1000);
+    const id = setInterval(() => setTick((t) => t + 1), 1000);
     return () => clearInterval(id);
   }, []);
 

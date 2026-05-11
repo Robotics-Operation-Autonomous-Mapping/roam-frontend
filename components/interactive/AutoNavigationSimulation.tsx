@@ -10,20 +10,23 @@ import { Minimap } from "./nav/Minimap";
 
 export const AutoNavigationSimulation: React.FC = () => {
   // ── Path state ────────────────────────────────────────────────────────────
-  const [start,     setStart]     = useState<Cell | null>(null);
-  const [end,       setEnd]       = useState<Cell | null>(null);
-  const [path,      setPath]      = useState<Cell[]>([]);
-  const [visited,   setVisited]   = useState<Cell[]>([]);
+  const [start, setStart] = useState<Cell | null>(null);
+  const [end, setEnd] = useState<Cell | null>(null);
+  const [path, setPath] = useState<Cell[]>([]);
+  const [visited, setVisited] = useState<Cell[]>([]);
   const [selecting, setSelecting] = useState<"start" | "end">("start");
   const [shouldRun, setShouldRun] = useState(false);
-  const [error,     setError]     = useState("");
+  const [error, setError] = useState("");
 
   // ── Controls ──────────────────────────────────────────────────────────────
-  const [speed,       setSpeed]       = useState(0.9);
+  const [speed, setSpeed] = useState(0.9);
 
   // ── Rover position: throttled to ~10 fps so minimap doesn't cause 60fps re-renders
   const lastSnapTime = useRef(0);
-  const [roverPosSnap, setRoverPosSnap] = useState<{ x: number; z: number } | null>(null);
+  const [roverPosSnap, setRoverPosSnap] = useState<{
+    x: number;
+    z: number;
+  } | null>(null);
   const handleRoverPos = useCallback((pos: { x: number; z: number }) => {
     const now = performance.now();
     if (now - lastSnapTime.current > 100) {
@@ -61,24 +64,34 @@ export const AutoNavigationSimulation: React.FC = () => {
 
   // ── Actions ───────────────────────────────────────────────────────────────
   const handleStart = () => {
-    if (path.length > 1) { setError(""); setShouldRun(true); }
-    else setError("Create a valid path first.");
+    if (path.length > 1) {
+      setError("");
+      setShouldRun(true);
+    } else setError("Create a valid path first.");
   };
 
   const handleReset = () => {
-    setStart(null); setEnd(null); setPath([]); setVisited([]);
-    setSelecting("start"); setShouldRun(false); setError("");
+    setStart(null);
+    setEnd(null);
+    setPath([]);
+    setVisited([]);
+    setSelecting("start");
+    setShouldRun(false);
+    setError("");
     setRoverPosSnap(null);
   };
 
   // ── Derived ───────────────────────────────────────────────────────────────
-  const pathLen = path.length > 1
-    ? path.reduce((acc, c, i) => {
-        if (i === 0) return acc;
-        const prev = path[i - 1];
-        return acc + Math.sqrt((c.x - prev.x) ** 2 + (c.z - prev.z) ** 2);
-      }, 0).toFixed(1)
-    : null;
+  const pathLen =
+    path.length > 1
+      ? path
+          .reduce((acc, c, i) => {
+            if (i === 0) return acc;
+            const prev = path[i - 1];
+            return acc + Math.sqrt((c.x - prev.x) ** 2 + (c.z - prev.z) ** 2);
+          }, 0)
+          .toFixed(1)
+      : null;
 
   return (
     <section className="max-w-7xl mx-auto px-6 w-full mb-24">
@@ -96,15 +109,22 @@ export const AutoNavigationSimulation: React.FC = () => {
       <div className="flex flex-wrap gap-3 mb-3 items-center">
         {/* Speed */}
         <div className="flex items-center gap-2 bg-surface/40 border border-border px-3 py-1.5">
-          <span className="font-mono text-[10px] tracking-widest text-muted uppercase">Speed</span>
+          <span className="font-mono text-[10px] tracking-widest text-muted uppercase">
+            Speed
+          </span>
           <input
-            type="range" min={0.2} max={3} step={0.1} value={speed}
+            type="range"
+            min={0.2}
+            max={3}
+            step={0.1}
+            value={speed}
             onChange={(e) => setSpeed(parseFloat(e.target.value))}
             className="w-20 accent-[#00F5FF]"
           />
-          <span className="font-mono text-[10px] text-primary w-6">{speed.toFixed(1)}×</span>
+          <span className="font-mono text-[10px] text-primary w-6">
+            {speed.toFixed(1)}×
+          </span>
         </div>
-
 
         {/* Path info */}
         {pathLen && (
@@ -116,13 +136,15 @@ export const AutoNavigationSimulation: React.FC = () => {
         {/* Actions */}
         <div className="ml-auto flex gap-2">
           <button
-            type="button" onClick={handleStart}
+            type="button"
+            onClick={handleStart}
             className="font-mono text-[10px] tracking-widest uppercase border border-primary px-3 py-1.5 bg-bg/80 text-primary hover:bg-primary hover:text-black transition-colors"
           >
             Start
           </button>
           <button
-            type="button" onClick={handleReset}
+            type="button"
+            onClick={handleReset}
             className="font-mono text-[10px] tracking-widest uppercase border border-border px-3 py-1.5 bg-bg/80 text-cream/80 hover:border-primary hover:text-primary transition-colors"
           >
             Reset
@@ -146,12 +168,24 @@ export const AutoNavigationSimulation: React.FC = () => {
         <div className="absolute top-3 right-3 z-10 pointer-events-none flex flex-col gap-1">
           {[
             { color: "#00FF88", label: "Start" },
-            { color: CP.orange, label: "End"   },
-            { color: CP.cyan,   label: "Path"  },
+            { color: CP.orange, label: "End" },
+            { color: CP.cyan, label: "Path" },
           ].map(({ color, label }) => (
-            <div key={label} className="flex items-center gap-1.5 bg-bg/80 px-2 py-0.5">
-              <div style={{ width: 8, height: 8, background: color, borderRadius: "50%" }} />
-              <span className="font-mono text-[9px] text-muted tracking-widest uppercase">{label}</span>
+            <div
+              key={label}
+              className="flex items-center gap-1.5 bg-bg/80 px-2 py-0.5"
+            >
+              <div
+                style={{
+                  width: 8,
+                  height: 8,
+                  background: color,
+                  borderRadius: "50%",
+                }}
+              />
+              <span className="font-mono text-[9px] text-muted tracking-widest uppercase">
+                {label}
+              </span>
             </div>
           ))}
         </div>
@@ -179,10 +213,10 @@ export const AutoNavigationSimulation: React.FC = () => {
           dpr={[1, 2]}
           shadows
           gl={{
-            antialias:           true,
-            toneMapping:         THREE.ACESFilmicToneMapping,
+            antialias: true,
+            toneMapping: THREE.ACESFilmicToneMapping,
             toneMappingExposure: 1.0,
-            outputColorSpace:    THREE.SRGBColorSpace,
+            outputColorSpace: THREE.SRGBColorSpace,
           }}
         >
           <NavScene
@@ -203,7 +237,9 @@ export const AutoNavigationSimulation: React.FC = () => {
       <div className="flex gap-4 mt-2 font-mono text-[9px] tracking-widest text-muted uppercase">
         <span>Algo: A* diagonal</span>
         <span>·</span>
-        <span>Grid: {GRID_SIZE}×{GRID_SIZE}</span>
+        <span>
+          Grid: {GRID_SIZE}×{GRID_SIZE}
+        </span>
         <span>·</span>
         <span>Visited: {visited.length} nodes</span>
       </div>

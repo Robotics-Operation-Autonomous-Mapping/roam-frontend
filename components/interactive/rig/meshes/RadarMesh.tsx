@@ -15,7 +15,11 @@ export const RadarMesh: React.FC<Props> = ({ mats }) => (
     </mesh>
     {/* Emitter array dots */}
     {Array.from({ length: 5 }).map((_, i) => (
-      <mesh key={i} position={[-0.2 + i * 0.1, 0, 0.045]} material={mats.accentMat}>
+      <mesh
+        key={i}
+        position={[-0.2 + i * 0.1, 0, 0.045]}
+        material={mats.accentMat}
+      >
         <boxGeometry args={[0.04, 0.04, 0.01]} />
       </mesh>
     ))}
@@ -29,7 +33,11 @@ export const RadarMesh: React.FC<Props> = ({ mats }) => (
     </mesh>
     {/* Gold contacts */}
     {Array.from({ length: 4 }).map((_, i) => (
-      <mesh key={i} position={[0.22 + i * 0.015, -0.06, -0.08]} material={mats.goldMat}>
+      <mesh
+        key={i}
+        position={[0.22 + i * 0.015, -0.06, -0.08]}
+        material={mats.goldMat}
+      >
         <boxGeometry args={[0.006, 0.03, 0.005]} />
       </mesh>
     ))}

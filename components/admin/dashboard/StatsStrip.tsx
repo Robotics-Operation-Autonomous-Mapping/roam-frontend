@@ -3,7 +3,12 @@
 import React from "react";
 
 interface StatsStripProps {
-  stats: { total: number; pending: number; interview: number; accepted: number };
+  stats: {
+    total: number;
+    pending: number;
+    interview: number;
+    accepted: number;
+  };
 }
 
 export const StatsStrip: React.FC<StatsStripProps> = ({ stats }) => (
@@ -16,10 +21,26 @@ export const StatsStrip: React.FC<StatsStripProps> = ({ stats }) => (
     }}
   >
     {[
-      { label: "TOTAL APPLICATIONS", val: stats.total, color: "var(--admin-text)" },
-      { label: "PENDING REVIEW", val: stats.pending, color: "rgba(var(--status-pending-rgb), 1)" },
-      { label: "INTERVIEWS", val: stats.interview, color: "rgba(var(--status-interview-rgb), 1)" },
-      { label: "ACCEPTED", val: stats.accepted, color: "rgba(var(--status-accepted-rgb), 1)" },
+      {
+        label: "TOTAL APPLICATIONS",
+        val: stats.total,
+        color: "var(--admin-text)",
+      },
+      {
+        label: "PENDING REVIEW",
+        val: stats.pending,
+        color: "rgba(var(--status-pending-rgb), 1)",
+      },
+      {
+        label: "INTERVIEWS",
+        val: stats.interview,
+        color: "rgba(var(--status-interview-rgb), 1)",
+      },
+      {
+        label: "ACCEPTED",
+        val: stats.accepted,
+        color: "rgba(var(--status-accepted-rgb), 1)",
+      },
     ].map((s, i) => (
       <div
         key={s.label}

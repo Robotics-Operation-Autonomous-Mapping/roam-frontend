@@ -14,7 +14,11 @@ export const PdbMesh: React.FC<Props> = ({ mats }) => (
       <boxGeometry args={[0.6, 0.04, 0.45]} />
     </mesh>
     {/* DC-DC modules */}
-    {[[-0.15, 0.05, 0.1], [0.05, 0.05, 0.1], [0.22, 0.05, 0.1]].map(([x, y, z], i) => (
+    {[
+      [-0.15, 0.05, 0.1],
+      [0.05, 0.05, 0.1],
+      [0.22, 0.05, 0.1],
+    ].map(([x, y, z], i) => (
       <mesh key={i} position={[x, y, z]} material={mats.whitePanelMat}>
         <boxGeometry args={[0.1, 0.06, 0.08]} />
       </mesh>

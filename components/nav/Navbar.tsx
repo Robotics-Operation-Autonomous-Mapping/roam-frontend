@@ -8,9 +8,9 @@ import { Logo } from "@/components/ui/Logo";
 import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
-  { label: "Home",     href: "/"         },
-  { label: "Join Us",  href: "/join"     },
-  { label: "Demo",     href: "/demo"     },
+  { label: "Home", href: "/" },
+  { label: "Join Us", href: "/join" },
+  { label: "Demo", href: "/demo" },
   { label: "Sponsors", href: "/sponsors" },
 ];
 
@@ -55,9 +55,9 @@ export const Navbar = () => {
             ? "bg-bg/95 backdrop-blur-md border-b border-white/5"
             : "bg-transparent pointer-events-none",
         )}
-        style={{ 
-          paddingTop: `calc(env(safe-area-inset-top) + ${scrolled ? '1rem' : '2rem'})`,
-          paddingBottom: scrolled ? '1rem' : '2rem'
+        style={{
+          paddingTop: `calc(env(safe-area-inset-top) + ${scrolled ? "1rem" : "2rem"})`,
+          paddingBottom: scrolled ? "1rem" : "2rem",
         }}
       >
         {/* Gradient bottom border — more refined than a flat line */}
@@ -80,8 +80,8 @@ export const Navbar = () => {
                   href={link.href}
                   className={cn(
                     "relative font-mono text-[11px] uppercase tracking-[0.2em] transition-colors duration-200",
-                    isActive 
-                      ? "text-primary" 
+                    isActive
+                      ? "text-primary"
                       : "text-cream/50 hover:text-primary",
                     link.href === "/sponsors" && !isActive && "text-primary/40",
                   )}
@@ -91,7 +91,11 @@ export const Navbar = () => {
                     <motion.div
                       layoutId="nav-indicator"
                       className="absolute -bottom-2 left-0 w-full h-[2px] bg-primary"
-                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 30,
+                      }}
                     />
                   )}
                 </Link>
@@ -106,7 +110,10 @@ export const Navbar = () => {
             aria-label="Toggle Menu"
           >
             <motion.div
-              animate={{ rotate: mobileMenuOpen ? 45 : 0, y: mobileMenuOpen ? 5 : 0 }}
+              animate={{
+                rotate: mobileMenuOpen ? 45 : 0,
+                y: mobileMenuOpen ? 5 : 0,
+              }}
               transition={{ duration: 0.2 }}
               className="w-full h-[2px] bg-cream"
             />
@@ -116,7 +123,10 @@ export const Navbar = () => {
               className="w-full h-[2px] bg-cream"
             />
             <motion.div
-              animate={{ rotate: mobileMenuOpen ? -45 : 0, y: mobileMenuOpen ? -13 : 0 }}
+              animate={{
+                rotate: mobileMenuOpen ? -45 : 0,
+                y: mobileMenuOpen ? -13 : 0,
+              }}
               transition={{ duration: 0.2 }}
               className="w-full h-[2px] bg-cream"
             />
@@ -133,7 +143,7 @@ export const Navbar = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-40 bg-bg/95 backdrop-blur-lg flex flex-col items-center justify-center"
-            style={{ paddingTop: 'env(safe-area-inset-top)' }}
+            style={{ paddingTop: "env(safe-area-inset-top)" }}
           >
             {/* Subtle gradient accent at top of overlay */}
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
@@ -145,7 +155,11 @@ export const Navbar = () => {
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   // Tightened: was delay 0.1*i+0.1 at 0.4s — now 0.05*i+0.05 at 0.25s
-                  transition={{ delay: 0.05 * i + 0.05, duration: 0.25, ease: "easeOut" }}
+                  transition={{
+                    delay: 0.05 * i + 0.05,
+                    duration: 0.25,
+                    ease: "easeOut",
+                  }}
                 >
                   <Link
                     href={link.href}

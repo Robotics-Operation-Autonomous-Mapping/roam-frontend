@@ -94,7 +94,11 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
             <StatusBadge status={app.status} />
             <DeptTag dept={app.department} />
             <span
-              style={{ fontSize: 11, color: "var(--admin-muted)", fontFamily: "monospace" }}
+              style={{
+                fontSize: 11,
+                color: "var(--admin-muted)",
+                fontFamily: "monospace",
+              }}
             >
               {app.ucid}
             </span>
@@ -129,19 +133,20 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
               <DetailGroup label="Degree" value={app.degree_program} />
               <DetailGroup label="Year" value={app.year_of_study} />
               <DetailGroup label="Univ. Email" value={app.university_email} />
-              <DetailGroup label="Personal Email" value={app.personal_email ?? undefined} />
+              <DetailGroup
+                label="Personal Email"
+                value={app.personal_email ?? undefined}
+              />
               <DetailGroup label="Phone" value={app.phone ?? undefined} />
             </div>
           </Section>
 
           {/* Section: Motivation */}
           <Section title="Motivation & Goals">
-            <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-              <DetailGroup
-                label="Why ROAM?"
-                value={app.why_join}
-                isLongText
-              />
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "24px" }}
+            >
+              <DetailGroup label="Why ROAM?" value={app.why_join} isLongText />
               <DetailGroup
                 label="Rover Excitement"
                 value={app.rover_excitement}
@@ -192,10 +197,7 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
                 label="Intense Periods?"
                 value={app.intense_periods}
               />
-              <DetailGroup
-                label="Other Clubs?"
-                value={app.other_clubs}
-              />
+              <DetailGroup label="Other Clubs?" value={app.other_clubs} />
             </div>
             {app.which_clubs && (
               <div style={{ marginTop: 24 }}>
@@ -217,12 +219,14 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
 
           {/* Section: Culture & Personality */}
           <Section title="Culture & Personality">
-            <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "24px" }}>
-              <DetailGroup
-                label="Hobbies"
-                value={app.hobbies}
-                isLongText
-              />
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr",
+                gap: "24px",
+              }}
+            >
+              <DetailGroup label="Hobbies" value={app.hobbies} isLongText />
               <DetailGroup
                 label="Favorite Song"
                 value={app.favorite_song ?? undefined}

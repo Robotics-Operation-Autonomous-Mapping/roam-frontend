@@ -1,6 +1,13 @@
 import { AppStatus } from "@/lib/supabase/client";
 
-export const ALL_STATUSES: AppStatus[] = ["pending", "reviewed", "interview", "accepted", "rejected", "waitlisted"];
+export const ALL_STATUSES: AppStatus[] = [
+  "pending",
+  "reviewed",
+  "interview",
+  "accepted",
+  "rejected",
+  "waitlisted",
+];
 
 export const STATUS_COLORS: Record<AppStatus, string> = {
   pending: "rgba(var(--status-pending-rgb), 1)",

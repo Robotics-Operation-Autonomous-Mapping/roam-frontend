@@ -3,25 +3,28 @@
 import React, { useMemo, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { CATEGORY_COLOR, CATEGORY_LABEL, PARTS } from "./rig/constants";
-import { Scene }        from "./rig/Scene";
+import { Scene } from "./rig/Scene";
 import { MissionClock } from "./rig/MissionClock";
 import { motion, AnimatePresence } from "framer-motion";
 
 export const ExplodedSensorRig: React.FC = () => {
   const [activeId, setActiveId] = useState<string | null>(null);
 
-  const activePart = PARTS.find(p => p.id === activeId) ?? null;
-  const catColor   = activePart ? CATEGORY_COLOR[activePart.category] : "var(--color-muted)";
+  const activePart = PARTS.find((p) => p.id === activeId) ?? null;
+  const catColor = activePart
+    ? CATEGORY_COLOR[activePart.category]
+    : "var(--color-muted)";
 
   const catCounts = useMemo(() => {
     const acc: Record<string, number> = {};
-    PARTS.forEach(p => { acc[p.category] = (acc[p.category] ?? 0) + 1; });
+    PARTS.forEach((p) => {
+      acc[p.category] = (acc[p.category] ?? 0) + 1;
+    });
     return acc;
   }, []);
 
   return (
     <div className="w-full my-16 bg-bg border border-border font-mono text-cream select-none overflow-hidden rounded-sm shadow-2xl">
-      
       {/* ── Header Area ── */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 p-6 border-b border-border bg-surface/30 backdrop-blur-sm">
         <div className="space-y-1">
@@ -39,8 +42,13 @@ export const ExplodedSensorRig: React.FC = () => {
           <div className="flex flex-wrap gap-x-4 gap-y-2">
             {Object.entries(CATEGORY_LABEL).map(([cat, label]) => (
               <div key={cat} className="flex items-center gap-2">
-                <div className="w-1.5 h-1.5 rounded-full" style={{ background: CATEGORY_COLOR[cat] }} />
-                <span className="text-[9px] text-muted tracking-widest uppercase">{label}</span>
+                <div
+                  className="w-1.5 h-1.5 rounded-full"
+                  style={{ background: CATEGORY_COLOR[cat] }}
+                />
+                <span className="text-[9px] text-muted tracking-widest uppercase">
+                  {label}
+                </span>
               </div>
             ))}
           </div>
@@ -52,10 +60,12 @@ export const ExplodedSensorRig: React.FC = () => {
         {/* Module ID */}
         <div className="p-6">
           <div className="text-[9px] tracking-[0.3em] text-muted mb-4 uppercase">
-            {activePart ? `${CATEGORY_LABEL[activePart.category]} · ${activePart.partNumber}` : "Identification"}
+            {activePart
+              ? `${CATEGORY_LABEL[activePart.category]} · ${activePart.partNumber}`
+              : "Identification"}
           </div>
           <AnimatePresence mode="wait">
-            <motion.div 
+            <motion.div
               key={activeId || "none"}
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
@@ -66,12 +76,12 @@ export const ExplodedSensorRig: React.FC = () => {
             </motion.div>
           </AnimatePresence>
           {activePart && (
-            <div 
+            <div
               className="inline-block mt-3 px-2 py-0.5 text-[9px] tracking-[0.2em] border"
-              style={{ 
-                color: catColor, 
+              style={{
+                color: catColor,
                 borderColor: `${catColor}40`,
-                background: `${catColor}10` 
+                background: `${catColor}10`,
               }}
             >
               {CATEGORY_LABEL[activePart.category]}
@@ -81,7 +91,9 @@ export const ExplodedSensorRig: React.FC = () => {
 
         {/* Specifications */}
         <div className="p-6">
-          <div className="text-[9px] tracking-[0.3em] text-muted mb-4 uppercase">Specifications</div>
+          <div className="text-[9px] tracking-[0.3em] text-muted mb-4 uppercase">
+            Specifications
+          </div>
           {activePart ? (
             <div className="space-y-4">
               <div className="text-xs text-primary/80 tracking-wide leading-relaxed">
@@ -90,28 +102,41 @@ export const ExplodedSensorRig: React.FC = () => {
               <div className="flex gap-8">
                 {activePart.voltage && (
                   <div>
-                    <div className="text-[8px] text-muted tracking-[0.2em] mb-1">VOLTAGE</div>
-                    <div className="text-xs text-cream/80">{activePart.voltage}</div>
+                    <div className="text-[8px] text-muted tracking-[0.2em] mb-1">
+                      VOLTAGE
+                    </div>
+                    <div className="text-xs text-cream/80">
+                      {activePart.voltage}
+                    </div>
                   </div>
                 )}
                 {activePart.freq && (
                   <div>
-                    <div className="text-[8px] text-muted tracking-[0.2em] mb-1">FREQ / RATE</div>
-                    <div className="text-xs text-cream/80">{activePart.freq}</div>
+                    <div className="text-[8px] text-muted tracking-[0.2em] mb-1">
+                      FREQ / RATE
+                    </div>
+                    <div className="text-xs text-cream/80">
+                      {activePart.freq}
+                    </div>
                   </div>
                 )}
               </div>
             </div>
           ) : (
-            <div className="text-xs text-muted/30 italic">No module selected</div>
+            <div className="text-xs text-muted/30 italic">
+              No module selected
+            </div>
           )}
         </div>
 
         {/* Subsystem Notes */}
         <div className="p-6">
-          <div className="text-[9px] tracking-[0.3em] text-muted mb-4 uppercase">Subsystem Notes</div>
+          <div className="text-[9px] tracking-[0.3em] text-muted mb-4 uppercase">
+            Subsystem Notes
+          </div>
           <div className="text-[11px] text-cream/50 leading-relaxed tracking-wide">
-            {activePart?.details ?? "Interact with the 3D model to inspect detailed engineering specifications, communication protocols, and subsystem integration notes."}
+            {activePart?.details ??
+              "Interact with the 3D model to inspect detailed engineering specifications, communication protocols, and subsystem integration notes."}
           </div>
         </div>
       </div>
@@ -120,7 +145,11 @@ export const ExplodedSensorRig: React.FC = () => {
       <div className="h-[500px] relative bg-gradient-to-b from-bg to-surface-2/20">
         <Canvas
           camera={{ position: [5.8, 5.4, 5.8], fov: 46 }}
-          dpr={typeof window !== "undefined" ? Math.min(window.devicePixelRatio, 2) : 1}
+          dpr={
+            typeof window !== "undefined"
+              ? Math.min(window.devicePixelRatio, 2)
+              : 1
+          }
           onPointerMissed={() => setActiveId(null)}
           className="cursor-grab active:cursor-grabbing"
         >
@@ -128,24 +157,24 @@ export const ExplodedSensorRig: React.FC = () => {
         </Canvas>
 
         {/* Corner Decor */}
-        {["top-left", "top-right", "bottom-left", "bottom-right"].map(corner => (
-          <div 
-            key={corner} 
-            className={`absolute w-4 h-4 border-primary/40 ${
-              corner.includes("top") ? "top-4" : "bottom-4"
-            } ${
-              corner.includes("left") ? "left-4" : "right-4"
-            } ${
-              corner.includes("top") ? "border-t" : "border-b"
-            } ${
-              corner.includes("left") ? "border-l" : "border-r"
-            }`}
-          />
-        ))}
+        {["top-left", "top-right", "bottom-left", "bottom-right"].map(
+          (corner) => (
+            <div
+              key={corner}
+              className={`absolute w-4 h-4 border-primary/40 ${
+                corner.includes("top") ? "top-4" : "bottom-4"
+              } ${corner.includes("left") ? "left-4" : "right-4"} ${
+                corner.includes("top") ? "border-t" : "border-b"
+              } ${corner.includes("left") ? "border-l" : "border-r"}`}
+            />
+          ),
+        )}
 
         {/* Navigation Hint */}
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 px-4 py-1.5 bg-bg/80 backdrop-blur-md border border-border text-[9px] tracking-[0.3em] text-muted uppercase">
-          {activeId ? "Orbiting: Module Lock" : "Drag to Orbit · Click to Inspect"}
+          {activeId
+            ? "Orbiting: Module Lock"
+            : "Drag to Orbit · Click to Inspect"}
         </div>
       </div>
 
@@ -153,8 +182,12 @@ export const ExplodedSensorRig: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 border-t border-border bg-surface/30">
         <div className="flex flex-wrap gap-x-6 gap-y-2 px-2">
           {Object.entries(catCounts).map(([cat, count]) => (
-            <span key={cat} className="text-[9px] text-muted tracking-widest uppercase flex items-center gap-1.5">
-              <span style={{ color: CATEGORY_COLOR[cat] }}>●</span> {count} {CATEGORY_LABEL[cat]}
+            <span
+              key={cat}
+              className="text-[9px] text-muted tracking-widest uppercase flex items-center gap-1.5"
+            >
+              <span style={{ color: CATEGORY_COLOR[cat] }}>●</span> {count}{" "}
+              {CATEGORY_LABEL[cat]}
             </span>
           ))}
         </div>

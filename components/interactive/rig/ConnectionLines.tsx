@@ -10,7 +10,7 @@ interface Props {
 
 export const ConnectionLines: React.FC<Props> = ({ activeId }) => {
   const partMap = useMemo(
-    () => Object.fromEntries(PARTS.map(p => [p.id, p])),
+    () => Object.fromEntries(PARTS.map((p) => [p.id, p])),
     [],
   );
 
@@ -22,7 +22,7 @@ export const ConnectionLines: React.FC<Props> = ({ activeId }) => {
         if (!pa || !pb) return null;
 
         const isHighlighted = activeId && (activeId === a || activeId === b);
-        const color   = isHighlighted ? C.goldLight : "#2A3344";
+        const color = isHighlighted ? C.goldLight : "#2A3344";
         const opacity = isHighlighted ? 0.85 : 0.2;
 
         return (

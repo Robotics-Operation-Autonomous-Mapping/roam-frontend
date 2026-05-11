@@ -28,12 +28,22 @@ export const PartRings: React.FC<Props> = ({ ringRadius, color }) => {
       {/* Static inner ring */}
       <mesh>
         <ringGeometry args={[ringRadius - 0.01, ringRadius + 0.03, 64]} />
-        <meshBasicMaterial color={color} transparent opacity={0.55} side={THREE.DoubleSide} />
+        <meshBasicMaterial
+          color={color}
+          transparent
+          opacity={0.55}
+          side={THREE.DoubleSide}
+        />
       </mesh>
       {/* Pulsing outer ring */}
       <mesh ref={outerRef}>
         <ringGeometry args={[outer + 0.04, outer + 0.09, 64]} />
-        <meshBasicMaterial color={color} transparent opacity={0.3} side={THREE.DoubleSide} />
+        <meshBasicMaterial
+          color={color}
+          transparent
+          opacity={0.3}
+          side={THREE.DoubleSide}
+        />
       </mesh>
     </group>
   );

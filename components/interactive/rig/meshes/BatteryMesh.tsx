@@ -19,7 +19,11 @@ export const BatteryMesh: React.FC<Props> = ({ mats }) => (
     </mesh>
     {/* Cell dividers visible on side */}
     {Array.from({ length: 7 }).map((_, i) => (
-      <mesh key={i} position={[-0.55 + i * 0.18, 0, 0.428]} material={mats.greyMat}>
+      <mesh
+        key={i}
+        position={[-0.55 + i * 0.18, 0, 0.428]}
+        material={mats.greyMat}
+      >
         <boxGeometry args={[0.006, 0.35, 0.01]} />
       </mesh>
     ))}

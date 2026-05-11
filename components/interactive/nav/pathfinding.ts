@@ -19,11 +19,7 @@ export function heuristic(a: Cell, b: Cell): number {
 
 /** Cell → Three.js world position (Y=0.2 keeps path above ground). */
 export function toWorld(cell: Cell): [number, number, number] {
-  return [
-    cell.x * CELL_SIZE - HALF_GRID,
-    0.2,
-    cell.z * CELL_SIZE - HALF_GRID,
-  ];
+  return [cell.x * CELL_SIZE - HALF_GRID, 0.2, cell.z * CELL_SIZE - HALF_GRID];
 }
 
 /** Three.js world position → nearest grid cell (clamped to bounds). */
@@ -58,33 +54,42 @@ export function isBlockedByList(cell: Cell, obstacles: Obstacle[]): boolean {
 // ─── Neighbours ───────────────────────────────────────────────────────────────
 
 const DIRS = [
-  { dx:  1, dz:  0, cost: 1     },
-  { dx: -1, dz:  0, cost: 1     },
-  { dx:  0, dz:  1, cost: 1     },
-  { dx:  0, dz: -1, cost: 1     },
-  { dx:  1, dz:  1, cost: 1.414 },
-  { dx: -1, dz:  1, cost: 1.414 },
-  { dx:  1, dz: -1, cost: 1.414 },
+  { dx: 1, dz: 0, cost: 1 },
+  { dx: -1, dz: 0, cost: 1 },
+  { dx: 0, dz: 1, cost: 1 },
+  { dx: 0, dz: -1, cost: 1 },
+  { dx: 1, dz: 1, cost: 1.414 },
+  { dx: -1, dz: 1, cost: 1.414 },
+  { dx: 1, dz: -1, cost: 1.414 },
   { dx: -1, dz: -1, cost: 1.414 },
 ];
 
 function neighbors8(
   cell: Cell,
-  obstacles: Obstacle[]
+  obstacles: Obstacle[],
 ): { cell: Cell; cost: number }[] {
-  return DIRS
-    .map(({ dx, dz, cost }) => ({ cell: { x: cell.x + dx, z: cell.z + dz }, cost, dx, dz }))
+  return DIRS.map(({ dx, dz, cost }) => ({
+    cell: { x: cell.x + dx, z: cell.z + dz },
+    cost,
+    dx,
+    dz,
+  }))
     .filter(({ cell: c, dx, dz }) => {
       // Bounds check
-      if (c.x < 0 || c.x >= GRID_SIZE || c.z < 0 || c.z >= GRID_SIZE) return false;
+      if (c.x < 0 || c.x >= GRID_SIZE || c.z < 0 || c.z >= GRID_SIZE)
+        return false;
       // Cell itself must be free
       if (isBlockedByList(c, obstacles)) return false;
       // Diagonal corner-cutting prevention:
       // if both cardinal neighbours beside a diagonal are blocked, disallow it
       if (dx !== 0 && dz !== 0) {
         const cardA = { x: cell.x + dx, z: cell.z };
-        const cardB = { x: cell.x,      z: cell.z + dz };
-        if (isBlockedByList(cardA, obstacles) || isBlockedByList(cardB, obstacles)) return false;
+        const cardB = { x: cell.x, z: cell.z + dz };
+        if (
+          isBlockedByList(cardA, obstacles) ||
+          isBlockedByList(cardB, obstacles)
+        )
+          return false;
       }
       return true;
     })
@@ -105,7 +110,7 @@ export interface PathResult {
 export function findPath(
   start: Cell,
   goal: Cell,
-  obstacles: Obstacle[]
+  obstacles: Obstacle[],
 ): PathResult {
   if (isBlockedByList(start, obstacles) || isBlockedByList(goal, obstacles)) {
     return { path: [], visited: [] };
@@ -114,14 +119,16 @@ export function findPath(
   const open: Cell[] = [start];
   const cameFrom = new Map<string, string>();
   const gScore = new Map<string, number>([[cellKey(start), 0]]);
-  const fScore = new Map<string, number>([[cellKey(start), heuristic(start, goal)]]);
+  const fScore = new Map<string, number>([
+    [cellKey(start), heuristic(start, goal)],
+  ]);
   const visited: Cell[] = [];
 
   while (open.length > 0) {
     open.sort(
       (a, b) =>
         (fScore.get(cellKey(a)) ?? Infinity) -
-        (fScore.get(cellKey(b)) ?? Infinity)
+        (fScore.get(cellKey(b)) ?? Infinity),
     );
     const current = open.shift()!;
     visited.push(current);

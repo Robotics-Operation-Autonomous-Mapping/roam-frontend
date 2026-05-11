@@ -33,7 +33,7 @@ export function buildTerrain(
   seed: number,
   pts: number,
   yBase: number,
-  rough: number
+  rough: number,
 ): TerrainPt[] {
   const rng = (s: number) => {
     const x = Math.sin(s * 9301 + 49297) * 233280;
@@ -43,7 +43,8 @@ export function buildTerrain(
   for (let i = 0; i <= pts; i++) {
     const nx = i / pts;
     let y = yBase;
-    for (let o = 1; o <= 5; o++) y += (rng(nx * o * 3.7 + seed) - 0.5) * rough / o;
+    for (let o = 1; o <= 5; o++)
+      y += ((rng(nx * o * 3.7 + seed) - 0.5) * rough) / o;
     out.push({ x: nx, y: Math.max(0.52, Math.min(0.94, y)) });
   }
   out.push({ x: 1, y: yBase });
@@ -72,7 +73,7 @@ export function drawTerrain(
   W: number,
   H: number,
   fill: string,
-  stroke?: string
+  stroke?: string,
 ) {
   ctx.beginPath();
   ctx.moveTo(0, H);
@@ -102,7 +103,7 @@ export function drawRover(
   ry: number,
   scale: number,
   primaryColor: string = "#E8512A",
-  time: number = 0
+  time: number = 0,
 ) {
   const s = scale;
   ctx.save();
@@ -111,21 +112,21 @@ export function drawRover(
   // LiDAR Sweep Beam
   ctx.save();
   const sweepAngle = Math.sin(time * 2.5) * 0.35; // Sweeps up and down
-  ctx.translate(0, -30 * s); 
+  ctx.translate(0, -30 * s);
   ctx.rotate(sweepAngle);
-  
+
   ctx.beginPath();
   ctx.moveTo(0, 0);
   ctx.lineTo(140 * s, -28 * s);
   ctx.lineTo(140 * s, 28 * s);
   ctx.closePath();
-  
+
   const lidarGradient = ctx.createLinearGradient(0, 0, 140 * s, 0);
   lidarGradient.addColorStop(0, `${primaryColor}2A`); // Hex with alpha for subtle glow
   lidarGradient.addColorStop(1, "transparent");
   ctx.fillStyle = lidarGradient;
   ctx.fill();
-  
+
   // Laser core
   ctx.beginPath();
   ctx.moveTo(0, 0);
@@ -180,7 +181,10 @@ export function drawRover(
   ctx.stroke();
 
   // Solar panels
-  for (const [px, pw] of [[-22 * s, 10 * s], [12 * s, 10 * s]] as [number, number][]) {
+  for (const [px, pw] of [
+    [-22 * s, 10 * s],
+    [12 * s, 10 * s],
+  ] as [number, number][]) {
     ctx.beginPath();
     ctx.rect(px, -17 * s, pw, 6 * s);
     ctx.fillStyle = "#0c1828";

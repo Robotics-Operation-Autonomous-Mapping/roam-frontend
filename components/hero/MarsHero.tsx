@@ -18,19 +18,26 @@ import {
 const HUD = () => (
   <>
     <div className="absolute top-7 left-6 md:left-[72px] font-mono text-[7px] md:text-[9px] tracking-[0.15em] md:tracking-[0.22em] text-white/20 leading-[1.6] md:leading-[1.9] uppercase pointer-events-none z-10">
-      ROAM / ATLAS-1<br />
-      Engineering · UofA<br />
+      ROAM / ATLAS-1
+      <br />
+      Engineering · UofC
+      <br />
       Status: Operational
     </div>
     <div className="absolute top-7 right-6 md:right-[48px] font-mono text-[7px] md:text-[9px] tracking-[0.15em] md:tracking-[0.22em] text-white/20 leading-[1.6] md:leading-[1.9] text-right uppercase pointer-events-none z-10">
-      53.5461° N 113.4938° W<br />
-      Alt: 645M · Edmonton, AB<br />
+      51.04° N 114.09° W<br />
+      Alt: 1042M · Calgary, AB
+      <br />
       Mission cycle: Active
     </div>
   </>
 );
 
-const HeroContent = ({ controls }: { controls: ReturnType<typeof useAnimation> }) => {
+const HeroContent = ({
+  controls,
+}: {
+  controls: ReturnType<typeof useAnimation>;
+}) => {
   const container: Variants = {
     hidden: {},
     visible: { transition: { staggerChildren: 0.12, delayChildren: 0.2 } },
@@ -54,15 +61,19 @@ const HeroContent = ({ controls }: { controls: ReturnType<typeof useAnimation> }
           className="flex flex-col items-start"
         >
           <motion.div variants={item}>
-            <SectionLabel className="mb-5">Robotics Operation & Autonomous Mapping</SectionLabel>
+            <SectionLabel className="mb-5">
+              Robotics Operation & Autonomous Mapping
+            </SectionLabel>
           </motion.div>
 
           <motion.h1
             variants={item}
             className="font-display text-[clamp(4rem,11vw,8.5rem)] leading-[0.86] tracking-tight text-cream mb-7"
           >
-            EXPLORE.<br />
-            <span className="text-primary">UNDERSTAND.</span><br />
+            EXPLORE.
+            <br />
+            <span className="text-primary">UNDERSTAND.</span>
+            <br />
             <span
               className="text-cream"
               style={{
@@ -79,8 +90,10 @@ const HeroContent = ({ controls }: { controls: ReturnType<typeof useAnimation> }
             variants={item}
             className="font-mono text-sm text-cream/45 max-w-[420px] leading-[1.85] tracking-wide mb-10"
           >
-            We build machines that read the world.<br />
-            Student engineers. Serious technology.<br />
+            We build machines that read the world.
+            <br />
+            Student engineers. Serious technology.
+            <br />
             One rover at a time.
           </motion.p>
 
@@ -88,8 +101,12 @@ const HeroContent = ({ controls }: { controls: ReturnType<typeof useAnimation> }
             variants={item}
             className="flex flex-col sm:flex-row items-start gap-5 pointer-events-auto"
           >
-            <Button href="/join" variant="primary">Apply Now</Button>
-            <Button href="/demo" variant="ghost">Explore the Demo</Button>
+            <Button href="/join" variant="primary">
+              Apply Now
+            </Button>
+            <Button href="/demo" variant="ghost">
+              Explore the Demo
+            </Button>
           </motion.div>
         </motion.div>
       </div>
@@ -116,8 +133,10 @@ export const MarsHero: React.FC<MarsHeroProps> = ({ onRoverArrived }) => {
     if (!wrap) return;
 
     // ─── Scene Initialization ─────────────────────────────────────────────────
-    const primaryColor = getComputedStyle(document.documentElement)
-      .getPropertyValue('--color-primary').trim() || "#E8512A";
+    const primaryColor =
+      getComputedStyle(document.documentElement)
+        .getPropertyValue("--color-primary")
+        .trim() || "#E8512A";
 
     const stars: Star[] = Array.from({ length: 280 }, () => ({
       x: Math.random(),
@@ -144,11 +163,19 @@ export const MarsHero: React.FC<MarsHeroProps> = ({ onRoverArrived }) => {
 
     const rover = { x: -0.04, tx: 0.44, speed: 0.0002 };
     const SCAN_DURATION = 1600;
-    
+
     // Shooting Star state
-    const shootingStar = { x: -1, y: -1, length: 0, angle: 0, speed: 0, opacity: 0 };
-    
-    let W = 0, H = 0;
+    const shootingStar = {
+      x: -1,
+      y: -1,
+      length: 0,
+      angle: 0,
+      speed: 0,
+      opacity: 0,
+    };
+
+    let W = 0,
+      H = 0;
     let scanStart = -1;
     let startTime = -1;
     let lastTime = -1;
@@ -166,7 +193,7 @@ export const MarsHero: React.FC<MarsHeroProps> = ({ onRoverArrived }) => {
     ro.observe(wrap);
 
     // ─── Drawing Functions ────────────────────────────────────────────────────
-    
+
     const drawEnvironment = (ctx: CanvasRenderingContext2D, px: number) => {
       // Sky
       const sky = ctx.createLinearGradient(0, 0, 0, H * 0.85);
@@ -189,11 +216,12 @@ export const MarsHero: React.FC<MarsHeroProps> = ({ onRoverArrived }) => {
       }
 
       // Shooting Star
-      if (Math.random() < 0.002 && shootingStar.opacity <= 0) { // Occurs rarely
+      if (Math.random() < 0.002 && shootingStar.opacity <= 0) {
+        // Occurs rarely
         shootingStar.x = Math.random() * W;
         shootingStar.y = Math.random() * (H * 0.3);
         shootingStar.length = Math.random() * 80 + 40;
-        shootingStar.angle = (Math.PI / 4) + (Math.random() * 0.2 - 0.1); // ~45 deg down
+        shootingStar.angle = Math.PI / 4 + (Math.random() * 0.2 - 0.1); // ~45 deg down
         shootingStar.speed = Math.random() * 15 + 15;
         shootingStar.opacity = 1;
       }
@@ -202,11 +230,11 @@ export const MarsHero: React.FC<MarsHeroProps> = ({ onRoverArrived }) => {
         ctx.save();
         ctx.translate(shootingStar.x, shootingStar.y);
         ctx.rotate(shootingStar.angle);
-        
+
         const grad = ctx.createLinearGradient(0, 0, -shootingStar.length, 0);
         grad.addColorStop(0, `rgba(255,255,255,${shootingStar.opacity})`);
         grad.addColorStop(1, "transparent");
-        
+
         ctx.beginPath();
         ctx.moveTo(0, 0);
         ctx.lineTo(-shootingStar.length, 0);
@@ -226,7 +254,8 @@ export const MarsHero: React.FC<MarsHeroProps> = ({ onRoverArrived }) => {
       for (let i = 0; i <= W; i += 4) {
         const nx = i / W;
         let y = 0.62;
-        for (let o = 1; o <= 4; o++) y += (Math.sin(nx * o * 7.3 + 2.1) * 0.5 + 0.5) * 0.038 / o;
+        for (let o = 1; o <= 4; o++)
+          y += ((Math.sin(nx * o * 7.3 + 2.1) * 0.5 + 0.5) * 0.038) / o;
         ctx.lineTo(i, y * H);
       }
       ctx.lineTo(W, H);
@@ -243,7 +272,12 @@ export const MarsHero: React.FC<MarsHeroProps> = ({ onRoverArrived }) => {
       ctx.fillRect(0, H * 0.91, W, H * 0.09);
     };
 
-    const drawActors = (ctx: CanvasRenderingContext2D, px: number, t: number, dt: number) => {
+    const drawActors = (
+      ctx: CanvasRenderingContext2D,
+      px: number,
+      t: number,
+      dt: number,
+    ) => {
       const dt60 = dt * 60; // Normalize dt to 60 FPS
 
       // Dust Particles
@@ -277,13 +311,13 @@ export const MarsHero: React.FC<MarsHeroProps> = ({ onRoverArrived }) => {
       // Rover Render
       if (rover.x > 0) {
         const targetY = getTerrainY(ridge3, Math.max(0, rover.x)) * H - 3;
-        
+
         // Initialize Y if first frame
         if (currentRoverY < 0) currentRoverY = targetY;
-        
+
         // Low-pass filter (spring) to smooth out sharp corners in terrain
         currentRoverY += (targetY - currentRoverY) * 0.15 * dt60;
-        
+
         const roverRealY = currentRoverY;
         const roverScale = 0.95 + (Math.max(0, rover.x) / rover.tx) * 0.45;
         const rx = rover.x * W;
@@ -292,7 +326,13 @@ export const MarsHero: React.FC<MarsHeroProps> = ({ onRoverArrived }) => {
         if (rover.x < rover.tx && t > 0.5) {
           for (let di = 0; di < 2; di++) {
             ctx.beginPath();
-            ctx.arc(rx - 22 - Math.random() * 14, roverRealY + 2 + Math.random() * 4, Math.random() * 2.2 + 0.4, 0, Math.PI * 2);
+            ctx.arc(
+              rx - 22 - Math.random() * 14,
+              roverRealY + 2 + Math.random() * 4,
+              Math.random() * 2.2 + 0.4,
+              0,
+              Math.PI * 2,
+            );
             ctx.fillStyle = `rgba(155,80,30,${0.05 + Math.random() * 0.12})`;
             ctx.fill();
           }
@@ -300,7 +340,14 @@ export const MarsHero: React.FC<MarsHeroProps> = ({ onRoverArrived }) => {
 
         // Rover Glow
         ctx.save();
-        const glow = ctx.createRadialGradient(rx, roverRealY, 0, rx, roverRealY, 40 * roverScale);
+        const glow = ctx.createRadialGradient(
+          rx,
+          roverRealY,
+          0,
+          rx,
+          roverRealY,
+          40 * roverScale,
+        );
         glow.addColorStop(0, `${primaryColor}22`);
         glow.addColorStop(1, "transparent");
         ctx.fillStyle = glow;
@@ -354,7 +401,7 @@ export const MarsHero: React.FC<MarsHeroProps> = ({ onRoverArrived }) => {
 
       const t = (now - startTime) / 1000;
       const scanPct = Math.min(1, (now - scanStart) / SCAN_DURATION);
-      
+
       if (canvasRef.current) {
         canvasRef.current.style.clipPath = `inset(0 0 ${(1 - scanPct) * 100}% 0)`;
       }
@@ -415,7 +462,8 @@ export const MarsHero: React.FC<MarsHeroProps> = ({ onRoverArrived }) => {
       <div
         className="absolute inset-0 pointer-events-none z-[5]"
         style={{
-          background: "radial-gradient(ellipse at 50% 60%, transparent 45%, rgba(10,10,11,0.55) 100%)",
+          background:
+            "radial-gradient(ellipse at 50% 60%, transparent 45%, rgba(10,10,11,0.55) 100%)",
         }}
       />
     </div>

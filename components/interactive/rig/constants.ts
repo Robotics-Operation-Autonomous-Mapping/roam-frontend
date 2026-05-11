@@ -2,53 +2,53 @@ import type { RigPart } from "./types";
 
 // ─── Colour palette ───────────────────────────────────────────────────────────
 export const C = {
-  white:     "#F5ECD7", // Cream
-  offWhite:  "#DDE2EB",
+  white: "#F5ECD7", // Cream
+  offWhite: "#DDE2EB",
   panelGrey: "#222226", // Border/Surface-2
-  midGrey:   "#6B6B72", // Muted
-  darkGrey:  "#1A1A1E", // Surface-2
-  chassis:   "#111113", // Surface
-  gold:      "#E8512A", // Primary (Coral)
-  goldDark:  "#8B3018",
+  midGrey: "#6B6B72", // Muted
+  darkGrey: "#1A1A1E", // Surface-2
+  chassis: "#111113", // Surface
+  gold: "#E8512A", // Primary (Coral)
+  goldDark: "#8B3018",
   goldLight: "#F07A50", // Primary-2
-  blue:      "#E8512A", // Remapping to primary theme
-  blueGlow:  "#F07A50",
-  amber:     "#F5ECD7", // Cream
-  red:       "#D94040", // Keep some functional colors
-  green:     "#2ECC71",
-  black:     "#0A0A0B", // BG
+  blue: "#E8512A", // Remapping to primary theme
+  blueGlow: "#F07A50",
+  amber: "#F5ECD7", // Cream
+  red: "#D94040", // Keep some functional colors
+  green: "#2ECC71",
+  black: "#0A0A0B", // BG
 };
 
 // ─── Category mappings ────────────────────────────────────────────────────────
 export const CATEGORY_COLOR: Record<string, string> = {
-  sensor:  C.gold,   // Primary Coral
-  compute: C.white,  // Cream
-  power:   C.goldLight,
-  comms:   C.midGrey,
-  drive:   C.red,
+  sensor: C.gold, // Primary Coral
+  compute: C.white, // Cream
+  power: C.goldLight,
+  comms: C.midGrey,
+  drive: C.red,
 };
 
 export const CATEGORY_LABEL: Record<string, string> = {
-  sensor:  "SENSOR",
+  sensor: "SENSOR",
   compute: "COMPUTE",
-  power:   "POWER",
-  comms:   "COMMS",
-  drive:   "DRIVE / SAFETY",
+  power: "POWER",
+  comms: "COMMS",
+  drive: "DRIVE / SAFETY",
 };
 
 // ─── Wiring connections ───────────────────────────────────────────────────────
 export const CONNECTIONS: [string, string][] = [
-  ["lidar",      "compute"],
+  ["lidar", "compute"],
   ["stereo_cam", "compute"],
-  ["radar",      "compute"],
-  ["rtk_gps",    "compute"],
-  ["imu",        "compute"],
-  ["compute",    "pdb"],
-  ["battery",    "pdb"],
-  ["pdb",        "esc"],
-  ["pdb",        "estop"],
-  ["esc",        "estop"],
-  ["comms",      "compute"],
+  ["radar", "compute"],
+  ["rtk_gps", "compute"],
+  ["imu", "compute"],
+  ["compute", "pdb"],
+  ["battery", "pdb"],
+  ["pdb", "esc"],
+  ["pdb", "estop"],
+  ["esc", "estop"],
+  ["comms", "compute"],
 ];
 
 // ─── Part definitions ─────────────────────────────────────────────────────────
@@ -103,7 +103,7 @@ export const PARTS: RigPart[] = [
       "Dual-band GNSS receiver with Real-Time Kinematic corrections for centimetre-level absolute positioning. Receives corrections via NTRIP over LTE modem. Mounted on vibration-isolated mast.",
     category: "sensor",
     position: [0, 3.5, -0.8],
-    ringRadius: 0.30,
+    ringRadius: 0.3,
   },
   {
     id: "compute",
@@ -140,7 +140,7 @@ export const PARTS: RigPart[] = [
       "Multi-rail power distribution with isolated DC-DC converters per subsystem. Fused outputs, current monitoring per rail, and hard-wired e-stop relay. PCB-mounted on ceramic standoffs.",
     category: "power",
     position: [1.4, 1.3, 0],
-    ringRadius: 0.50,
+    ringRadius: 0.5,
   },
   {
     id: "esc",

@@ -24,7 +24,10 @@ export default function AdminDashboard({
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState<Application | null>(null);
   const [sortBy, setSortBy] = useState<SortOption>("newest");
-  const [notification, setNotification] = useState<{ msg: string; show: boolean }>({
+  const [notification, setNotification] = useState<{
+    msg: string;
+    show: boolean;
+  }>({
     msg: "",
     show: false,
   });
@@ -49,7 +52,11 @@ export default function AdminDashboard({
     fetchApps();
   }, [fetchApps]);
 
-  const handleStatusChange = async (id: string, status: AppStatus, notes: string) => {
+  const handleStatusChange = async (
+    id: string,
+    status: AppStatus,
+    notes: string,
+  ) => {
     const { error } = await supabase
       .from("applications")
       .update({
@@ -63,17 +70,24 @@ export default function AdminDashboard({
     if (!error) {
       setApps((prev) =>
         prev.map((a) =>
-          a.id === id ? { ...a, status, reviewer_notes: notes, reviewed_by: userEmail } : a,
+          a.id === id
+            ? { ...a, status, reviewer_notes: notes, reviewed_by: userEmail }
+            : a,
         ),
       );
       if (selected?.id === id) {
-        setSelected((prev) => (prev ? { ...prev, status, reviewer_notes: notes } : null));
+        setSelected((prev) =>
+          prev ? { ...prev, status, reviewer_notes: notes } : null,
+        );
       }
       notify(
-        `Reviewed by ${userEmail.split("@")[0]} at ${new Date().toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-        })}`,
+        `Reviewed by ${userEmail.split("@")[0]} at ${new Date().toLocaleTimeString(
+          [],
+          {
+            hour: "2-digit",
+            minute: "2-digit",
+          },
+        )}`,
       );
     }
   };
@@ -93,9 +107,13 @@ export default function AdminDashboard({
     })
     .sort((a, b) => {
       if (sortBy === "newest")
-        return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+        return (
+          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        );
       if (sortBy === "oldest")
-        return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
+        return (
+          new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+        );
       return a.full_name.localeCompare(b.full_name);
     });
 

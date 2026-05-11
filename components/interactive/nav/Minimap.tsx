@@ -1,20 +1,27 @@
 "use client";
 
 import React from "react";
-import { CP, GRID_SIZE, CELL_SIZE, HALF_GRID, type Cell, type Obstacle } from "./types";
+import {
+  CP,
+  GRID_SIZE,
+  CELL_SIZE,
+  HALF_GRID,
+  type Cell,
+  type Obstacle,
+} from "./types";
 
 interface MinimapProps {
   obstacles: Obstacle[];
-  path:      Cell[];
-  start:     Cell | null;
-  end:       Cell | null;
-  visited:   Cell[];
-  roverPos:  { x: number; z: number } | null;
+  path: Cell[];
+  start: Cell | null;
+  end: Cell | null;
+  visited: Cell[];
+  roverPos: { x: number; z: number } | null;
 }
 
-const SIZE    = 130;
+const SIZE = 130;
 const PADDING = 4;
-const CELL    = (SIZE - PADDING * 2) / GRID_SIZE;
+const CELL = (SIZE - PADDING * 2) / GRID_SIZE;
 
 // Cell → SVG pixel
 const cx = (cell: Cell) => PADDING + cell.x * CELL + CELL / 2;
@@ -50,23 +57,23 @@ export const Minimap: React.FC<MinimapProps> = ({
   return (
     <div
       style={{
-        position:   "absolute",
-        bottom:     12,
-        right:      12,
-        zIndex:     20,
+        position: "absolute",
+        bottom: 12,
+        right: 12,
+        zIndex: 20,
         background: "rgba(0,5,15,0.92)",
-        border:     `1px solid ${CP.cyan}44`,
+        border: `1px solid ${CP.cyan}44`,
         fontFamily: "monospace",
       }}
     >
       {/* Label */}
       <div
         style={{
-          fontSize:      8,
-          color:         CP.cyan,
-          padding:       "3px 5px",
+          fontSize: 8,
+          color: CP.cyan,
+          padding: "3px 5px",
           letterSpacing: "0.15em",
-          opacity:       0.7,
+          opacity: 0.7,
         }}
       >
         MINIMAP
@@ -77,14 +84,22 @@ export const Minimap: React.FC<MinimapProps> = ({
         {Array.from({ length: GRID_SIZE + 1 }, (_, i) => (
           <React.Fragment key={i}>
             <line
-              x1={PADDING + i * CELL} y1={PADDING}
-              x2={PADDING + i * CELL} y2={SIZE - PADDING}
-              stroke={CP.gridLine} strokeWidth={0.3} opacity={0.4}
+              x1={PADDING + i * CELL}
+              y1={PADDING}
+              x2={PADDING + i * CELL}
+              y2={SIZE - PADDING}
+              stroke={CP.gridLine}
+              strokeWidth={0.3}
+              opacity={0.4}
             />
             <line
-              x1={PADDING} y1={PADDING + i * CELL}
-              x2={SIZE - PADDING} y2={PADDING + i * CELL}
-              stroke={CP.gridLine} strokeWidth={0.3} opacity={0.4}
+              x1={PADDING}
+              y1={PADDING + i * CELL}
+              x2={SIZE - PADDING}
+              y2={PADDING + i * CELL}
+              stroke={CP.gridLine}
+              strokeWidth={0.3}
+              opacity={0.4}
             />
           </React.Fragment>
         ))}
@@ -106,8 +121,10 @@ export const Minimap: React.FC<MinimapProps> = ({
         {obsBlocks.map((ob, i) => (
           <rect
             key={i}
-            x={ob.x} y={ob.z}
-            width={ob.w} height={ob.d}
+            x={ob.x}
+            y={ob.z}
+            width={ob.w}
+            height={ob.d}
             fill={ob.isDynamic ? "#FF330044" : "#0D4F6E55"}
             stroke={ob.isDynamic ? CP.orange : CP.cyan}
             strokeWidth={0.5}
@@ -132,16 +149,19 @@ export const Minimap: React.FC<MinimapProps> = ({
         {end && <circle cx={cx(end)} cy={cz(end)} r={3} fill={CP.orange} />}
 
         {/* Rover dot */}
-        {roverPos && (() => {
-          const mp = worldToMini(roverPos.x, roverPos.z);
-          return (
-            <circle
-              cx={mp.x} cy={mp.z} r={2.5}
-              fill={CP.cyan}
-              style={{ filter: `drop-shadow(0 0 3px ${CP.cyan})` }}
-            />
-          );
-        })()}
+        {roverPos &&
+          (() => {
+            const mp = worldToMini(roverPos.x, roverPos.z);
+            return (
+              <circle
+                cx={mp.x}
+                cy={mp.z}
+                r={2.5}
+                fill={CP.cyan}
+                style={{ filter: `drop-shadow(0 0 3px ${CP.cyan})` }}
+              />
+            );
+          })()}
       </svg>
     </div>
   );

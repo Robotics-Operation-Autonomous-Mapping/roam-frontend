@@ -57,7 +57,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
               background:
                 currentDept === d ? "rgba(232,81,42,0.1)" : "transparent",
               border: "none",
-              color: currentDept === d ? "var(--admin-accent)" : "var(--status-pending-rgb)",
+              color:
+                currentDept === d
+                  ? "var(--admin-accent)"
+                  : "var(--status-pending-rgb)",
               fontFamily: "monospace",
               fontSize: 11,
               cursor: "pointer",
@@ -97,7 +100,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
               statusFilter === "all" ? "var(--admin-surface)" : "transparent",
             border: "none",
             color:
-              statusFilter === "all" ? "var(--admin-text)" : "var(--admin-muted)",
+              statusFilter === "all"
+                ? "var(--admin-text)"
+                : "var(--admin-muted)",
             fontFamily: "monospace",
             fontSize: 11,
             cursor: "pointer",
@@ -109,9 +114,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           const color = STATUS_COLORS[s];
           // Use the RGB variable directly for the background transparency
           const bg =
-            statusFilter === s
-              ? color.replace("1)", "0.15)")
-              : "transparent";
+            statusFilter === s ? color.replace("1)", "0.15)") : "transparent";
 
           return (
             <button

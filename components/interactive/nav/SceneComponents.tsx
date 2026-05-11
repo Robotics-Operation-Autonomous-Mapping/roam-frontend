@@ -8,14 +8,31 @@ import { CP } from "./types";
 
 // ─── Glowing path line ────────────────────────────────────────────────────────
 
-export const GlowPath: React.FC<{ points: [number, number, number][] }> = ({ points }) => {
-  const v3 = useMemo(() => points.map((p) => new THREE.Vector3(...p)), [points]);
+export const GlowPath: React.FC<{ points: [number, number, number][] }> = ({
+  points,
+}) => {
+  const v3 = useMemo(
+    () => points.map((p) => new THREE.Vector3(...p)),
+    [points],
+  );
   if (points.length < 2) return null;
   return (
     <>
       <Line points={v3} color={CP.cyan} lineWidth={3} />
-      <Line points={v3} color={CP.cyan} lineWidth={8} transparent opacity={0.12} />
-      <Line points={v3} color="#ffffff" lineWidth={1} transparent opacity={0.5} />
+      <Line
+        points={v3}
+        color={CP.cyan}
+        lineWidth={8}
+        transparent
+        opacity={0.12}
+      />
+      <Line
+        points={v3}
+        color="#ffffff"
+        lineWidth={1}
+        transparent
+        opacity={0.5}
+      />
     </>
   );
 };
@@ -31,27 +48,27 @@ export const Rover: React.FC<{
   speed: number;
 }> = ({ points, shouldRun, speed }) => {
   const roverRef = useRef<THREE.Group>(null);
-  const segRef   = useRef(0);
-  const progRef  = useRef(0);
+  const segRef = useRef(0);
+  const progRef = useRef(0);
   // Track the path identity so we only reset when the path actually changes
-  const pathKey  = useRef("");
+  const pathKey = useRef("");
 
   useFrame((_, delta) => {
     if (!roverRef.current || points.length < 2) return;
 
     // Detect actual path change safely by hashing the full array of coordinates
-    const newKey = points.map(p => `${p[0]},${p[2]}`).join('|');
+    const newKey = points.map((p) => `${p[0]},${p[2]}`).join("|");
     if (newKey !== pathKey.current) {
       pathKey.current = newKey;
-      segRef.current  = 0;
+      segRef.current = 0;
       progRef.current = 0;
       roverRef.current.position.set(...points[0]);
-      
+
       // Also snap rotation to the first segment initially so it faces the right way
       const dx = points[1][0] - points[0][0];
       const dz = points[1][2] - points[0][2];
       roverRef.current.rotation.y = Math.atan2(dx, dz);
-      return; 
+      return;
     }
 
     if (!shouldRun) return;
@@ -62,7 +79,7 @@ export const Rover: React.FC<{
     progRef.current += delta * speed;
     if (progRef.current >= 1) {
       progRef.current -= 1; // keep fractional overflow for perfectly smooth speed
-      seg = (seg + 1) < maxSeg ? seg + 1 : 0;
+      seg = seg + 1 < maxSeg ? seg + 1 : 0;
       segRef.current = seg;
     }
 
@@ -78,8 +95,8 @@ export const Rover: React.FC<{
     let diff = targetRot - roverRef.current.rotation.y;
     // Normalize to [-PI, PI] to ensure it turns the shortest way around
     while (diff < -Math.PI) diff += Math.PI * 2;
-    while (diff > Math.PI)  diff -= Math.PI * 2;
-    
+    while (diff > Math.PI) diff -= Math.PI * 2;
+
     // Smoothly interpolate rotation. The 10 multiplier determines turn speed.
     roverRef.current.rotation.y += diff * Math.min(delta * 12 * speed, 1);
   });
@@ -89,32 +106,53 @@ export const Rover: React.FC<{
       {/* Main body — dark brushed aluminium */}
       <mesh position={[0, 0.15, 0]} castShadow>
         <boxGeometry args={[0.52, 0.18, 0.82]} />
-        <meshStandardMaterial color="#1c2530" metalness={0.85} roughness={0.25} />
+        <meshStandardMaterial
+          color="#1c2530"
+          metalness={0.85}
+          roughness={0.25}
+        />
       </mesh>
 
       {/* Cab / sensor pod */}
       <mesh position={[0, 0.32, -0.08]} castShadow>
         <boxGeometry args={[0.32, 0.14, 0.38]} />
-        <meshStandardMaterial color="#111820" metalness={0.75} roughness={0.3} />
+        <meshStandardMaterial
+          color="#111820"
+          metalness={0.75}
+          roughness={0.3}
+        />
       </mesh>
 
       {/* Cab glass */}
       <mesh position={[0, 0.32, 0.06]}>
         <boxGeometry args={[0.28, 0.1, 0.01]} />
-        <meshPhysicalMaterial color="#4488aa" transmission={0.6} roughness={0.05} metalness={0.1} />
+        <meshPhysicalMaterial
+          color="#4488aa"
+          transmission={0.6}
+          roughness={0.05}
+          metalness={0.1}
+        />
       </mesh>
 
       {/* Front bumper — accent stripe */}
       <mesh position={[0, 0.12, 0.42]}>
         <boxGeometry args={[0.5, 0.06, 0.04]} />
-        <meshStandardMaterial color="#2a3d4a" metalness={0.9} roughness={0.15} />
+        <meshStandardMaterial
+          color="#2a3d4a"
+          metalness={0.9}
+          roughness={0.15}
+        />
       </mesh>
 
       {/* Headlights */}
       {([-0.16, 0.16] as const).map((x) => (
         <mesh key={x} position={[x, 0.14, 0.43]}>
           <boxGeometry args={[0.06, 0.04, 0.01]} />
-          <meshStandardMaterial color="#e8f0ff" emissive="#c8d8ff" emissiveIntensity={0.6} />
+          <meshStandardMaterial
+            color="#e8f0ff"
+            emissive="#c8d8ff"
+            emissiveIntensity={0.6}
+          />
         </mesh>
       ))}
 
@@ -122,7 +160,11 @@ export const Rover: React.FC<{
       {([-0.16, 0.16] as const).map((x) => (
         <mesh key={x} position={[x, 0.14, -0.42]}>
           <boxGeometry args={[0.06, 0.04, 0.01]} />
-          <meshStandardMaterial color="#ff4422" emissive="#ff2200" emissiveIntensity={0.5} />
+          <meshStandardMaterial
+            color="#ff4422"
+            emissive="#ff2200"
+            emissiveIntensity={0.5}
+          />
         </mesh>
       ))}
 
@@ -143,7 +185,7 @@ export const RoverTracker: React.FC<{
   speed: number;
   onPosUpdate: (pos: { x: number; z: number }) => void;
 }> = ({ points, shouldRun, speed, onPosUpdate }) => {
-  const segRef  = useRef(0);
+  const segRef = useRef(0);
   const progRef = useRef(0);
   const pathKey = useRef("");
 
@@ -151,10 +193,10 @@ export const RoverTracker: React.FC<{
     if (!shouldRun || points.length < 2) return;
 
     // Detect actual path change safely by hashing the full array of coordinates
-    const newKey = points.map(p => `${p[0]},${p[2]}`).join('|');
+    const newKey = points.map((p) => `${p[0]},${p[2]}`).join("|");
     if (newKey !== pathKey.current) {
       pathKey.current = newKey;
-      segRef.current  = 0;
+      segRef.current = 0;
       progRef.current = 0;
       return;
     }
@@ -165,7 +207,7 @@ export const RoverTracker: React.FC<{
     progRef.current += delta * speed;
     if (progRef.current >= 1) {
       progRef.current -= 1;
-      seg = (seg + 1) < maxSeg ? seg + 1 : 0;
+      seg = seg + 1 < maxSeg ? seg + 1 : 0;
       segRef.current = seg;
     }
 

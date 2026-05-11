@@ -1,27 +1,28 @@
 "use client";
 
 import React, { useMemo, useRef } from "react";
-import { OrbitControls, Sky, Environment, ContactShadows } from "@react-three/drei";
+import {
+  OrbitControls,
+  Sky,
+  Environment,
+  ContactShadows,
+} from "@react-three/drei";
 import * as THREE from "three";
 import { GRID_SIZE, type Cell, type Obstacle } from "./types";
 import { toWorld, toCell } from "./pathfinding";
 import { Building } from "./Buildings";
-import {
-  GlowPath,
-  Rover,
-  RoverTracker,
-} from "./SceneComponents";
+import { GlowPath, Rover, RoverTracker } from "./SceneComponents";
 
 interface NavSceneProps {
-  start:       Cell | null;
-  end:         Cell | null;
-  path:        Cell[];
-  visited:     Cell[];
-  obstacles:   Obstacle[];
-  shouldRun:   boolean;
-  speed:       number;
-  onSelect:    (cell: Cell) => void;
-  onRoverPos:  (pos: { x: number; z: number }) => void;
+  start: Cell | null;
+  end: Cell | null;
+  path: Cell[];
+  visited: Cell[];
+  obstacles: Obstacle[];
+  shouldRun: boolean;
+  speed: number;
+  onSelect: (cell: Cell) => void;
+  onRoverPos: (pos: { x: number; z: number }) => void;
 }
 
 // ─── Subtle ground grid that reads in daylight ────────────────────────────────
@@ -84,7 +85,7 @@ export const NavScene: React.FC<NavSceneProps> = ({
   onRoverPos,
 }) => {
   const worldPath = useMemo(() => path.map((c) => toWorld(c)), [path]);
-  
+
   // Create a round-trip path so the rover drives to the end and returns seamlessly
   const pingPongPath = useMemo(() => {
     if (worldPath.length < 2) return worldPath;
@@ -103,7 +104,7 @@ export const NavScene: React.FC<NavSceneProps> = ({
       ─────────────────────────────────────────────────────────────────────── */}
       <Sky
         distance={4500}
-        sunPosition={[1, 0.28, -0.6]}   // low, slightly west — golden hour
+        sunPosition={[1, 0.28, -0.6]} // low, slightly west — golden hour
         inclination={0.52}
         azimuth={0.18}
         turbidity={8}
@@ -168,7 +169,12 @@ export const NavScene: React.FC<NavSceneProps> = ({
           Faint upward point light simulates reflected light from streets.
           NOT neon — keep intensity very low.
       ─────────────────────────────────────────────────────────────────────── */}
-      <pointLight position={[0, -0.5, 0]} intensity={0.18} color="#ffeedd" distance={20} />
+      <pointLight
+        position={[0, -0.5, 0]}
+        intensity={0.18}
+        color="#ffeedd"
+        distance={20}
+      />
 
       {/* ── Ground ───────────────────────────────────────────────────────────── */}
       <Ground />
@@ -196,13 +202,25 @@ export const NavScene: React.FC<NavSceneProps> = ({
       {start && (
         <mesh position={toWorld(start)} castShadow>
           <sphereGeometry args={[0.22, 16, 16]} />
-          <meshStandardMaterial color="#00FF88" emissive="#00FF88" emissiveIntensity={0.6} roughness={0.3} metalness={0.4} />
+          <meshStandardMaterial
+            color="#00FF88"
+            emissive="#00FF88"
+            emissiveIntensity={0.6}
+            roughness={0.3}
+            metalness={0.4}
+          />
         </mesh>
       )}
       {end && (
         <mesh position={toWorld(end)} castShadow>
           <sphereGeometry args={[0.22, 16, 16]} />
-          <meshStandardMaterial color="#FF6B00" emissive="#FF6B00" emissiveIntensity={0.6} roughness={0.3} metalness={0.4} />
+          <meshStandardMaterial
+            color="#FF6B00"
+            emissive="#FF6B00"
+            emissiveIntensity={0.6}
+            roughness={0.3}
+            metalness={0.4}
+          />
         </mesh>
       )}
 

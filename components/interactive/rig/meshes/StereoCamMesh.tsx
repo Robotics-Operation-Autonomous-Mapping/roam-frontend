@@ -15,24 +15,44 @@ export const StereoCamMesh: React.FC<Props> = ({ mats }) => (
     </mesh>
     {/* Front bezel */}
     <mesh position={[0, 0, 0.115]} material={mats.darkMat}>
-      <boxGeometry args={[0.97, 0.20, 0.01]} />
+      <boxGeometry args={[0.97, 0.2, 0.01]} />
     </mesh>
     {/* Left lens barrel */}
-    <mesh position={[-0.28, 0, 0.14]} material={mats.greyMat} rotation={[Math.PI / 2, 0, 0]}>
+    <mesh
+      position={[-0.28, 0, 0.14]}
+      material={mats.greyMat}
+      rotation={[Math.PI / 2, 0, 0]}
+    >
       <cylinderGeometry args={[0.055, 0.06, 0.05, 24]} />
     </mesh>
-    <mesh position={[-0.28, 0, 0.165]} material={mats.lensMat} rotation={[Math.PI / 2, 0, 0]}>
+    <mesh
+      position={[-0.28, 0, 0.165]}
+      material={mats.lensMat}
+      rotation={[Math.PI / 2, 0, 0]}
+    >
       <cylinderGeometry args={[0.045, 0.045, 0.01, 24]} />
     </mesh>
     {/* Right lens barrel */}
-    <mesh position={[0.28, 0, 0.14]} material={mats.greyMat} rotation={[Math.PI / 2, 0, 0]}>
+    <mesh
+      position={[0.28, 0, 0.14]}
+      material={mats.greyMat}
+      rotation={[Math.PI / 2, 0, 0]}
+    >
       <cylinderGeometry args={[0.055, 0.06, 0.05, 24]} />
     </mesh>
-    <mesh position={[0.28, 0, 0.165]} material={mats.lensMat} rotation={[Math.PI / 2, 0, 0]}>
+    <mesh
+      position={[0.28, 0, 0.165]}
+      material={mats.lensMat}
+      rotation={[Math.PI / 2, 0, 0]}
+    >
       <cylinderGeometry args={[0.045, 0.045, 0.01, 24]} />
     </mesh>
     {/* Center IR projector */}
-    <mesh position={[0, 0, 0.13]} material={mats.accentMat} rotation={[Math.PI / 2, 0, 0]}>
+    <mesh
+      position={[0, 0, 0.13]}
+      material={mats.accentMat}
+      rotation={[Math.PI / 2, 0, 0]}
+    >
       <cylinderGeometry args={[0.018, 0.018, 0.02, 16]} />
     </mesh>
     {/* Sunshield top */}

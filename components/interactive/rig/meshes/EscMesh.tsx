@@ -15,7 +15,11 @@ export const EscMesh: React.FC<Props> = ({ mats }) => (
     </mesh>
     {/* Fins */}
     {Array.from({ length: 10 }).map((_, i) => (
-      <mesh key={i} position={[-0.32 + i * 0.07, 0.14, 0]} material={mats.greyMat}>
+      <mesh
+        key={i}
+        position={[-0.32 + i * 0.07, 0.14, 0]}
+        material={mats.greyMat}
+      >
         <boxGeometry args={[0.022, 0.1, 0.42]} />
       </mesh>
     ))}
@@ -25,7 +29,12 @@ export const EscMesh: React.FC<Props> = ({ mats }) => (
     </mesh>
     {/* 4× capacitors */}
     {[-0.25, -0.08, 0.08, 0.25].map((x, i) => (
-      <mesh key={i} position={[x, 0.02, 0.28]} material={mats.accentMat} rotation={[Math.PI / 2, 0, 0]}>
+      <mesh
+        key={i}
+        position={[x, 0.02, 0.28]}
+        material={mats.accentMat}
+        rotation={[Math.PI / 2, 0, 0]}
+      >
         <cylinderGeometry args={[0.04, 0.04, 0.12, 16]} />
       </mesh>
     ))}
@@ -40,8 +49,12 @@ export const EscMesh: React.FC<Props> = ({ mats }) => (
       </mesh>
     ))}
     {/* Status LEDs */}
-    {[0, 1, 2, 3].map(i => (
-      <mesh key={i} position={[-0.25 + i * 0.16, -0.05, 0.23]} material={mats.ledMat}>
+    {[0, 1, 2, 3].map((i) => (
+      <mesh
+        key={i}
+        position={[-0.25 + i * 0.16, -0.05, 0.23]}
+        material={mats.ledMat}
+      >
         <sphereGeometry args={[0.01, 8, 8]} />
       </mesh>
     ))}
