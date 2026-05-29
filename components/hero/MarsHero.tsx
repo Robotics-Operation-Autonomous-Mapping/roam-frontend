@@ -70,6 +70,7 @@ const HeroContent = ({
             variants={item}
             className="font-display text-[clamp(4rem,11vw,8.5rem)] leading-[0.86] tracking-tight text-cream mb-7"
           >
+            <span className="sr-only">ROAM Robotics Club - Schulich School of Engineering, University of Calgary</span>
             EXPLORE.
             <br />
             <span className="text-primary">UNDERSTAND.</span>

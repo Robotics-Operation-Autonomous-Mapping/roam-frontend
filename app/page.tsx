@@ -1,37 +1,15 @@
-"use client";
+import { Metadata } from "next";
+import HomeClient from "@/components/home/HomeClient";
 
-import React, { useCallback, useRef } from "react";
-import dynamic from "next/dynamic";
-import { AboutSection } from "@/components/sections/AboutSection";
-import { VisionSection } from "@/components/sections/VisionSection";
-import { TechStackSection } from "@/components/sections/TechStackSection";
-import { JoinCTASection } from "@/components/sections/JoinCTASection";
-import { SponsorCTA } from "@/components/sections/SponsorCTA";
-
-const MarsHero = dynamic(() => import("@/components/hero/MarsHero"), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full min-h-screen bg-[#0A0A0B]" aria-hidden="true" />
-  ),
-});
+export const metadata: Metadata = {
+  title: "ROAM Robotics Club | Autonomous Systems & AI",
+  description:
+    "ROAM (Robotics Operation for Autonomous Mapping) is a premier student-led robotics club at the Schulich School of Engineering, University of Calgary. We build intelligent autonomous systems, LiDAR mapping rigs, and advanced Mars rovers.",
+  alternates: {
+    canonical: "https://schulichroam.com",
+  },
+};
 
 export default function Home() {
-  const scrollUnlocked = useRef(false);
-
-  const handleRoverArrived = useCallback(() => {
-    scrollUnlocked.current = true;
-  }, []);
-
-  return (
-    <div className="flex flex-col w-full">
-      <MarsHero onRoverArrived={handleRoverArrived} />
-      <div className="relative z-10 bg-bg">
-        <AboutSection />
-        <VisionSection />
-        <TechStackSection />
-        <JoinCTASection />
-        <SponsorCTA />
-      </div>
-    </div>
-  );
+  return <HomeClient />;
 }

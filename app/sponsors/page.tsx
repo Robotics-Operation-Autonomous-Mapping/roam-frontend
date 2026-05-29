@@ -1,31 +1,23 @@
-"use client";
+import { Metadata } from "next";
+import SponsorsClient from "@/components/sections/sponsors/SponsorsClient";
 
-import React from "react";
-import { SectionLabel } from "@/components/ui/SectionLabel";
-import { SponsorHero } from "@/components/sections/sponsors/SponsorHero";
-import { StatBar } from "@/components/sections/sponsors/StatBar";
-import { WhyPartner } from "@/components/sections/sponsors/WhyPartner";
-import { PackageSection } from "@/components/sections/sponsors/PackageSection";
-import { ContactSection } from "@/components/sections/sponsors/ContactSection";
+export const metadata: Metadata = {
+  title: "Sponsor Us & Partner with ROAM | ROAM Robotics",
+  description:
+    "Support next-generation engineering talent. Partner with ROAM Robotics to fuel hands-on autonomous systems education and state-of-the-art rover development.",
+  alternates: {
+    canonical: "https://schulichroam.com/sponsors",
+  },
+  keywords: [
+    "sponsor ROAM robotics",
+    "engineering sponsorship",
+    "University of Calgary sponsors",
+    "rover team funding",
+    "partner with student engineering",
+    "Calgary corporate sponsorships"
+  ],
+};
 
 export default function SponsorPage() {
-  return (
-    <div className="flex flex-col w-full bg-bg text-cream">
-      <SponsorHero />
-      <StatBar />
-      <WhyPartner />
-      <PackageSection />
-      <ContactSection />
-
-      {/* ── CURRENT SPONSORS placeholder ── */}
-      <section className="border-t border-white/10 max-w-7xl mx-auto px-6 py-20 w-full">
-        <SectionLabel className="mb-8 block text-center">Current Sponsors</SectionLabel>
-        <div className="border border-dashed border-white/15 py-14 text-center">
-          <p className="font-mono text-xs text-cream/25 uppercase tracking-[0.25em]">
-            Sponsor logos coming soon
-          </p>
-        </div>
-      </section>
-    </div>
-  );
+  return <SponsorsClient />;
 }

@@ -1,38 +1,23 @@
-"use client";
+import { Metadata } from "next";
+import JoinClient from "@/components/sections/join/JoinClient";
 
-import React from "react";
-import { motion } from "framer-motion";
-import { JoinHero } from "@/components/sections/join/JoinHero";
-import { RolesSection } from "@/components/sections/join/RolesSection";
-import { BenefitsExpectations } from "@/components/sections/join/BenefitsExpectations";
+export const metadata: Metadata = {
+  title: "Join the Team | ROAM Robotics",
+  description:
+    "Build the future of autonomous systems. Apply for mechanical, electrical, geomatics, software, controls, and system integration student engineering roles at ROAM Robotics.",
+  alternates: {
+    canonical: "https://schulichroam.com/join",
+  },
+  keywords: [
+    "join ROAM",
+    "apply to ROAM robotics",
+    "student engineering roles",
+    "Calgary robotics club recruitment",
+    "Schulich engineering teams",
+    "systems integration student jobs"
+  ],
+};
 
 export default function JoinPage() {
-  return (
-    <div className="flex flex-col w-full min-h-screen bg-bg">
-      <JoinHero />
-      <RolesSection />
-      <BenefitsExpectations />
-
-      {/* ── FINAL CTA — coral background ── */}
-      <section className="w-full bg-primary py-24 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="font-display text-[clamp(2rem,6vw,4rem)] text-bg leading-[0.9] mb-10">
-              IF YOU WANT TO HELP SHAPE THIS FROM DAY ONE — NOW IS THE TIME.
-            </h2>
-            <a
-              href="/apply"
-              className="inline-block bg-bg text-cream font-sans font-bold uppercase tracking-widest px-10 py-4 hover:bg-surface-2 transition-colors min-h-[44px]"
-            >
-              APPLY NOW →
-            </a>
-          </motion.div>
-        </div>
-      </section>
-    </div>
-  );
+  return <JoinClient />;
 }

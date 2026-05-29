@@ -1,34 +1,23 @@
-"use client";
+import { Metadata } from "next";
+import DemoClient from "@/components/sections/demo/DemoClient";
 
-import React from "react";
-import dynamic from "next/dynamic";
-import { DemoHero } from "@/components/sections/demo/DemoHero";
-import { StatusBanner } from "@/components/sections/demo/StatusBanner";
-import { LiveMetrics } from "@/components/sections/demo/LiveMetrics";
-import { PointCloudVisualization } from "@/components/sections/demo/PointCloudVisualization";
-import { ProgressTracker } from "@/components/sections/demo/ProgressTracker";
-import { TechStackTable } from "@/components/sections/demo/TechStackTable";
-import { UpcomingGrid } from "@/components/sections/demo/UpcomingGrid";
-
-const AutoNavigationSimulation = dynamic(
-  () =>
-    import("@/components/interactive/AutoNavigationSimulation").then(
-      (m) => m.AutoNavigationSimulation
-    ),
-  { ssr: false }
-);
+export const metadata: Metadata = {
+  title: "Mission Control Telemetry Demo | ROAM Robotics",
+  description:
+    "Explore the live mission telemetry dashboard, point cloud visualizations, and autonomous navigation simulations built by the ROAM Robotics engineering team.",
+  alternates: {
+    canonical: "https://schulichroam.com/demo",
+  },
+  keywords: [
+    "mission control telemetry",
+    "ROAM demo",
+    "autonomous rover simulator",
+    "point cloud visualization",
+    "LiDAR data stream",
+    "student robotics demo"
+  ],
+};
 
 export default function DemoPage() {
-  return (
-    <div className="flex flex-col w-full min-h-screen bg-bg pt-24">
-      <DemoHero />
-      <StatusBanner />
-      <LiveMetrics />
-      <PointCloudVisualization />
-      <AutoNavigationSimulation />
-      <ProgressTracker />
-      <TechStackTable />
-      <UpcomingGrid />
-    </div>
-  );
+  return <DemoClient />;
 }

@@ -4,6 +4,7 @@ import { bebasNeue, dmSans, jetbrainsMono } from "@/lib/fonts";
 import { Navbar } from "@/components/nav/Navbar";
 import { Footer } from "@/components/footer/Footer";
 import { PageTransition } from "@/components/ui/PageTransition";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -19,14 +20,47 @@ export const metadata: Metadata = {
   },
   description:
     "ROAM (Robotics Operation for Autonomous Mapping) is a premier student-led robotics club building intelligent autonomous systems that explore, understand, and digitally recreate the world using advanced LiDAR and AI technology.",
-  keywords: ["robotics club", "autonomous vehicles", "LiDAR mapping", "AI robotics", "ROAM Robotics", "engineering students", "Schulich School of Engineering"],
+  keywords: [
+    "schulichroam",
+    "Schulich ROAM",
+    "schulich roam",
+    "ROAM Robotics Club",
+    "ROAM Robotics Calgary",
+    "UCalgary Robotics",
+    "University of Calgary robotics club",
+    "Schulich School of Engineering",
+    "Autonomous mapping",
+    "LiDAR mapping",
+    "AI robotics",
+    "autonomous vehicles",
+    "robotics engineering",
+    "student engineering club",
+    "Mars Rover Calgary"
+  ],
   authors: [{ name: "ROAM Robotics Team" }],
   creator: "ROAM Robotics",
-  metadataBase: new URL("https://schulichroam.ca"), // Replace with actual domain if different
+  metadataBase: new URL("https://schulichroam.com"),
+  alternates: {
+    canonical: "./",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  verification: {
+    google: "yDNmcUoJ4ah-VKpyU-jHEsaPS5mj_FWctK33juHVR9w",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://schulichroam.ca",
+    url: "https://schulichroam.com",
     title: "ROAM Robotics Club | Building the Future of Autonomy",
     description: "Building intelligent systems that explore, understand, and digitally recreate the world.",
     siteName: "ROAM Robotics",
@@ -73,6 +107,9 @@ export default function RootLayout({
       lang="en"
       className={`${bebasNeue.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}
     >
+      <head>
+        <JsonLd />
+      </head>
       <body className="font-sans antialiased bg-bg text-cream selection:bg-primary selection:text-white">
         <Navbar />
         <PageTransition>
