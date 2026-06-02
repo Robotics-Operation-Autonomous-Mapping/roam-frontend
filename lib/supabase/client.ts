@@ -1,10 +1,14 @@
 import { createClient } from "@supabase/supabase-js";
+import { supabaseAnonKey, supabaseUrl } from "./config";
 
 // Single shared client — import this everywhere in the admin
-export const supabase = createClient(
-  "https://eoqzmlalpbilwqrypwzl.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVvcXptbGFscGJpbHdxcnlwd3psIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcxNjk0MDgsImV4cCI6MjA5Mjc0NTQwOH0.fU5dUSzfWY4nNxqnEwYDyRzDQ9w_x_PecwLEAW8QM_g"
-);
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+export type AdminUser = {
+  id: string;
+  email: string;
+  name?: string | null;
+};
 
 export type AppStatus =
   | "pending"

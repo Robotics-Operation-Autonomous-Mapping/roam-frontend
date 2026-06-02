@@ -12,6 +12,7 @@ export const PathPlanningSandbox: React.FC = () => {
   const [path, setPath] = useState<Cell[]>([]);
   const [selecting, setSelecting] = useState<"start" | "end">("start");
   const [error, setError] = useState<string>("");
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 
   const resetSelection = () => {
     setStart(null);
@@ -75,11 +76,11 @@ export const PathPlanningSandbox: React.FC = () => {
         camera={{ position: [10, 11, 10], fov: 48 }}
         dpr={
           typeof window !== "undefined"
-            ? Math.min(window.devicePixelRatio, 2)
+            ? Math.min(window.devicePixelRatio, isMobile ? 1 : 2)
             : 1
         }
         gl={{
-          antialias: typeof window !== "undefined" && window.innerWidth > 768,
+          antialias: !isMobile,
         }}
       >
         <Scene start={start} end={end} path={path} onSelect={handleSelect} />

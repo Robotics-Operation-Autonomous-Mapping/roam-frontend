@@ -1,0 +1,344 @@
+/* components/sponsors/SponsorsSection.module.css */
+
+/* ─── Section tokens (aligned with ROAM globals.css) ─── */
+.section {
+  --accent: var(--color-primary, #e8512a);
+  --accent-2: var(--color-primary-2, #f07a50);
+  --card-bg: var(--color-surface, #111113);
+  --card-bg-2: var(--color-surface-2, #1a1a1e);
+  --text-main: var(--color-cream, #f5ecd7);
+  --text-muted: var(--color-muted, #6b6b72);
+  --border-color: var(--color-border, #222226);
+
+  width: 100%;
+  border-top: 1px solid var(--border-color);
+}
+
+/* ─── Inner wrapper ─── */
+.inner {
+  max-width: 80rem; /* 1280px */
+  margin: 0 auto;
+  padding: 5rem 1.5rem;
+  width: 100%;
+}
+
+/* ─── Scroll fade-up animation ─── */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animateTarget {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+.animateTarget.visible {
+  animation: fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ─── Section headings ─── */
+.heading {
+  font-family: var(--font-display, sans-serif);
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: var(--text-main);
+  margin: 0 0 2.5rem;
+}
+
+.headingAccent {
+  color: var(--accent);
+}
+
+.sectionDivider {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 4rem 0;
+}
+
+/* ─── Logo grids (gold: 2×2 for four partners) ─── */
+.logoGrid,
+.logoGridPlatinum,
+.logoGridBasic {
+  display: grid;
+  gap: 1px;
+  background-color: var(--color-border, #222226);
+}
+
+.logoGrid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 768px) {
+  .logoGrid:not(.logoGridCompact) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.logoGridPlatinum,
+.logoGridBasic {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .logoGridPlatinum:not(.logoGridCompact) {
+    max-width: 28rem;
+  }
+
+  .logoGridBasic:not(.logoGridCompact) {
+    max-width: 20rem;
+  }
+}
+
+/* Compact grids inside mission-level package cards */
+.logoGridCompact.logoGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.logoGridCompact.logoGridPlatinum,
+.logoGridCompact.logoGridBasic {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* ─── Logo card ─── */
+.logoCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-surface-2, #1a1a1e);
+  padding: 2rem 1.5rem;
+  min-height: 44px; /* a11y touch target baseline */
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  position: relative;
+  text-decoration: none;
+  min-width: 0;
+}
+
+.logoCardCompact {
+  padding: 0.875rem 0.625rem;
+  min-height: 72px;
+}
+
+.logoCardCompact:hover,
+.logoCardCompact:focus-visible {
+  transform: none;
+}
+
+/* Ensure minimum 44×44px touch target on mobile */
+@media (max-width: 639px) {
+  .logoCard {
+    min-height: 88px;
+  }
+}
+
+.logoCard:not(.logoCardCompact):hover,
+.logoCard:not(.logoCardCompact):focus-visible {
+  background-color: var(--color-surface-2, #1a1a1e);
+  transform: scale(1.05);
+  box-shadow: 0 8px 32px rgba(232, 81, 42, 0.15), 0 2px 8px rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.logoCardCompact:hover,
+.logoCardCompact:focus-visible {
+  background-color: var(--color-surface-2, #1a1a1e);
+}
+
+.logoCard:focus-visible {
+  outline: 2px solid var(--color-primary, #e8512a);
+  outline-offset: 2px;
+}
+
+/* Light well behind logos — improves contrast on dark page without changing page bg */
+.logoImageWell {
+  background: rgba(245, 236, 215, 0.94);
+  border: 1px solid rgba(245, 236, 215, 0.35);
+  border-radius: 4px;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.45) inset,
+    0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+.logoImage {
+  filter: brightness(1.04) contrast(1.1) saturate(1.05);
+}
+
+.logoImageWrapper {
+  position: relative;
+  width: min(200px, 100%);
+  height: 96px;
+  margin: 0 auto;
+  padding: 0.75rem 1.25rem;
+  box-sizing: content-box;
+}
+
+.logoImageWrapperPlatinum {
+  position: relative;
+  width: min(280px, 100%);
+  height: 112px;
+  margin: 0 auto;
+  padding: 0.875rem 1.5rem;
+  box-sizing: content-box;
+}
+
+.logoImageWrapperCompact {
+  width: 100%;
+  max-width: 120px;
+  height: 52px;
+}
+
+.logoImageWrapperCompact.logoImageWrapperPlatinum {
+  max-width: 140px;
+  height: 60px;
+}
+
+/* ─── Tier groups (standalone sponsors section) ─── */
+.tierGroup {
+  margin-bottom: 3rem;
+}
+
+.tierGroup:last-child {
+  margin-bottom: 0;
+}
+
+.tierGroupLabel {
+  display: block;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--color-muted, #6b6b72);
+  margin-bottom: 1rem;
+}
+
+.tierBadgeStar {
+  color: var(--color-primary, #e8512a);
+  margin-right: 0.35rem;
+}
+
+/* ─── Tier cards row ─── */
+.tiersGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  background-color: var(--color-border, #222226);
+}
+
+@media (min-width: 768px) {
+  .tiersGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ─── Individual tier card ─── */
+.tierCard {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface, #111113);
+  padding: 2.5rem 2rem;
+  gap: 1.5rem;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-height: 44px;
+}
+
+.tierCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 4px 12px rgba(232, 81, 42, 0.08);
+  z-index: 1;
+}
+
+/* Top-tier highlighted card */
+.tierCardTop {
+  background-color: rgba(232, 81, 42, 0.04);
+}
+
+.tierCardTop::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--color-primary, #e8512a);
+}
+
+/* Top-tier badge */
+.topTierBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.625rem; /* 10px */
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--color-primary, #e8512a);
+  margin-bottom: 0.25rem;
+}
+
+/* Tier label */
+.tierLabel {
+  font-family: var(--font-display, sans-serif);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  line-height: 0.88;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--color-cream, #f5ecd7);
+  margin: 0;
+}
+
+/* Price range */
+.tierPrice {
+  font-family: var(--font-display, sans-serif);
+  font-size: 1.75rem;
+  color: var(--color-primary, #e8512a);
+  letter-spacing: -0.02em;
+  display: block;
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--color-border, #222226);
+  border-bottom: 1px solid var(--color-border, #222226);
+}
+
+/* Benefits list */
+.benefitsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.benefitItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.8125rem; /* 13px */
+  color: rgba(245, 236, 215, 0.72); /* --color-cream at 72% */
+  line-height: 1.65;
+  letter-spacing: 0.02em;
+}
+
+.benefitBullet {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: var(--color-primary, #e8512a);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+  margin-top: 0.375rem;
+}
+
+.benefitBulletTop {
+  background-color: var(--color-primary-2, #f07a50);
+}

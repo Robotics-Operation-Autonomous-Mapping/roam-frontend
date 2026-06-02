@@ -12,6 +12,7 @@ const NAV_LINKS = [
   { label: "Join Us", href: "/join" },
   { label: "Demo", href: "/demo" },
   { label: "Sponsors", href: "/sponsors" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export const Navbar = () => {

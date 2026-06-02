@@ -3,6 +3,7 @@
 import React, { useRef } from "react";
 import { motion, useInView, Variants } from "framer-motion";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { SPONSORSHIP_EMAIL } from "@/lib/site";
 import { PACKAGES } from "./constants";
 
 const fadeUp: Variants = {
@@ -34,7 +35,7 @@ function PackageCard({ pkg, index }: { pkg: (typeof PACKAGES)[0]; index: number 
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
-  const mailto = `mailto:schulichroam@gmail.com?subject=Sponsorship%20Inquiry%20%E2%80%94%20${encodeURIComponent(pkg.tier)}%20Package&body=Hi%20ROAM%20team%2C%0A%0AI%27m%20interested%20in%20the%20${encodeURIComponent(pkg.tier)}%20sponsorship%20package.%0A%0AOrganization%3A%20%0AContact%20Name%3A%20%0AMessage%3A%20`;
+  const mailto = `mailto:${SPONSORSHIP_EMAIL}?subject=Sponsorship%20Inquiry%20%E2%80%94%20${encodeURIComponent(pkg.tier)}%20Package&body=Hi%20ROAM%20team%2C%0A%0AI%27m%20interested%20in%20the%20${encodeURIComponent(pkg.tier)}%20sponsorship%20package.%0A%0AOrganization%3A%20%0AContact%20Name%3A%20%0AMessage%3A%20`;
 
   return (
     <motion.div
@@ -109,7 +110,7 @@ export const PackageSection = () => (
       </h2>
     </motion.div>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/10">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10">
       {PACKAGES.map((pkg, i) => (
         <PackageCard key={pkg.tier} pkg={pkg} index={i} />
       ))}

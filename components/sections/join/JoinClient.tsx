@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { JoinHero } from "@/components/sections/join/JoinHero";
 import { RolesSection } from "@/components/sections/join/RolesSection";
 import { BenefitsExpectations } from "@/components/sections/join/BenefitsExpectations";
+import { TEAM_EMAIL } from "@/lib/site";
 
 export default function JoinClient() {
   return (
@@ -30,6 +31,15 @@ export default function JoinClient() {
             >
               APPLY NOW →
             </a>
+            <p className="font-mono text-xs text-bg/70 mt-8 tracking-wide">
+              Questions?{" "}
+              <a
+                href={`mailto:${TEAM_EMAIL}?subject=Join%20ROAM%20%E2%80%94%20Question`}
+                className="underline hover:text-bg transition-colors"
+              >
+                {TEAM_EMAIL}
+              </a>
+            </p>
           </motion.div>
         </div>
       </section>

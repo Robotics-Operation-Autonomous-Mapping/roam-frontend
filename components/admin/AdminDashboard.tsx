@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { supabase, Application, AppStatus } from "@/lib/supabase/client";
-import { TopBar } from "./dashboard/TopBar";
+import { useAdminAuth } from "./AdminAuthContext";
 import { StatsStrip } from "./dashboard/StatsStrip";
 import { Sidebar } from "./dashboard/Sidebar";
 import { Toolbar } from "./dashboard/Toolbar";
@@ -10,13 +10,8 @@ import { ApplicationList } from "./dashboard/ApplicationList";
 import { DetailPanel } from "./dashboard/DetailPanel";
 import { SortOption } from "./dashboard/types";
 
-export default function AdminDashboard({
-  userEmail,
-  onLogout,
-}: {
-  userEmail: string;
-  onLogout: () => void;
-}) {
+export default function AdminDashboard() {
+  const { userEmail } = useAdminAuth();
   const [apps, setApps] = useState<Application[]>([]);
   const [loading, setLoading] = useState(true);
   const [dept, setDept] = useState("All");
@@ -130,16 +125,32 @@ export default function AdminDashboard({
   });
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "var(--admin-bg)",
-        color: "var(--admin-text)",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      <TopBar userEmail={userEmail} onRefresh={fetchApps} onLogout={onLogout} />
+    <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
+      <div
+        style={{
+          padding: "12px 24px",
+          borderBottom: "1px solid var(--admin-border)",
+          display: "flex",
+          justifyContent: "flex-end",
+          background: "var(--admin-bg-dark)",
+        }}
+      >
+        <button
+          type="button"
+          onClick={fetchApps}
+          style={{
+            background: "transparent",
+            border: "none",
+            color: "rgba(var(--status-reviewed-rgb), 1)",
+            cursor: "pointer",
+            fontFamily: "monospace",
+            fontSize: 10,
+            letterSpacing: "0.1em",
+          }}
+        >
+          REFRESH_DATA
+        </button>
+      </div>
 
       <StatsStrip stats={stats} />
 

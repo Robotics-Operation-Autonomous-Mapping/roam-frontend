@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { SPONSORSHIP_EMAIL } from "@/lib/site";
 
 export const ContactSection = () => (
   <section className="border-t border-white/10 bg-white/[0.02]">
@@ -47,7 +48,7 @@ function ContactForm() {
   const handleSubmit = () => {
     const subject = `Sponsorship Inquiry — ${pkg}`;
     const body = `Hi ROAM team,\n\nName: ${name}\nOrganization: ${org}\nPackage Interest: ${pkg}\n\n${message}`;
-    window.location.href = `mailto:schulichroam@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:${SPONSORSHIP_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
   const inputClass =
@@ -77,8 +78,9 @@ function ContactForm() {
         style={{ background: "#0A0A0B" }}
       >
         <option value="General Inquiry">General Inquiry</option>
-        <option value="Standard Package">Standard Package ($250–$750)</option>
-        <option value="Premium Package">Premium Package ($1,000–$2,500)</option>
+        <option value="Title / Platinum Package">Title / Platinum ($7,500+)</option>
+        <option value="Gold Package">Gold ($4,000 – $7,500)</option>
+        <option value="Basic Package">Basic (up to $4,000)</option>
         <option value="Custom Package">Custom Package</option>
       </select>
 
@@ -98,7 +100,7 @@ function ContactForm() {
       </button>
 
       <p className="font-mono text-[10px] text-cream/25 text-center uppercase tracking-widest">
-        Opens your email client · schulichroam@gmail.com
+        Opens your email client · {SPONSORSHIP_EMAIL}
       </p>
     </>
   );

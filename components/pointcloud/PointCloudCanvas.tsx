@@ -11,7 +11,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
-const POINT_COUNT = 10_000;
+// Detect mobile for quality-tiered rendering
+const IS_MOBILE = typeof window !== "undefined" && window.innerWidth < 768;
+const POINT_COUNT = IS_MOBILE ? 3_000 : 10_000;
 const SCAN_DURATION = 3.2; // seconds for the sweep
 const INTRO_HOLD = 1.2; // seconds of cinematic camera before handoff
 
@@ -450,7 +452,7 @@ export default function PointCloudCanvas() {
         camera={{ position: [0, 28, 8], fov: 52 }}
         dpr={
           typeof window !== "undefined"
-            ? Math.min(window.devicePixelRatio, 2)
+            ? Math.min(window.devicePixelRatio, IS_MOBILE ? 1 : 2)
             : 1
         }
         gl={{ antialias: false, powerPreference: "high-performance" }}

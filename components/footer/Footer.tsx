@@ -24,26 +24,8 @@ export const Footer = () => {
             </p>
           </div>
 
-          {/* Right: Links & Social */}
-          <div className="flex flex-col items-center lg:items-end gap-6 text-center lg:text-right">
-            <div className="flex gap-6 font-sans text-sm uppercase tracking-widest">
-              <Link href="/" className="hover:text-primary transition-colors">
-                Home
-              </Link>
-              <Link
-                href="/join"
-                className="hover:text-primary transition-colors"
-              >
-                Join Us
-              </Link>
-              <Link
-                href="/demo"
-                className="hover:text-primary transition-colors"
-              >
-                Demo
-              </Link>
-            </div>
-
+          {/* Right: Social */}
+          <div className="flex flex-col items-center lg:items-end justify-center text-center lg:text-right">
             <div className="flex gap-4">
               <a
                 href="https://www.instagram.com/schulichroam/"

@@ -19,7 +19,7 @@ export const JsonLd = () => {
       "https://linktr.ee/schulichroam"
     ],
     "description": "ROAM (Robotics Operation for Autonomous Mapping) is a premier student-led robotics club building intelligent autonomous systems at the Schulich School of Engineering, University of Calgary.",
-    "email": "schulichroam@gmail.com",
+    "email": "contact@schulichroam.com",
     "parentOrganization": {
       "@type": "EducationalOrganization",
       "name": "Schulich School of Engineering, University of Calgary",

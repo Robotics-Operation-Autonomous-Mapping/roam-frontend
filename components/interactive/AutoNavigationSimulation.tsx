@@ -9,6 +9,8 @@ import { NavScene } from "./nav/NavScene";
 import { Minimap } from "./nav/Minimap";
 
 export const AutoNavigationSimulation: React.FC = () => {
+  // Mobile quality tier
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
   // ── Path state ────────────────────────────────────────────────────────────
   const [start, setStart] = useState<Cell | null>(null);
   const [end, setEnd] = useState<Cell | null>(null);
@@ -210,10 +212,10 @@ export const AutoNavigationSimulation: React.FC = () => {
         {/* 3D Canvas */}
         <Canvas
           camera={{ position: [10, 11, 10], fov: 47 }}
-          dpr={[1, 2]}
-          shadows
+          dpr={isMobile ? 1 : [1, 2]}
+          shadows={!isMobile}
           gl={{
-            antialias: true,
+            antialias: !isMobile,
             toneMapping: THREE.ACESFilmicToneMapping,
             toneMappingExposure: 1.0,
             outputColorSpace: THREE.SRGBColorSpace,

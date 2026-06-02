@@ -3,11 +3,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { SPONSORSHIP_EMAIL } from "@/lib/site";
 import { SponsorNetworkCanvas } from "./SponsorNetworkCanvas";
 
 export const SponsorHero = () => {
-  const generalMailto =
-    "mailto:schulichroam@gmail.com?subject=Sponsorship%20Inquiry%20%E2%80%94%20General&body=Hi%20ROAM%20team%2C%0A%0AI%27d%20like%20to%20learn%20more%20about%20sponsoring%20ROAM.%0A%0AOrganization%3A%20%0AContact%20Name%3A%20%0AMessage%3A%20";
+  const generalMailto = `mailto:${SPONSORSHIP_EMAIL}?subject=Sponsorship%20Inquiry%20%E2%80%94%20General&body=Hi%20ROAM%20team%2C%0A%0AI%27d%20like%20to%20learn%20more%20about%20sponsoring%20ROAM.%0A%0AOrganization%3A%20%0AContact%20Name%3A%20%0AMessage%3A%20`;
 
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden border-b border-border bg-bg">

@@ -85,6 +85,12 @@ roam-frontend/
    npm run build
    ```
 
+### Contact form (Resend)
+
+Copy `.env.example` to `.env.local` and set `RESEND_API_KEY` plus `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY`. You do **not** need paid email hosting — verify `schulichroam.com` in Resend (DNS only, where your site is hosted) to send from e.g. `contact@schulichroam.com`, or use the default `onboarding@resend.dev` for limited testing. Add the same vars on **Vercel** under Environment Variables.
+
+**Admin email composer** (`/admin/email`): sends via Resend; logs to Supabase `email_logs`. Verify `captain@`, `team@`, and `sponsorship@schulichroam.com` in Resend. See `supabase/email_logs.schema.sql` if the table is missing.
+
 ---
 
 ## 🛡️ Engineering Standards

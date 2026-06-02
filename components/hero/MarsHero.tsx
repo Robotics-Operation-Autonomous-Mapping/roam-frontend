@@ -133,13 +133,16 @@ export const MarsHero: React.FC<MarsHeroProps> = ({ onRoverArrived }) => {
     const wrap = wrapRef.current;
     if (!wrap) return;
 
+    // ─── Mobile quality detection ─────────────────────────────────────────────
+    const isMobile = window.innerWidth < 768;
+
     // ─── Scene Initialization ─────────────────────────────────────────────────
     const primaryColor =
       getComputedStyle(document.documentElement)
         .getPropertyValue("--color-primary")
         .trim() || "#E8512A";
 
-    const stars: Star[] = Array.from({ length: 280 }, () => ({
+    const stars: Star[] = Array.from({ length: isMobile ? 120 : 280 }, () => ({
       x: Math.random(),
       y: Math.random() * 0.65,
       r: Math.random() * 1.1 + 0.2,
@@ -147,11 +150,12 @@ export const MarsHero: React.FC<MarsHeroProps> = ({ onRoverArrived }) => {
       speed: Math.random() * 0.014 + 0.004,
     }));
 
-    const ridge1 = buildTerrain(1.1, 200, 0.7, 0.2);
-    const ridge2 = buildTerrain(2.7, 160, 0.79, 0.13);
-    const ridge3 = buildTerrain(5.3, 120, 0.87, 0.08);
+    const terrainRes = isMobile ? 80 : 200;
+    const ridge1 = buildTerrain(1.1, terrainRes, 0.7, 0.2);
+    const ridge2 = buildTerrain(2.7, terrainRes, 0.79, 0.13);
+    const ridge3 = buildTerrain(5.3, terrainRes, 0.87, 0.08);
 
-    const dust: Dust[] = Array.from({ length: 110 }, () => ({
+    const dust: Dust[] = Array.from({ length: isMobile ? 40 : 110 }, () => ({
       x: Math.random(),
       y: 0.68 + Math.random() * 0.28,
       r: Math.random() * 2 + 0.4,
