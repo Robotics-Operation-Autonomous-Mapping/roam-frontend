@@ -23,30 +23,22 @@ export const Sidebar: React.FC<SidebarProps> = ({
   deptCounts,
 }) => (
   <aside
-    style={{
-      width: 240,
-      borderRight: "1px solid var(--admin-border)",
-      padding: "24px 18px",
-      display: "flex",
-      flexDirection: "column",
-      gap: 32,
-      background: "var(--admin-bg-dark)",
-    }}
+    className="w-full md:w-60 shrink-0 border-b md:border-b-0 md:border-r border-[var(--admin-border)] bg-[var(--admin-bg-dark)] p-4 md:p-6 md:overflow-y-auto max-h-[40vh] md:max-h-none"
   >
     {/* Depts */}
-    <div>
+    <div className="mb-6 md:mb-8">
       <h3
         style={{
           fontSize: 9,
           letterSpacing: "0.25em",
           color: "var(--admin-muted)",
-          marginBottom: 16,
+          marginBottom: 12,
           textTransform: "uppercase",
         }}
       >
         Departments
       </h3>
-      <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+      <div className="flex md:flex-col gap-1 overflow-x-auto pb-1 md:pb-0">
         {DEPARTMENTS.map((d) => (
           <button
             key={d}
@@ -66,6 +58,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
               cursor: "pointer",
               display: "flex",
               justifyContent: "space-between",
+              gap: 8,
+              whiteSpace: "nowrap",
+              flexShrink: 0,
             }}
           >
             <span>{d}</span>
@@ -84,13 +79,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
           fontSize: 9,
           letterSpacing: "0.25em",
           color: "var(--admin-muted)",
-          marginBottom: 16,
+          marginBottom: 12,
           textTransform: "uppercase",
         }}
       >
         Application Status
       </h3>
-      <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+      <div className="flex md:flex-col gap-1 overflow-x-auto pb-1 md:pb-0">
         <button
           onClick={() => setStatusFilter("all")}
           style={{
@@ -106,13 +101,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
             fontFamily: "monospace",
             fontSize: 11,
             cursor: "pointer",
+            whiteSpace: "nowrap",
+            flexShrink: 0,
           }}
         >
           All Applications
         </button>
         {ALL_STATUSES.map((s) => {
           const color = STATUS_COLORS[s];
-          // Use the RGB variable directly for the background transparency
           const bg =
             statusFilter === s ? color.replace("1)", "0.15)") : "transparent";
 
@@ -129,6 +125,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 fontFamily: "monospace",
                 fontSize: 11,
                 cursor: "pointer",
+                whiteSpace: "nowrap",
+                flexShrink: 0,
               }}
             >
               {s.toUpperCase()}

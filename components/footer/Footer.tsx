@@ -128,8 +128,11 @@ export const Footer = () => {
           <p>© 2026 ROAM Robotics Club</p>
           <div className="flex gap-4 items-center">
             <p>Built by Builders</p>
-            <Link href="/admin" style={{ color: "#1A2535", fontSize: 10 }}>
-              Admin Portal
+            <Link
+              href="/admin/profile"
+              className="text-muted/40 hover:text-primary transition-colors text-[10px]"
+            >
+              Team Portal
             </Link>
           </div>
         </div>

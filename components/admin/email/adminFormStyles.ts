@@ -24,7 +24,9 @@ export const inputStyle: CSSProperties = {
 export const panelStyle: CSSProperties = {
   border: "1px solid var(--admin-border)",
   background: "var(--admin-bg-dark)",
-  padding: "24px",
+  padding: "20px",
+  boxSizing: "border-box",
+  width: "100%",
 };
 
 export const primaryBtnStyle: CSSProperties = {

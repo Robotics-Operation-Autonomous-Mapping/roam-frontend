@@ -33,12 +33,14 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
   color: var(--color-cream);
   background: var(--color-bg);
   min-height: 100vh;
+  overflow-x: clip;
 }
 
 /* Grain overlay */
@@ -51,7 +53,7 @@ body::after {
   height: 100vh;
   pointer-events: none;
   z-index: 50;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-image: url("/noise.svg");
   opacity: 0.04;
 }
 
@@ -79,9 +81,9 @@ body::after {
 /* Coral crosshair cursor — always visible on desktop */
 @media (pointer: fine) {
   html, body, *, *::before, *::after {
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='4' fill='%23E8512A'/%3E%3C/svg%3E") 10 10, crosshair !important;
+    cursor: url("/cursors/crosshair.svg") 10 10, crosshair !important;
   }
   a, button, [role="button"], input, select, textarea, label {
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='6' fill='%23E8512A' opacity='0.6'/%3E%3Ccircle cx='12' cy='12' r='3' fill='%23E8512A'/%3E%3C/svg%3E") 12 12, pointer !important;
+    cursor: url("/cursors/pointer.svg") 12 12, pointer !important;
   }
 }

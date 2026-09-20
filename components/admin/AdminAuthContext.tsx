@@ -7,100 +7,70 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { supabase, type AdminUser } from "@/lib/supabase/client";
-import { LoginForm, RestrictedView } from "./Login";
+import { useClerk, useUser } from "@clerk/nextjs";
+import type { Member } from "@/lib/members/types";
+import {
+  canAccessAllMembers,
+  canAccessCompose,
+  canAccessRecruitment,
+} from "@/lib/members/access";
 
-type AdminAuthContextValue = {
-  admin: AdminUser;
+type PortalAuthContextValue = {
+  member: Member;
   userEmail: string;
+  refreshMember: () => Promise<void>;
   onLogout: () => Promise<void>;
-  getAccessToken: () => Promise<string | null>;
+  canRecruitment: boolean;
+  canMembers: boolean;
+  canCompose: boolean;
 };
 
-const AdminAuthContext = createContext<AdminAuthContextValue | null>(null);
+const PortalAuthContext = createContext<PortalAuthContextValue | null>(null);
 
 export function useAdminAuth() {
-  const ctx = useContext(AdminAuthContext);
-  if (!ctx) throw new Error("useAdminAuth must be used within AdminAuthProvider");
+  const ctx = useContext(PortalAuthContext);
+  if (!ctx) throw new Error("useAdminAuth must be used within PortalAuthProvider");
   return ctx;
 }
 
-export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export function usePortalAuth() {
+  return useAdminAuth();
+}
+
+export function PortalAuthProvider({ children }: { children: React.ReactNode }) {
+  const { user, isLoaded } = useUser();
+  const { signOut } = useClerk();
+  const [member, setMember] = useState<Member | null>(null);
   const [loading, setLoading] = useState(true);
-  const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
-  const [admin, setAdmin] = useState<AdminUser | null>(null);
-  const [restrictedEmail, setRestrictedEmail] = useState<string | null>(null);
 
-  const verifyAdmin = useCallback(async (userEmail: string) => {
-    const { data, error } = await supabase
-      .from("admin_users")
-      .select("id, email")
-      .eq("email", userEmail)
-      .single();
-
-    if (data && !error) {
-      setAdmin(data as AdminUser);
-      setRestrictedEmail(null);
-      return true;
+  const refreshMember = useCallback(async () => {
+    const res = await fetch("/api/members/me");
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      setError(body.error || "Unable to load your member profile.");
+      setMember(null);
+      return;
     }
-    await supabase.auth.signOut();
-    setAdmin(null);
-    setRestrictedEmail(userEmail);
-    return false;
+    const data = await res.json();
+    setMember(data.member as Member);
+    setError("");
   }, []);
 
   useEffect(() => {
-    const check = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-      if (session?.user?.email) {
-        await verifyAdmin(session.user.email);
-      }
+    if (!isLoaded) return;
+    if (!user) {
       setLoading(false);
-    };
-    check();
-  }, [verifyAdmin]);
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitting(true);
-    setError("");
-
-    const { data, error: signInError } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (signInError || !data.user?.email) {
-      setError(signInError?.message ?? "Login failed.");
-      setSubmitting(false);
       return;
     }
-
-    await verifyAdmin(data.user.email);
-    setSubmitting(false);
-  };
+    refreshMember().finally(() => setLoading(false));
+  }, [isLoaded, user, refreshMember]);
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
-    setAdmin(null);
-    setRestrictedEmail(null);
-    setEmail("");
-    setPassword("");
+    await signOut({ redirectUrl: "/sign-in" });
   };
 
-  const getAccessToken = useCallback(async () => {
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-    return session?.access_token ?? null;
-  }, []);
-
-  if (loading) {
+  if (!isLoaded || loading) {
     return (
       <div
         style={{
@@ -125,34 +95,70 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
     );
   }
 
-  if (restrictedEmail) {
-    return <RestrictedView onBack={handleLogout} />;
-  }
-
-  if (!admin) {
+  if (!member) {
     return (
-      <LoginForm
-        email={email}
-        setEmail={setEmail}
-        password={password}
-        setPassword={setPassword}
-        submitting={submitting}
-        error={error}
-        onLogin={handleLogin}
-      />
+      <div
+        style={{
+          minHeight: "100vh",
+          background: "var(--admin-bg)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: 24,
+          fontFamily: "monospace",
+        }}
+      >
+        <div style={{ maxWidth: 420, textAlign: "center" }}>
+          <p
+            style={{
+              color: "var(--admin-accent)",
+              fontSize: 11,
+              letterSpacing: "0.2em",
+              marginBottom: 12,
+            }}
+          >
+            TEAM PORTAL
+          </p>
+          <p style={{ color: "var(--admin-text)", fontSize: 14, marginBottom: 16 }}>
+            {error ||
+              "Your account is signed in, but we could not provision a member profile. Ask an admin to confirm SUPABASE_SERVICE_ROLE_KEY is set and the members table exists."}
+          </p>
+          <button
+            type="button"
+            onClick={handleLogout}
+            style={{
+              background: "var(--admin-surface)",
+              color: "var(--admin-muted)",
+              border: "1px solid var(--admin-border)",
+              padding: "8px 14px",
+              fontFamily: "monospace",
+              fontSize: 10,
+              cursor: "pointer",
+            }}
+          >
+            SIGN OUT
+          </button>
+        </div>
+      </div>
     );
   }
 
   return (
-    <AdminAuthContext.Provider
+    <PortalAuthContext.Provider
       value={{
-        admin,
-        userEmail: admin.email,
+        member,
+        userEmail: member.email,
+        refreshMember,
         onLogout: handleLogout,
-        getAccessToken,
+        canRecruitment: canAccessRecruitment(member.role),
+        canMembers: canAccessAllMembers(member.role),
+        canCompose: canAccessCompose(member.role),
       }}
     >
       {children}
-    </AdminAuthContext.Provider>
+    </PortalAuthContext.Provider>
   );
 }
+
+/** @deprecated Use PortalAuthProvider */
+export const AdminAuthProvider = PortalAuthProvider;

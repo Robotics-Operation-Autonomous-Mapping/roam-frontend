@@ -4,11 +4,13 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import { SignedIn, UserButton } from "@clerk/nextjs";
 import { Logo } from "@/components/ui/Logo";
 import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
+  { label: "Team", href: "/team" },
   { label: "Join Us", href: "/join" },
   { label: "Demo", href: "/demo" },
   { label: "Sponsors", href: "/sponsors" },
@@ -22,10 +24,8 @@ export const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Lowered from 120 → 80 so the navbar appears sooner
       setScrolled(window.scrollY > 80);
     };
-    // Run once on mount so the state is correct if page loads mid-scroll
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -46,7 +46,6 @@ export const Navbar = () => {
           opacity: scrolled ? 1 : 0,
         }}
         transition={{
-          // Was 0.8s — halved to 0.35s so it feels immediate
           duration: 0.35,
           ease: [0.16, 1, 0.3, 1],
         }}
@@ -61,17 +60,15 @@ export const Navbar = () => {
           paddingBottom: scrolled ? "1rem" : "2rem",
         }}
       >
-        {/* Gradient bottom border — more refined than a flat line */}
         {scrolled && (
           <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
         )}
 
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between pointer-events-auto">
           <Link href="/" className="relative z-50">
             <Logo size={40} />
           </Link>
 
-          {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
             {NAV_LINKS.map((link) => {
               const isActive = pathname === link.href;
@@ -102,9 +99,19 @@ export const Navbar = () => {
                 </Link>
               );
             })}
+            <div className="flex items-center gap-3 pl-3 border-l border-white/10">
+              <Link
+                href="/admin/profile"
+                className="font-mono text-[11px] uppercase tracking-[0.18em] border border-primary text-primary px-3.5 py-1.5 hover:bg-primary hover:text-bg transition-colors"
+              >
+                Team Portal
+              </Link>
+              <SignedIn>
+                <UserButton afterSignOutUrl="/" />
+              </SignedIn>
+            </div>
           </nav>
 
-          {/* Mobile Menu Toggle */}
           <button
             className="md:hidden relative z-50 w-8 h-8 flex flex-col items-center justify-center gap-2 focus:outline-none"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -135,7 +142,6 @@ export const Navbar = () => {
         </div>
       </motion.header>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -146,7 +152,6 @@ export const Navbar = () => {
             className="fixed inset-0 z-40 bg-bg/95 backdrop-blur-lg flex flex-col items-center justify-center"
             style={{ paddingTop: "env(safe-area-inset-top)" }}
           >
-            {/* Subtle gradient accent at top of overlay */}
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
 
             <nav className="flex flex-col gap-8 items-center text-center">
@@ -155,7 +160,6 @@ export const Navbar = () => {
                   key={link.label}
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
-                  // Tightened: was delay 0.1*i+0.1 at 0.4s — now 0.05*i+0.05 at 0.25s
                   transition={{
                     delay: 0.05 * i + 0.05,
                     duration: 0.25,
@@ -175,6 +179,22 @@ export const Navbar = () => {
                   </Link>
                 </motion.div>
               ))}
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.25 }}
+                className="flex flex-col items-center gap-4 pt-2"
+              >
+                <Link
+                  href="/admin/profile"
+                  className="font-mono text-sm uppercase tracking-widest border border-primary text-primary px-5 py-3 hover:bg-primary hover:text-bg transition-colors"
+                >
+                  Team Portal
+                </Link>
+                <SignedIn>
+                  <UserButton afterSignOutUrl="/" />
+                </SignedIn>
+              </motion.div>
             </nav>
           </motion.div>
         )}

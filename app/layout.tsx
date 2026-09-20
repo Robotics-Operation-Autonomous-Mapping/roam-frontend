@@ -6,6 +6,8 @@ import { Footer } from "@/components/footer/Footer";
 import { PageTransition } from "@/components/ui/PageTransition";
 import { JsonLd } from "@/components/seo/JsonLd";
 import Script from "next/script";
+import { ClerkProvider } from "@clerk/nextjs";
+import { clerkAppearance } from "@/lib/clerk-appearance";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -112,23 +114,25 @@ export default function RootLayout({
         <JsonLd />
       </head>
       <body className="font-sans antialiased bg-bg text-cream selection:bg-primary selection:text-white">
-        <Script
+        <ClerkProvider appearance={clerkAppearance}>
+          <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-5RFTEQ19RQ"
           strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
           {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-5RFTEQ19RQ');
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-5RFTEQ19RQ');
           `}
-        </Script>
-        <Navbar />
-        <PageTransition>
+          </Script>
+          <Navbar />
+          <PageTransition>
           <main>{children}</main>
-        </PageTransition>
-        <Footer />
+          </PageTransition>
+          <Footer />
+        </ClerkProvider>
       </body>
     </html>
   );

@@ -26,15 +26,15 @@ export default function AdminEmailPage() {
 
   return (
     <div
-      style={{
-        flex: 1,
-        overflowY: "auto",
-        padding: "24px",
-        maxWidth: 1100,
-        margin: "0 auto",
-        width: "100%",
-        boxSizing: "border-box",
-      }}
+        style={{
+          flex: 1,
+          overflowY: "auto",
+          padding: "16px",
+          maxWidth: 1100,
+          margin: "0 auto",
+          width: "100%",
+          boxSizing: "border-box",
+        }}
     >
       <EmailComposer onSent={refreshLog} onNotify={notify} />
       <SentLog refreshKey={logRefresh} />

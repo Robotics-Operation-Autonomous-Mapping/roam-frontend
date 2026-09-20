@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { supabase, Application, AppStatus } from "@/lib/supabase/client";
+import { Application, AppStatus } from "@/lib/supabase/client";
 import { useAdminAuth } from "./AdminAuthContext";
 import { StatsStrip } from "./dashboard/StatsStrip";
 import { Sidebar } from "./dashboard/Sidebar";
@@ -34,12 +34,11 @@ export default function AdminDashboard() {
 
   const fetchApps = useCallback(async () => {
     setLoading(true);
-    const { data, error } = await supabase
-      .from("applications")
-      .select("*")
-      .order("created_at", { ascending: false });
-
-    if (!error && data) setApps(data as Application[]);
+    const res = await fetch("/api/admin/applications");
+    const data = await res.json().catch(() => ({}));
+    if (res.ok && data.applications) {
+      setApps(data.applications as Application[]);
+    }
     setLoading(false);
   }, []);
 
@@ -52,17 +51,13 @@ export default function AdminDashboard() {
     status: AppStatus,
     notes: string,
   ) => {
-    const { error } = await supabase
-      .from("applications")
-      .update({
-        status,
-        reviewer_notes: notes,
-        reviewed_by: userEmail,
-        reviewed_at: new Date().toISOString(),
-      })
-      .eq("id", id);
+    const res = await fetch("/api/admin/applications", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, status, notes }),
+    });
 
-    if (!error) {
+    if (res.ok) {
       setApps((prev) =>
         prev.map((a) =>
           a.id === id
@@ -154,7 +149,7 @@ export default function AdminDashboard() {
 
       <StatsStrip stats={stats} />
 
-      <div style={{ display: "flex", flex: 1, overflow: "hidden" }}>
+      <div className="flex flex-col md:flex-row flex-1 overflow-hidden min-h-0">
         <Sidebar
           currentDept={dept}
           setDept={setDept}
@@ -163,7 +158,7 @@ export default function AdminDashboard() {
           deptCounts={deptCounts}
         />
 
-        <div style={{ flex: 1, overflowY: "auto", padding: "20px 24px" }}>
+        <div className="flex-1 overflow-y-auto p-4 sm:p-5 md:p-6 min-w-0">
           <Toolbar
             search={search}
             setSearch={setSearch}

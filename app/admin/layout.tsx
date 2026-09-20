@@ -1,5 +1,6 @@
-import { AdminAuthProvider } from "@/components/admin/AdminAuthContext";
+import { PortalAuthProvider } from "@/components/admin/AdminAuthContext";
 import { AdminShell } from "@/components/admin/AdminShell";
+import { PortalGate } from "@/components/admin/PortalGate";
 
 export default function AdminLayout({
   children,
@@ -7,8 +8,10 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <AdminAuthProvider>
-      <AdminShell>{children}</AdminShell>
-    </AdminAuthProvider>
+    <PortalAuthProvider>
+      <AdminShell>
+        <PortalGate>{children}</PortalGate>
+      </AdminShell>
+    </PortalAuthProvider>
   );
 }

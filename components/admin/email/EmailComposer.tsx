@@ -1,9 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { useAdminAuth } from "@/components/admin/AdminAuthContext";
-import { insertEmailLog } from "@/lib/supabase/email-log";
-import { supabase } from "@/lib/supabase/client";
 import {
   ADMIN_SENDER_OPTIONS,
   type AdminSenderAddress,
@@ -16,23 +13,8 @@ import {
   panelStyle,
   primaryBtnStyle,
 } from "./adminFormStyles";
-
-function parseList(raw: string): string[] {
-  return raw
-    .split(",")
-    .map((s) => s.trim())
-    .filter(Boolean);
-}
-
-async function fileToBase64(file: File): Promise<string> {
-  const buffer = await file.arrayBuffer();
-  const bytes = new Uint8Array(buffer);
-  let binary = "";
-  bytes.forEach((b) => {
-    binary += String.fromCharCode(b);
-  });
-  return btoa(binary);
-}
+import { parseList, fileToBase64 } from "./parts/emailComposerUtils";
+import { EmailComposerAttachments } from "./parts/EmailComposerAttachments";
 
 interface EmailComposerProps {
   onSent: () => void;
@@ -40,7 +22,6 @@ interface EmailComposerProps {
 }
 
 export function EmailComposer({ onSent, onNotify }: EmailComposerProps) {
-  const { getAccessToken, admin } = useAdminAuth();
   const [from, setFrom] = useState<AdminSenderAddress>(
     ADMIN_SENDER_OPTIONS[0].address,
   );
@@ -54,6 +35,21 @@ export function EmailComposer({ onSent, onNotify }: EmailComposerProps) {
   const [attachments, setAttachments] = useState<File[]>([]);
   const [sending, setSending] = useState(false);
   const [editorKey, setEditorKey] = useState(0);
+
+  const loadSignupInviteTemplate = () => {
+    const signupUrl =
+      typeof window !== "undefined"
+        ? `${window.location.origin}/sign-up`
+        : "https://schulichroam.com/sign-up";
+    setFrom("team@schulichroam.com");
+    setShowBcc(true);
+    setSubject("You're invited to the ROAM Team Portal");
+    setBodyHtml(
+      `<p>Hey team,</p><p>We've launched the <strong>ROAM Team Portal</strong> — create your account, fill your profile, and upload a photo for the public Team page.</p><p><a href="${signupUrl}">Sign up here →</a></p><p>Use the same email we have on file so your profile links automatically.</p><p>— ROAM</p>`,
+    );
+    setEditorKey((k) => k + 1);
+    onNotify("Invite template loaded — paste teammate emails in BCC, then send.");
+  };
 
   const removeAttachment = (index: number) => {
     setAttachments((prev) => prev.filter((_, i) => i !== index));
@@ -70,13 +66,6 @@ export function EmailComposer({ onSent, onNotify }: EmailComposerProps) {
     e.preventDefault();
     setSending(true);
 
-    const token = await getAccessToken();
-    if (!token) {
-      onNotify("Session expired. Please log in again.", true);
-      setSending(false);
-      return;
-    }
-
     try {
       const attachmentPayload = await Promise.all(
         attachments.map(async (file) => ({
@@ -89,7 +78,6 @@ export function EmailComposer({ onSent, onNotify }: EmailComposerProps) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           from,
@@ -116,28 +104,7 @@ export function EmailComposer({ onSent, onNotify }: EmailComposerProps) {
       }
 
       if (data.logError) {
-        const clientLog = await insertEmailLog(supabase, admin.id, {
-          from_address: from,
-          to_addresses: parseList(to),
-          cc: parseList(cc).length ? parseList(cc) : null,
-          bcc: parseList(bcc).length ? parseList(bcc) : null,
-          subject,
-          body_html: bodyHtml,
-          attachment_names: attachments.length
-            ? attachments.map((f) => f.name)
-            : null,
-          status: "sent",
-          resend_message_id: data.messageId ?? null,
-          error_message: null,
-        });
-        if (!clientLog.ok) {
-          onNotify(
-            `Email sent, but log failed: ${data.logError}. ${clientLog.message}`,
-            true,
-          );
-        } else {
-          onNotify("Email sent (logged from browser).");
-        }
+        onNotify(`Email sent, but log failed: ${data.logError}`, true);
       } else {
         onNotify("Email sent successfully.");
       }
@@ -158,18 +125,32 @@ export function EmailComposer({ onSent, onNotify }: EmailComposerProps) {
 
   return (
     <form onSubmit={handleSend} style={panelStyle}>
-      <h2
+      <div
         style={{
-          fontFamily: "monospace",
-          fontSize: 11,
-          letterSpacing: "0.2em",
-          textTransform: "uppercase",
-          color: "var(--admin-muted)",
-          margin: "0 0 20px",
+          display: "flex",
+          flexWrap: "wrap",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 12,
+          marginBottom: 20,
         }}
       >
-        Compose Email
-      </h2>
+        <h2
+          style={{
+            fontFamily: "monospace",
+            fontSize: 11,
+            letterSpacing: "0.2em",
+            textTransform: "uppercase",
+            color: "var(--admin-muted)",
+            margin: 0,
+          }}
+        >
+          Compose Email
+        </h2>
+        <button type="button" style={ghostBtnStyle} onClick={loadSignupInviteTemplate}>
+          Portal signup invite
+        </button>
+      </div>
 
       <div style={{ marginBottom: 16 }}>
         <label style={labelStyle}>From</label>
@@ -259,54 +240,11 @@ export function EmailComposer({ onSent, onNotify }: EmailComposerProps) {
         <RichTextEditor key={editorKey} onChange={setBodyHtml} />
       </div>
 
-      <div style={{ marginBottom: 20 }}>
-        <label style={labelStyle}>Attachments</label>
-        <input
-          type="file"
-          multiple
-          onChange={handleFiles}
-          style={{
-            ...inputStyle,
-            padding: 8,
-            fontSize: 11,
-          }}
-        />
-        {attachments.length > 0 && (
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 10 }}>
-            {attachments.map((file, i) => (
-              <span
-                key={`${file.name}-${i}`}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 8,
-                  fontFamily: "monospace",
-                  fontSize: 10,
-                  padding: "6px 10px",
-                  background: "var(--admin-surface)",
-                  border: "1px solid var(--admin-border)",
-                }}
-              >
-                {file.name}
-                <button
-                  type="button"
-                  onClick={() => removeAttachment(i)}
-                  style={{
-                    background: "none",
-                    border: "none",
-                    color: "var(--admin-accent)",
-                    cursor: "pointer",
-                    fontSize: 12,
-                  }}
-                  aria-label={`Remove ${file.name}`}
-                >
-                  ×
-                </button>
-              </span>
-            ))}
-          </div>
-        )}
-      </div>
+      <EmailComposerAttachments
+        attachments={attachments}
+        onFiles={handleFiles}
+        onRemove={removeAttachment}
+      />
 
       <button
         type="submit"

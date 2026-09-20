@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useCallback, useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase/client";
 import type { EmailLog } from "@/lib/supabase/email-types";
 import { EmailLogModal } from "./EmailLogModal";
 import { ghostBtnStyle, panelStyle } from "./adminFormStyles";
@@ -23,19 +22,17 @@ export function SentLog({ refreshKey = 0 }: SentLogProps) {
   const fetchLogs = useCallback(async (offset: number, append: boolean) => {
     setFetchError(null);
 
-    const { data, error } = await supabase
-      .from("email_logs")
-      .select("*")
-      .order("created_at", { ascending: false })
-      .range(offset, offset + PAGE_SIZE - 1);
+    const res = await fetch(
+      `/api/admin/email-logs?offset=${offset}&limit=${PAGE_SIZE}`,
+    );
+    const payload = await res.json().catch(() => ({}));
 
-    if (error) {
-      console.error("[SentLog]", error);
-      setFetchError(error.message);
+    if (!res.ok) {
+      setFetchError(payload.error || "Failed to load logs");
       return;
     }
 
-    const rows = (data ?? []) as EmailLog[];
+    const rows = (payload.logs ?? []) as EmailLog[];
     setHasMore(rows.length === PAGE_SIZE);
     setLogs((prev) => (append ? [...prev, ...rows] : rows));
   }, []);

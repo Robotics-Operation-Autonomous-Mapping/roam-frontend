@@ -5,7 +5,8 @@ import {
   formatResendFrom,
   type AdminSenderAddress,
 } from "@/lib/email/senders";
-import { verifyAdminFromRequest } from "@/lib/supabase/admin-auth";
+import { requireRole } from "@/lib/supabase/portal-auth";
+import { createServiceClient } from "@/lib/supabase/admin";
 import { insertEmailLog } from "@/lib/supabase/email-log";
 
 const VALID_FROM = new Set(
@@ -39,8 +40,8 @@ function isValidEmail(email: string): boolean {
 }
 
 export async function POST(request: Request) {
-  const admin = await verifyAdminFromRequest(request);
-  if (!admin) {
+  const session = await requireRole(["admin"]);
+  if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -66,6 +67,7 @@ export async function POST(request: Request) {
   const html = body.html?.trim() ?? "";
   const attachments = body.attachments ?? [];
   const attachmentNames = attachments.map((a) => a.filename);
+  const supabase = createServiceClient();
 
   const logBase = {
     from_address: from,
@@ -116,7 +118,7 @@ export async function POST(request: Request) {
   });
 
   if (error) {
-    const failLog = await insertEmailLog(admin.supabase, admin.id, {
+    const failLog = await insertEmailLog(supabase, session.member.id, {
       ...logBase,
       status: "failed",
       resend_message_id: null,
@@ -131,7 +133,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const logResult = await insertEmailLog(admin.supabase, admin.id, {
+  const logResult = await insertEmailLog(supabase, session.member.id, {
     ...logBase,
     status: "sent",
     resend_message_id: data?.id ?? null,

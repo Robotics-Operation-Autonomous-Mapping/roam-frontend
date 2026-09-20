@@ -27,10 +27,16 @@ yarn-error.log*
 
 # local env files
 .env*.local
-
+.cursor/
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# clerk configuration (can include secrets)
+/.clerk/
+scripts/portal-invite-emails.json
+scripts/seed-preview-members.cjs
+scripts/send-portal-invites.cjs
