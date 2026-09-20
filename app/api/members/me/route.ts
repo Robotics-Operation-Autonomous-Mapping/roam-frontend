@@ -11,7 +11,7 @@ export async function GET() {
     return NextResponse.json(
       {
         error: hasServiceRole()
-          ? "Unauthorized or profile unavailable."
+          ? "Not permitted. If you believe this is a mistake, contact vyapakbansal@gmail.com"
           : "Missing SUPABASE_SERVICE_ROLE_KEY — required for portal writes.",
       },
       { status: 401 },
@@ -36,6 +36,12 @@ export async function PATCH(request: Request) {
   const patch: ProfileUpdate = {};
   if (typeof body.full_name === "string") patch.full_name = body.full_name.trim();
   if (typeof body.email === "string") patch.email = body.email.trim().toLowerCase();
+  if (typeof body.university_email === "string")
+    patch.university_email = body.university_email.trim().toLowerCase() || null;
+  else if (body.university_email === null) patch.university_email = null;
+  if (typeof body.personal_email === "string")
+    patch.personal_email = body.personal_email.trim().toLowerCase() || null;
+  else if (body.personal_email === null) patch.personal_email = null;
   if (typeof body.ucid === "string") patch.ucid = body.ucid.trim() || null;
   if (typeof body.interesting_thing === "string")
     patch.interesting_thing = body.interesting_thing.trim() || null;

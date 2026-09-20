@@ -129,7 +129,7 @@ export const Footer = () => {
           <div className="flex gap-4 items-center">
             <p>Built by Builders</p>
             <Link
-              href="/admin/profile"
+              href="/portal"
               className="text-muted/40 hover:text-primary transition-colors text-[10px]"
             >
               Team Portal

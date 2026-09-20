@@ -17,7 +17,10 @@ export type Member = {
   id: string;
   clerk_user_id: string | null;
   full_name: string;
+  /** Primary contact email (often same as university_email) */
   email: string;
+  university_email: string | null;
+  personal_email: string | null;
   ucid: string | null;
   date_of_birth: string | null;
   interesting_thing: string | null;
@@ -56,6 +59,8 @@ export type ProfileUpdate = Partial<
     Member,
     | "full_name"
     | "email"
+    | "university_email"
+    | "personal_email"
     | "ucid"
     | "date_of_birth"
     | "interesting_thing"
@@ -73,6 +78,8 @@ export type AdminMemberUpdate = Partial<
     Member,
     | "full_name"
     | "email"
+    | "university_email"
+    | "personal_email"
     | "ucid"
     | "date_of_birth"
     | "interesting_thing"

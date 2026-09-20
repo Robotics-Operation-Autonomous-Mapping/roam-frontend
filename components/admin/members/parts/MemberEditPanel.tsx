@@ -64,11 +64,42 @@ export function MemberEditPanel({
           }
         />
       </Field>
-      <Field label="Email">
+      <Field label="Email (primary)">
         <input
           style={inputStyle}
           value={selected.email}
           onChange={(e) => setSelected({ ...selected, email: e.target.value })}
+          placeholder="name@ucalgary.ca"
+        />
+      </Field>
+      <Field label="University email">
+        <input
+          style={inputStyle}
+          value={selected.university_email ?? ""}
+          onChange={(e) =>
+            setSelected({
+              ...selected,
+              university_email: e.target.value.trim()
+                ? e.target.value
+                : null,
+            })
+          }
+          placeholder="name@ucalgary.ca"
+        />
+      </Field>
+      <Field label="Personal email">
+        <input
+          style={inputStyle}
+          value={selected.personal_email ?? ""}
+          onChange={(e) =>
+            setSelected({
+              ...selected,
+              personal_email: e.target.value.trim()
+                ? e.target.value
+                : null,
+            })
+          }
+          placeholder="name@gmail.com"
         />
       </Field>
       <Field label="Title">

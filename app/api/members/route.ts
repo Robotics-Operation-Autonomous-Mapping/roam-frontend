@@ -40,6 +40,9 @@ export async function POST(request: Request) {
 
   const email = body.email?.trim().toLowerCase();
   const full_name = body.full_name?.trim();
+  const university_email =
+    body.university_email?.trim().toLowerCase() || null;
+  const personal_email = body.personal_email?.trim().toLowerCase() || null;
   if (!email || !full_name) {
     return NextResponse.json(
       { error: "email and full_name are required" },
@@ -52,6 +55,8 @@ export async function POST(request: Request) {
     .from("members")
     .insert({
       email,
+      university_email,
+      personal_email,
       full_name,
       role: body.role && MEMBER_ROLES.includes(body.role) ? body.role : "member",
       subteam:

@@ -10,7 +10,8 @@
     "invite:test": "node scripts/send-portal-invites.cjs --test",
     "invite:send": "node scripts/send-portal-invites.cjs --send",
     "seed:preview": "node scripts/seed-preview-members.cjs",
-    "seed:wipe": "node scripts/seed-preview-members.cjs --wipe"
+    "seed:wipe": "node scripts/seed-preview-members.cjs --wipe",
+    "clerk:allowlist": "node scripts/sync-clerk-allowlist.cjs"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.39.7",

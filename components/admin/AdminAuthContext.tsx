@@ -48,7 +48,10 @@ export function PortalAuthProvider({ children }: { children: React.ReactNode }) 
     const res = await fetch("/api/members/me");
     if (!res.ok) {
       const body = await res.json().catch(() => ({}));
-      setError(body.error || "Unable to load your member profile.");
+      setError(
+        body.error ||
+          "Not permitted. If you believe this is a mistake, contact vyapakbansal@gmail.com",
+      );
       setMember(null);
       return;
     }
@@ -66,8 +69,17 @@ export function PortalAuthProvider({ children }: { children: React.ReactNode }) 
     refreshMember().finally(() => setLoading(false));
   }, [isLoaded, user, refreshMember]);
 
+  // Kick non-roster Clerk sessions out of the portal
+  useEffect(() => {
+    if (!isLoaded || loading || !user || member) return;
+    const t = window.setTimeout(() => {
+      void signOut({ redirectUrl: "/portal" });
+    }, 4000);
+    return () => window.clearTimeout(t);
+  }, [isLoaded, loading, user, member, signOut]);
+
   const handleLogout = async () => {
-    await signOut({ redirectUrl: "/sign-in" });
+    await signOut({ redirectUrl: "/portal" });
   };
 
   if (!isLoaded || loading) {
@@ -117,11 +129,32 @@ export function PortalAuthProvider({ children }: { children: React.ReactNode }) 
               marginBottom: 12,
             }}
           >
-            TEAM PORTAL
+            ACCESS DENIED
           </p>
           <p style={{ color: "var(--admin-text)", fontSize: 14, marginBottom: 16 }}>
             {error ||
-              "Your account is signed in, but we could not provision a member profile. Ask an admin to confirm SUPABASE_SERVICE_ROLE_KEY is set and the members table exists."}
+              "Not permitted. If you believe this is a mistake, contact vyapakbansal@gmail.com"}
+          </p>
+          <a
+            href="mailto:vyapakbansal@gmail.com"
+            style={{
+              color: "var(--admin-accent)",
+              fontSize: 13,
+              display: "inline-block",
+              marginBottom: 16,
+            }}
+          >
+            vyapakbansal@gmail.com
+          </a>
+          <p
+            style={{
+              color: "var(--admin-muted)",
+              fontSize: 11,
+              marginBottom: 16,
+              lineHeight: 1.5,
+            }}
+          >
+            Signing you out automatically…
           </p>
           <button
             type="button"
@@ -136,7 +169,7 @@ export function PortalAuthProvider({ children }: { children: React.ReactNode }) 
               cursor: "pointer",
             }}
           >
-            SIGN OUT
+            SIGN OUT NOW
           </button>
         </div>
       </div>

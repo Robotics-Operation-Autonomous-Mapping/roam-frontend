@@ -21,6 +21,8 @@ CREATE TABLE IF NOT EXISTS public.members (
   clerk_user_id text UNIQUE,
   full_name text NOT NULL DEFAULT '',
   email text NOT NULL UNIQUE,
+  university_email text,
+  personal_email text,
   ucid text,
   date_of_birth date,
   interesting_thing text,
@@ -41,6 +43,14 @@ CREATE TABLE IF NOT EXISTS public.members (
 CREATE INDEX IF NOT EXISTS members_subteam_idx ON public.members (subteam);
 CREATE INDEX IF NOT EXISTS members_role_idx ON public.members (role);
 CREATE INDEX IF NOT EXISTS members_public_idx ON public.members (is_public) WHERE is_public = true;
+
+CREATE UNIQUE INDEX IF NOT EXISTS members_university_email_unique
+  ON public.members (university_email)
+  WHERE university_email IS NOT NULL;
+
+CREATE UNIQUE INDEX IF NOT EXISTS members_personal_email_unique
+  ON public.members (personal_email)
+  WHERE personal_email IS NOT NULL;
 
 CREATE OR REPLACE FUNCTION public.set_members_updated_at()
 RETURNS trigger
@@ -64,6 +74,8 @@ CREATE TRIGGER members_updated_at
 COMMENT ON COLUMN public.members.date_of_birth IS 'Private — never expose on public Team page';
 COMMENT ON COLUMN public.members.ucid IS 'Private — portal profile only';
 COMMENT ON COLUMN public.members.portfolio_url IS 'Optional personal / portfolio website URL';
+COMMENT ON COLUMN public.members.university_email IS 'UCalgary email — portal login when application is accepted';
+COMMENT ON COLUMN public.members.personal_email IS 'Personal email — portal login when application is accepted';
 -- Dual role: role=admin + subteam set → shown as Team Captain and that subteam's lead.
 
 -- Optional: if email_logs.sent_by still references admin_users, relax it:

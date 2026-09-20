@@ -1,11 +1,10 @@
 import { NextResponse } from "next/server";
-import { requireRole } from "@/lib/supabase/portal-auth";
+import { requireAdmin } from "@/lib/supabase/portal-auth";
 import { createServiceClient } from "@/lib/supabase/admin";
 import type { AppStatus } from "@/lib/supabase/client";
-import { DEPT_TO_SUBTEAM } from "@/lib/members/constants";
 
 export async function GET() {
-  const session = await requireRole(["admin", "lead"]);
+  const session = await requireAdmin();
   if (!session) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
@@ -20,19 +19,11 @@ export async function GET() {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  let apps = data ?? [];
-  if (session.member.role === "lead" && session.member.subteam) {
-    apps = apps.filter((app) => {
-      const mapped = DEPT_TO_SUBTEAM[app.department as string];
-      return mapped === session.member.subteam;
-    });
-  }
-
-  return NextResponse.json({ applications: apps });
+  return NextResponse.json({ applications: data ?? [] });
 }
 
 export async function PATCH(request: Request) {
-  const session = await requireRole(["admin", "lead"]);
+  const session = await requireAdmin();
   if (!session) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
@@ -45,23 +36,13 @@ export async function PATCH(request: Request) {
   }
 
   if (!body.id || !body.status) {
-    return NextResponse.json({ error: "id and status required" }, { status: 400 });
+    return NextResponse.json(
+      { error: "id and status required" },
+      { status: 400 },
+    );
   }
 
   const supabase = createServiceClient();
-
-  if (session.member.role === "lead" && session.member.subteam) {
-    const { data: app } = await supabase
-      .from("applications")
-      .select("department")
-      .eq("id", body.id)
-      .maybeSingle();
-    const mapped = app ? DEPT_TO_SUBTEAM[app.department as string] : null;
-    if (mapped !== session.member.subteam) {
-      return NextResponse.json({ error: "Outside your subteam" }, { status: 403 });
-    }
-  }
-
   const { data, error } = await supabase
     .from("applications")
     .update({

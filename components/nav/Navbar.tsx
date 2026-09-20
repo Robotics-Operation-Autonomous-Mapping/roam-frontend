@@ -101,7 +101,7 @@ export const Navbar = () => {
             })}
             <div className="flex items-center gap-3 pl-3 border-l border-white/10">
               <Link
-                href="/admin/profile"
+                href="/portal"
                 className="font-mono text-[11px] uppercase tracking-[0.18em] border border-primary text-primary px-3.5 py-1.5 hover:bg-primary hover:text-bg transition-colors"
               >
                 Team Portal
@@ -186,7 +186,7 @@ export const Navbar = () => {
                 className="flex flex-col items-center gap-4 pt-2"
               >
                 <Link
-                  href="/admin/profile"
+                  href="/portal"
                   className="font-mono text-sm uppercase tracking-widest border border-primary text-primary px-5 py-3 hover:bg-primary hover:text-bg transition-colors"
                 >
                   Team Portal
