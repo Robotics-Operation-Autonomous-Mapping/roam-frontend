@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { requireAdmin } from "@/lib/supabase/portal-auth";
+import { requireRole } from "@/lib/supabase/portal-auth";
 import { createServiceClient } from "@/lib/supabase/admin";
 import type { AppStatus } from "@/lib/supabase/client";
 
 export async function GET() {
-  const session = await requireAdmin();
+  const session = await requireRole(["admin", "lead"]);
   if (!session) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
@@ -23,7 +23,7 @@ export async function GET() {
 }
 
 export async function PATCH(request: Request) {
-  const session = await requireAdmin();
+  const session = await requireRole(["admin", "lead"]);
   if (!session) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }

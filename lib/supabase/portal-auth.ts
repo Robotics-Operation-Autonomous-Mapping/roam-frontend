@@ -256,7 +256,7 @@ export async function requireRole(
   return session;
 }
 
-/** Admin-only portal tools (recruitment, members, compose). */
+/** Admin-only portal tools (members CMS, compose). */
 export async function requireAdmin(): Promise<PortalSession | null> {
   return requireRole(["admin"]);
 }

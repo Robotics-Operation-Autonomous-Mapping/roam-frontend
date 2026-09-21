@@ -11,9 +11,9 @@ interface SidebarProps {
   statusFilter: AppStatus | "all";
   setStatusFilter: (s: AppStatus | "all") => void;
   deptCounts: Record<string, number>;
+  /** When set, only these departments (+ All) appear in the filter list. */
+  allowedDepartments?: string[];
 }
-
-const DEPARTMENTS = ["All", ...FORM_DEPARTMENTS];
 
 export const Sidebar: React.FC<SidebarProps> = ({
   currentDept,
@@ -21,7 +21,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
   statusFilter,
   setStatusFilter,
   deptCounts,
-}) => (
+  allowedDepartments,
+}) => {
+  const departments = [
+    "All",
+    ...(allowedDepartments?.length
+      ? FORM_DEPARTMENTS.filter((d) => allowedDepartments.includes(d))
+      : FORM_DEPARTMENTS),
+  ];
+
+  return (
   <aside
     className="w-full md:w-60 shrink-0 border-b md:border-b-0 md:border-r border-[var(--admin-border)] bg-[var(--admin-bg-dark)] p-4 md:p-6 md:overflow-y-auto max-h-[40vh] md:max-h-none"
   >
@@ -39,7 +48,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         Departments
       </h3>
       <div className="flex md:flex-col gap-1 overflow-x-auto pb-1 md:pb-0">
-        {DEPARTMENTS.map((d) => (
+        {departments.map((d) => (
           <button
             key={d}
             onClick={() => setDept(d)}
@@ -136,4 +145,5 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </div>
     </div>
   </aside>
-);
+  );
+};

@@ -14,6 +14,7 @@ export default function AdminDashboard() {
   const { userEmail } = useAdminAuth();
   const [apps, setApps] = useState<Application[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState("");
   const [dept, setDept] = useState("All");
   const [statusFilter, setStatusFilter] = useState<AppStatus | "all">("all");
   const [search, setSearch] = useState("");
@@ -34,10 +35,14 @@ export default function AdminDashboard() {
 
   const fetchApps = useCallback(async () => {
     setLoading(true);
+    setLoadError("");
     const res = await fetch("/api/admin/applications");
     const data = await res.json().catch(() => ({}));
     if (res.ok && data.applications) {
       setApps(data.applications as Application[]);
+    } else {
+      setApps([]);
+      setLoadError(data.error || "Could not load applications");
     }
     setLoading(false);
   }, []);
@@ -180,6 +185,19 @@ export default function AdminDashboard() {
               }}
             >
               Loading Applications...
+            </div>
+          ) : loadError ? (
+            <div
+              style={{
+                fontFamily: "monospace",
+                fontSize: 11,
+                color: "var(--admin-accent)",
+                letterSpacing: "0.1em",
+                textAlign: "center",
+                padding: 60,
+              }}
+            >
+              {loadError}
             </div>
           ) : filtered.length === 0 ? (
             <div
