@@ -3,6 +3,9 @@ import { requireRole } from "@/lib/supabase/portal-auth";
 import { createServiceClient } from "@/lib/supabase/admin";
 import type { AppStatus } from "@/lib/supabase/client";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export async function GET() {
   const session = await requireRole(["admin", "lead"]);
   if (!session) {
@@ -13,13 +16,18 @@ export async function GET() {
   const { data, error } = await supabase
     .from("applications")
     .select("*")
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false })
+    .limit(2000);
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  return NextResponse.json({ applications: data ?? [] });
+  return NextResponse.json({
+    applications: data ?? [],
+    role: session.member.role,
+    count: data?.length ?? 0,
+  });
 }
 
 export async function PATCH(request: Request) {

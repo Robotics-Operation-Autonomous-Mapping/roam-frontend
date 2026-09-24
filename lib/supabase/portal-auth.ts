@@ -110,8 +110,8 @@ export async function getPortalSession(): Promise<PortalSession | null> {
 
   if (existing) {
     const member = existing as Member;
-    // Admins stay linked; everyone else must still have an accepted application
-    if (member.role === "admin") {
+    // Admins and leads stay linked once established — don't re-gate on application rows
+    if (member.role === "admin" || member.role === "lead") {
       return { member, clerkUserId: userId, email: member.email };
     }
 

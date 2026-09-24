@@ -1,6 +1,6 @@
 import type { Member, MemberRole } from "./types";
 
-/** Recruitment dashboard — admins (all apps) + leads (their subteam) */
+/** Recruitment dashboard — admins + leads see all applications */
 export function canAccessRecruitment(role: MemberRole): boolean {
   return role === "admin" || role === "lead";
 }

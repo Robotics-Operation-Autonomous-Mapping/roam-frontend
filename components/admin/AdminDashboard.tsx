@@ -36,13 +36,23 @@ export default function AdminDashboard() {
   const fetchApps = useCallback(async () => {
     setLoading(true);
     setLoadError("");
-    const res = await fetch("/api/admin/applications");
+    const res = await fetch("/api/admin/applications", {
+      credentials: "include",
+      cache: "no-store",
+    });
     const data = await res.json().catch(() => ({}));
-    if (res.ok && data.applications) {
+    if (res.ok && Array.isArray(data.applications)) {
       setApps(data.applications as Application[]);
+      if (data.applications.length === 0) {
+        setLoadError("");
+      }
     } else {
       setApps([]);
-      setLoadError(data.error || "Could not load applications");
+      setLoadError(
+        data.error
+          ? `${data.error} (${res.status})`
+          : `Could not load applications (${res.status})`,
+      );
     }
     setLoading(false);
   }, []);
