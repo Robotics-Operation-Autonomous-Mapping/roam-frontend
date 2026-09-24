@@ -183,7 +183,7 @@ export async function getPortalSession(): Promise<PortalSession | null> {
     ? normalizeEmail(accepted.personal_email)
     : null;
 
-  let member = await findMemberByLoginEmails(supabase, email, accepted);
+  const member = await findMemberByLoginEmails(supabase, email, accepted);
 
   if (!member) {
     const subteam =
