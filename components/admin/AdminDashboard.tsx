@@ -43,9 +43,11 @@ export default function AdminDashboard() {
     const data = await res.json().catch(() => ({}));
     if (res.ok && Array.isArray(data.applications)) {
       setApps(data.applications as Application[]);
-      if (data.applications.length === 0) {
-        setLoadError("");
-      }
+      // Always land on the full list — don't leave a stale department chip selected
+      setDept("All");
+      setStatusFilter("all");
+      setSearch("");
+      setLoadError("");
     } else {
       setApps([]);
       setLoadError(
@@ -141,25 +143,65 @@ export default function AdminDashboard() {
           padding: "12px 24px",
           borderBottom: "1px solid var(--admin-border)",
           display: "flex",
-          justifyContent: "flex-end",
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: 12,
           background: "var(--admin-bg-dark)",
         }}
       >
-        <button
-          type="button"
-          onClick={fetchApps}
+        <span
           style={{
-            background: "transparent",
-            border: "none",
-            color: "rgba(var(--status-reviewed-rgb), 1)",
-            cursor: "pointer",
             fontFamily: "monospace",
             fontSize: 10,
-            letterSpacing: "0.1em",
+            letterSpacing: "0.12em",
+            color: "var(--admin-muted)",
+            textTransform: "uppercase",
           }}
         >
-          REFRESH_DATA
-        </button>
+          Loaded {apps.length} applications
+          {dept !== "All" || statusFilter !== "all" || search
+            ? ` · showing ${filtered.length} after filters`
+            : " · all departments"}
+        </span>
+        <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+          {(dept !== "All" || statusFilter !== "all" || search) && (
+            <button
+              type="button"
+              onClick={() => {
+                setDept("All");
+                setStatusFilter("all");
+                setSearch("");
+              }}
+              style={{
+                background: "transparent",
+                border: "1px solid var(--admin-border)",
+                color: "var(--admin-text)",
+                cursor: "pointer",
+                fontFamily: "monospace",
+                fontSize: 10,
+                letterSpacing: "0.1em",
+                padding: "6px 10px",
+              }}
+            >
+              CLEAR FILTERS
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={fetchApps}
+            style={{
+              background: "transparent",
+              border: "none",
+              color: "rgba(var(--status-reviewed-rgb), 1)",
+              cursor: "pointer",
+              fontFamily: "monospace",
+              fontSize: 10,
+              letterSpacing: "0.1em",
+            }}
+          >
+            REFRESH_DATA
+          </button>
+        </div>
       </div>
 
       <StatsStrip stats={stats} />

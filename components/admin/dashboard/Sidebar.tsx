@@ -57,11 +57,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
               padding: "8px 12px",
               background:
                 currentDept === d ? "rgba(232,81,42,0.1)" : "transparent",
-              border: "none",
+              border:
+                d === "All" && currentDept === "All"
+                  ? "1px solid rgba(232,81,42,0.35)"
+                  : "1px solid transparent",
               color:
                 currentDept === d
                   ? "var(--admin-accent)"
-                  : "var(--status-pending-rgb)",
+                  : "var(--admin-muted)",
               fontFamily: "monospace",
               fontSize: 11,
               cursor: "pointer",
@@ -70,11 +73,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
               gap: 8,
               whiteSpace: "nowrap",
               flexShrink: 0,
+              fontWeight: d === "All" ? 600 : 400,
             }}
           >
-            <span>{d}</span>
-            {d !== "All" && deptCounts[d] > 0 && (
-              <span style={{ opacity: 0.4 }}>{deptCounts[d]}</span>
+            <span>{d === "All" ? "All Departments" : d}</span>
+            {d === "All" ? (
+              <span style={{ opacity: 0.5 }}>
+                {Object.values(deptCounts).reduce((a, b) => a + b, 0) || ""}
+              </span>
+            ) : (
+              deptCounts[d] > 0 && (
+                <span style={{ opacity: 0.4 }}>{deptCounts[d]}</span>
+              )
             )}
           </button>
         ))}

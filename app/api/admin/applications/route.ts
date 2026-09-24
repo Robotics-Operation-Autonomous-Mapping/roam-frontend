@@ -6,6 +6,7 @@ import type { AppStatus } from "@/lib/supabase/client";
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
+/** Leads and admins both receive the full unfiltered applications list. */
 export async function GET() {
   const session = await requireRole(["admin", "lead"]);
   if (!session) {
@@ -23,10 +24,12 @@ export async function GET() {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
+  const applications = data ?? [];
   return NextResponse.json({
-    applications: data ?? [],
+    applications,
     role: session.member.role,
-    count: data?.length ?? 0,
+    count: applications.length,
+    scope: "all",
   });
 }
 
