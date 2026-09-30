@@ -40,3 +40,5 @@ next-env.d.ts
 scripts/portal-invite-emails.json
 scripts/seed-preview-members.cjs
 scripts/send-portal-invites.cjs
+.env*
+scripts/clerk-allowlist-emails.json
