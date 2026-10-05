@@ -45,7 +45,7 @@ export function ProfilePhotoSection({
           />
         </label>
         <p className="mt-2 font-mono text-[10px] text-[var(--admin-muted)]">
-          JPG / PNG / WebP · max 5MB
+          JPG / PNG / WebP · resized automatically
         </p>
       </div>
     </div>

@@ -1,11 +1,8 @@
-import { MEMBER_PHOTO_BUCKET } from "@/lib/members/constants";
-import { supabaseUrl } from "@/lib/supabase/config";
-
+/** Stored paths are served via the `/member-photos/*` rewrite so Vercel's CDN caches them. */
 export function memberPhotoUrl(photoPath: string | null | undefined): string | null {
   if (!photoPath) return null;
   if (photoPath.startsWith("http://") || photoPath.startsWith("https://")) {
     return photoPath;
   }
-  const base = supabaseUrl.replace(/\/$/, "");
-  return `${base}/storage/v1/object/public/${MEMBER_PHOTO_BUCKET}/${photoPath.replace(/^\//, "")}`;
+  return `/member-photos/${photoPath.replace(/^\//, "")}`;
 }

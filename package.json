@@ -11,7 +11,8 @@
     "invite:send": "node scripts/send-portal-invites.cjs --send",
     "seed:preview": "node scripts/seed-preview-members.cjs",
     "seed:wipe": "node scripts/seed-preview-members.cjs --wipe",
-    "clerk:allowlist": "node scripts/sync-clerk-allowlist.cjs"
+    "clerk:allowlist": "node scripts/sync-clerk-allowlist.cjs",
+    "photos:recompress": "node scripts/recompress-member-photos.cjs"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.39.7",
@@ -36,6 +37,7 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.35",
     "postcss": "^8",
+    "sharp": "^0.35.5",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
