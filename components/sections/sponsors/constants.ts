@@ -2,7 +2,7 @@ export { MISSION_PACKAGES as PACKAGES } from "@/components/sponsors/sponsors.dat
 
 export const STATS = [
   { value: "2+", label: "Competitions / Year" },
-  { value: "15+", label: "Team Members" },
+  { value: "55+", label: "Team Members" },
   { value: "100%", label: "Student Built" },
   { value: "∞", label: "Ambition" },
 ];

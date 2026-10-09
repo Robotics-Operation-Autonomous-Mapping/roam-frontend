@@ -41,7 +41,7 @@ export const AboutSection = () => {
 
           {/* Stats Row */}
           <div className="flex flex-wrap gap-12 mb-12">
-            <StatCounter end={15} label="ACTIVE MEMBERS" />
+            <StatCounter end={55} label="ACTIVE MEMBERS" />
             <StatCounter end={5} label="DISCIPLINES" />
             <StatCounter end={1} label="FLAGSHIP ROVER" />
           </div>
