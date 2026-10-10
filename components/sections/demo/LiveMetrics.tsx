@@ -8,7 +8,7 @@ export const LiveMetrics = () => (
   <section className="max-w-7xl mx-auto px-6 w-full mb-24">
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
       {[
-        { end: 15,   label: "TEAM MEMBERS",     suffix: "",  prefix: "" },
+        { end: 55,   label: "TEAM MEMBERS",     suffix: "",  prefix: "" },
         { end: 1,    label: "PROTOTYPE VERSION", suffix: "",  prefix: "V" },
         { end: 5,    label: "DEPARTMENTS",       suffix: "",  prefix: "" },
         { end: 2026, label: "TARGET YEAR",       suffix: "",  prefix: "" },
