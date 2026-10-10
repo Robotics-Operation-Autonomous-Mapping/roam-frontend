@@ -5,14 +5,11 @@ export const DEPT_DESCRIPTIONS: Record<Department, string> = {
     "Design chassis, suspension systems, sensor mounts, and structural systems optimized for durability and terrain performance.",
   "Electrical Engineering":
     "Develop power systems, motor control, wiring architecture, battery systems, and reliable sensor communication.",
-  "Computer Engineering":
-    "Work on embedded systems, low-level hardware control, firmware, interfaces, and hardware-software integration.",
+
   "Software Development":
     "Build autonomy systems using ROS 2, computer vision, path planning, mapping pipelines, and rover intelligence.",
-  Geomatics:
+  "Geomatics":
     "Process LiDAR, photogrammetry, and spatial data to generate accurate 3D maps and digital twins.",
-  Mechatronics:
-    "Integrate sensors, actuators, controls, and mechanical systems into one coordinated rover platform.",
   "Business / Operations":
     "Lead sponsorships, partnerships, logistics, planning, timelines, budgeting, and internal organization.",
   "Content & Media":
@@ -22,10 +19,8 @@ export const DEPT_DESCRIPTIONS: Record<Department, string> = {
 export const DEPT_ICONS: Record<Department, string> = {
   "Mechanical Engineering": "⚙️",
   "Electrical Engineering": "⚡",
-  "Computer Engineering": "💾",
   "Software Development": "🤖",
   Geomatics: "🗺️",
-  Mechatronics: "🦾",
   "Business / Operations": "📊",
   "Content & Media": "🎥",
 };
@@ -72,26 +67,7 @@ export const TECH_QUESTIONS: Record<Department, TechQuestion[]> = {
       maxWords: 50,
     },
   ],
-  "Computer Engineering": [
-    {
-      key: "microcontroller",
-      label: "What is a microcontroller?",
-      placeholder: "Explain in your own words...",
-      maxWords: 50,
-    },
-    {
-      key: "firmware",
-      label: "What is firmware?",
-      placeholder: "In your own words...",
-      maxWords: 50,
-    },
-    {
-      key: "embedded_experience",
-      label: "Have you worked with embedded systems or hardware interfaces?",
-      placeholder: "Describe your experience...",
-      maxWords: 50,
-    },
-  ],
+
   "Software Development": [
     {
       key: "languages",
@@ -133,26 +109,7 @@ export const TECH_QUESTIONS: Record<Department, TechQuestion[]> = {
       maxWords: 50,
     },
   ],
-  Mechatronics: [
-    {
-      key: "feedback_control",
-      label: "What is feedback control?",
-      placeholder: "Explain in your own words...",
-      maxWords: 50,
-    },
-    {
-      key: "sensor_actuator",
-      label: "Give one example of a sensor and actuator working together.",
-      placeholder: "A real or hypothetical example...",
-      maxWords: 50,
-    },
-    {
-      key: "integrated_systems",
-      label: "Have you built any integrated systems before?",
-      placeholder: "Describe what you built...",
-      maxWords: 50,
-    },
-  ],
+
   "Business / Operations": [
     {
       key: "sponsors",

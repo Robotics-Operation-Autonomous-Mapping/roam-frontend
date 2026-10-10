@@ -32,7 +32,7 @@ export const RolesSection = () => (
         WHO WE&apos;RE LOOKING FOR
       </h2>
 
-      <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 overflow-x-auto pb-4 md:overflow-x-visible md:pb-0 snap-x snap-mandatory md:snap-none">
+      <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 overflow-x-auto pb-4 md:overflow-x-visible md:pb-0 snap-x snap-mandatory md:snap-none">
         {ROLES.map((role, i) => (
           <div key={role.title} className="snap-start min-w-[280px] md:min-w-0">
             <RoleCard title={role.title} desc={role.desc} index={i} />

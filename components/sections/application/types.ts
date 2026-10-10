@@ -1,10 +1,8 @@
 export type Department =
   | "Mechanical Engineering"
   | "Electrical Engineering"
-  | "Computer Engineering"
   | "Software Development"
   | "Geomatics"
-  | "Mechatronics"
   | "Business / Operations"
   | "Content & Media";
 
