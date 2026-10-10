@@ -1,5 +1,7 @@
 import { ApplicationForm } from "@/components/sections/ApplicationForm";
 import { Metadata } from "next";
+import { RecruitmentClosed } from "@/components/sections/RecruitmentClosed";
+import { RECRUITMENT } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Apply | ROAM",
@@ -9,7 +11,7 @@ export const metadata: Metadata = {
 export default function ApplyPage() {
   return (
     <main className="w-full bg-bg min-h-screen">
-      <ApplicationForm />
+      {RECRUITMENT.open ? <ApplicationForm /> : <RecruitmentClosed />}
     </main>
   );
 }

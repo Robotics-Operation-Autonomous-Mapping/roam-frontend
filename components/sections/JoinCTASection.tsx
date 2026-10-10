@@ -3,6 +3,7 @@
 import React from "react";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Button } from "@/components/ui/Button";
+import { RECRUITMENT } from "@/lib/site";
 
 export const JoinCTASection = () => {
   return (
@@ -27,9 +28,18 @@ export const JoinCTASection = () => {
           </blockquote>
 
           <div className="flex flex-col sm:flex-row gap-6">
-            <Button href="/join" variant="primary">
-              Apply Now →
-            </Button>
+            {RECRUITMENT.open ? (
+              <Button href="/join" variant="primary">
+                Apply Now
+              </Button>
+            ) : (
+              <Button
+                variant="ghost"
+                disabled
+                className="disabled:opacity-100 disabled:hover:bg-transparent disabled:hover:text-primary"
+              >                Recruitment is closed for this term.
+              </Button>
+            )}
             <Button href="/demo" variant="ghost">
               Explore the Demo →
             </Button>

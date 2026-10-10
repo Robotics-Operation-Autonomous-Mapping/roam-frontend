@@ -8,6 +8,7 @@ import { TeamHero } from "./TeamHero";
 import { CaptainSection } from "./CaptainSection";
 import { LeadsSection } from "./LeadsSection";
 import { MembersBySubteam } from "./MembersBySubteam";
+import { RECRUITMENT } from "@/lib/site";
 
 export function TeamClient({ members }: { members: PublicMember[] }) {
   const captains = members
@@ -52,6 +53,7 @@ export function TeamClient({ members }: { members: PublicMember[] }) {
               WANT IN?
             </h2>
           </div>
+          {RECRUITMENT.open && (
           <motion.div
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
@@ -64,6 +66,7 @@ export function TeamClient({ members }: { members: PublicMember[] }) {
               Apply to ROAM →
             </Link>
           </motion.div>
+          )}
         </div>
       </section>
     </>
