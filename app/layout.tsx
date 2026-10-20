@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     siteName: "ROAM Robotics",
     images: [
       {
-        url: "/logo.png",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "ROAM Robotics Logo",

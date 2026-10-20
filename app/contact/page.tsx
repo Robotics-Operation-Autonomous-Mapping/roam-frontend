@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import ContactClient from "@/components/sections/contact/ContactClient";
 
 export const metadata: Metadata = {
-  title: "Contact Us | ROAM Robotics",
+  title: "Contact Us",
   description:
     "Get in touch with ROAM Robotics — partnerships, sponsorships, media, recruitment, and general inquiries.",
   alternates: {

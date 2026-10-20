@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import SponsorsClient from "@/components/sections/sponsors/SponsorsClient";
 
 export const metadata: Metadata = {
-  title: "Sponsor Us & Partner with ROAM | ROAM Robotics",
+  title: "Sponsor Us & Partner with ROAM",
   description:
     "Support next-generation engineering talent. Partner with ROAM Robotics to fuel hands-on autonomous systems education and state-of-the-art rover development.",
   alternates: {

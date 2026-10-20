@@ -4,8 +4,11 @@ import { RecruitmentClosed } from "@/components/sections/RecruitmentClosed";
 import { RECRUITMENT } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Apply | ROAM",
-  description: "Join the ROAM Robotics engineering team.",
+  title: "Apply",
+  description: "Apply to join ROAM Robotics, the University of Calgary's student team building autonomous mapping rovers.",
+  alternates: {
+    canonical: "https://schulichroam.com/apply",
+  },
 };
 
 export default function ApplyPage() {
