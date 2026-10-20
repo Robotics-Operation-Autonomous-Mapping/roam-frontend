@@ -7,6 +7,7 @@ export type Project = {
     specs: { label: string; value: string }[];
     image?: string;
     model?: string;
+    github?: string;
 };
 
 export const PROJECTS: Project[] = [
@@ -26,5 +27,6 @@ export const PROJECTS: Project[] = [
       { label: "Mapping", value: "RTAB-Map SLAM" },
     ],
       model: "/models/argos.glb",
+      github: "https://github.com/Robotics-Operation-Autonomous-Mapping/argos",
   },
 ];

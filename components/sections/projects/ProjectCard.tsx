@@ -52,6 +52,18 @@ export const ProjectCard = ({ project }: { project: Project }) => {
             </div>
           ))}
         </dl>
+
+        {project.github && (
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="self-start inline-flex items-center gap-3 font-sans font-bold text-xs uppercase tracking-[0.2em] px-6 py-3 border border-primary text-primary hover:bg-primary hover:text-bg transition-all duration-300"
+          >
+            View code on GitHub
+            <span className="text-lg leading-none">↗</span>
+          </a>
+        )}
       </div>
     </article>
   );
