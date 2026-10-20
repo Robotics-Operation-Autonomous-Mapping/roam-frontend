@@ -4,6 +4,7 @@ import React from "react";
 import { motion, useAnimation, Variants } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { RECRUITMENT } from "@/lib/site";
 
 export const MarsHeroContent = ({
   controls,
@@ -74,9 +75,18 @@ export const MarsHeroContent = ({
             variants={item}
             className="flex flex-col sm:flex-row items-start gap-5 pointer-events-auto"
           >
-            <Button href="/join" variant="primary">
-              Apply Now
-            </Button>
+            {RECRUITMENT.open ? (
+              <Button href="/join" variant="primary">
+                Apply Now
+              </Button>
+            ) : (
+              <Button
+                variant="ghost"
+                disabled
+                className="disabled:opacity-100 disabled:hover:bg-transparent disabled:hover:text-primary"
+              >                Recruitment is closed for this term.
+              </Button>
+            )}
             <Button href="/demo" variant="ghost">
               Explore the Demo
             </Button>

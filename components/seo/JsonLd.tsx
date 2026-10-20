@@ -31,12 +31,7 @@ export const JsonLd = () => {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "ROAM Robotics Club",
-    "url": "https://schulichroam.com",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://schulichroam.com/?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
+    "url": "https://schulichroam.com"
   };
 
   return (

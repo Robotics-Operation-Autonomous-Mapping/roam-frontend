@@ -5,7 +5,7 @@ import { fetchPublicMembers } from "@/lib/members/public";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Our Team | ROAM Robotics",
+  title: "Our Team",
   description:
     "Meet the ROAM Robotics subteam leads and crew building ATLAS-1 — software, electrical, mechanical, geomatics, business operations, and content.",
   alternates: {

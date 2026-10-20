@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { SPONSORSHIP_EMAIL } from "@/lib/site";
 import { SponsorNetworkCanvas } from "./SponsorNetworkCanvas";
+import { SPONSORSHIP_PACKAGE_URL } from "./constants";
 
 export const SponsorHero = () => {
   const generalMailto = `mailto:${SPONSORSHIP_EMAIL}?subject=Sponsorship%20Inquiry%20%E2%80%94%20General&body=Hi%20ROAM%20team%2C%0A%0AI%27d%20like%20to%20learn%20more%20about%20sponsoring%20ROAM.%0A%0AOrganization%3A%20%0AContact%20Name%3A%20%0AMessage%3A%20`;
@@ -64,7 +65,7 @@ export const SponsorHero = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex items-center gap-6"
+              className="flex flex-wrap items-center gap-4"
             >
               <a
                 href={generalMailto}
@@ -73,6 +74,15 @@ export const SponsorHero = () => {
                 Become a Partner
                 <span className="text-lg leading-none">→</span>
               </a>
+              <a
+              href={SPONSORSHIP_PACKAGE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 font-sans font-bold text-xs uppercase tracking-[0.2em] px-8 py-4 border border-primary text-primary hover:bg-primary hover:text-bg transition-all duration-300"
+            >
+              View Sponsorship Package
+              <span className="text-lg leading-none">↗</span>
+            </a>
             </motion.div>
           </div>
 

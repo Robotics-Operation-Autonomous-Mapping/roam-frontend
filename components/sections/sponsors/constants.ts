@@ -24,3 +24,5 @@ export const WHY_SPONSOR = [
     body: "We document everything — from build logs to competition results. Your investment is traceable, visible, and shareable.",
   },
 ];
+
+export const SPONSORSHIP_PACKAGE_URL = "/sponsorship-package.pdf";

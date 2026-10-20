@@ -25,3 +25,5 @@ export function inboxForContactSubject(subject: string): string {
   if (TEAM_SUBJECTS.has(subject)) return TEAM_EMAIL;
   return CONTACT_EMAIL;
 }
+
+export const RECRUITMENT = {open: true};

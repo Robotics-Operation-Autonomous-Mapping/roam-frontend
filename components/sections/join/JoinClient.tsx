@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { JoinHero } from "@/components/sections/join/JoinHero";
 import { RolesSection } from "@/components/sections/join/RolesSection";
 import { BenefitsExpectations } from "@/components/sections/join/BenefitsExpectations";
-import { TEAM_EMAIL } from "@/lib/site";
+import { TEAM_EMAIL, RECRUITMENT } from "@/lib/site";
 
 export default function JoinClient() {
   return (
@@ -25,12 +25,18 @@ export default function JoinClient() {
             <h2 className="font-display text-[clamp(2rem,6vw,4rem)] text-bg leading-[0.9] mb-10">
               IF YOU WANT TO HELP SHAPE THIS FROM DAY ONE — NOW IS THE TIME.
             </h2>
+            {RECRUITMENT.open ? (
             <a
               href="/apply"
               className="inline-block bg-bg text-cream font-sans font-bold uppercase tracking-widest px-10 py-4 hover:bg-surface-2 transition-colors min-h-[44px]"
             >
               APPLY NOW →
             </a>
+          ) : (
+            <p className="font-sans font-bold uppercase tracking-widest text-bg">
+              Applications are currently closed
+            </p>
+          )}
             <p className="font-mono text-xs text-bg/70 mt-8 tracking-wide">
               Questions?{" "}
               <a

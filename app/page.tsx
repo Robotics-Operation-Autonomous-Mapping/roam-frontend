@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import HomeClient from "@/components/home/HomeClient";
 
+
 export const metadata: Metadata = {
   title: "ROAM Robotics Club | Autonomous Systems & AI",
   description:

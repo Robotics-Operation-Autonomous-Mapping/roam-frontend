@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     siteName: "ROAM Robotics",
     images: [
       {
-        url: "/logo.png",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "ROAM Robotics Logo",
@@ -80,7 +80,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ROAM Robotics Club",
     description: "Building the future of autonomous robotics and AI.",
-    images: ["/logo.png"],
+    images: ["/og-image.png"],
   },
   icons: {
     icon: [

@@ -8,20 +8,12 @@ export const ROLES = [
     desc: "Develop power distribution, motor controllers, and sensor integration. Ensure robust communication.",
   },
   {
-    title: "COMPUTER ENGINEERING",
-    desc: "Bridge hardware and software — embedded systems, FPGA work, and low-level firmware.",
-  },
-  {
     title: "SOFTWARE DEVELOPMENT",
     desc: "Write the autonomous stack: ROS 2, computer vision, point cloud processing, and path planning.",
   },
   {
     title: "GEOMATICS",
     desc: "Analyze LiDAR and photogrammetry data. Build highly accurate 3D maps of the environment.",
-  },
-  {
-    title: "MECHATRONICS",
-    desc: "Integrate mechanical and electrical systems. Design actuators, sensors, and control loops.",
   },
   {
     title: "BUSINESS / OPERATIONS",

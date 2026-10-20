@@ -2,9 +2,9 @@ import { Metadata } from "next";
 import JoinClient from "@/components/sections/join/JoinClient";
 
 export const metadata: Metadata = {
-  title: "Join the Team | ROAM Robotics",
+  title: "Join the Team",
   description:
-    "Build the future of autonomous systems. Apply for mechanical, electrical, geomatics, software, controls, and system integration student engineering roles at ROAM Robotics.",
+    "Build the future of autonomous systems. Apply for mechanical, electrical, geomatics, software, and system integration student engineering roles at ROAM Robotics.",
   alternates: {
     canonical: "https://schulichroam.com/join",
   },

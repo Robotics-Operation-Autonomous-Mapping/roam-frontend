@@ -7,7 +7,7 @@ import { usePortalAuth } from "./AdminAuthContext";
 export function PortalGate({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
-  const { canRecruitment, canMembers, canCompose } = usePortalAuth();
+  const { canRecruitment, canMembers, canCompose, canReimburse } = usePortalAuth();
   const [allowed, setAllowed] = useState(false);
 
   useEffect(() => {
@@ -26,8 +26,13 @@ export function PortalGate({ children }: { children: React.ReactNode }) {
       router.replace("/admin/profile");
       return;
     }
+    if (pathname?.startsWith("/admin/reimbursement") && !canReimburse) {
+      setAllowed(false);
+      router.replace("/admin/profile");
+      return;
+    }
     setAllowed(true);
-  }, [pathname, canRecruitment, canMembers, canCompose, router]);
+  }, [pathname, canRecruitment, canMembers, canCompose, canReimburse, router]);
 
   if (!allowed) {
     return (
