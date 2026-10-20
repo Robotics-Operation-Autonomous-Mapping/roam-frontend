@@ -15,22 +15,18 @@ type NavItem = {
 
 export function AdminShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const { userEmail, canRecruitment, canMembers, canCompose } = usePortalAuth();
+  const { userEmail, canRecruitment, canMembers, canCompose, canReimburse } = usePortalAuth();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const navItems: NavItem[] = useMemo(
     () => [
       { href: "/admin/profile", label: "Profile", visible: true },
       { href: "/admin/members", label: "All Members", visible: canMembers },
-      {
-        href: "/admin",
-        label: "Recruitment",
-        visible: canRecruitment,
-        exact: true,
-      },
+      { href: "/admin", label: "Recruitment", visible: canRecruitment, exact: true,},
+      { href: "/admin/reimbursement", label: "Reimbursements", visible: canReimburse },
       { href: "/admin/email", label: "Compose", visible: canCompose },
     ],
-    [canRecruitment, canMembers, canCompose],
+    [canRecruitment, canMembers, canCompose, canReimburse],
   );
 
   const visibleNav = navItems.filter((item) => item.visible);

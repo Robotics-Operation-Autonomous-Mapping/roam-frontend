@@ -5,6 +5,11 @@ export function canAccessRecruitment(role: MemberRole): boolean {
   return role === "admin" || role === "lead";
 }
 
+/** Reimbursement & purchase forms — leads + admins */
+export function canAccessReimbursement(role: MemberRole): boolean {
+  return role === "admin" || role === "lead";
+}
+
 /** All-members CMS — captains / admins only */
 export function canAccessAllMembers(role: MemberRole): boolean {
   return role === "admin";

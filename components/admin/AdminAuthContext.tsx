@@ -13,6 +13,7 @@ import {
   canAccessAllMembers,
   canAccessCompose,
   canAccessRecruitment,
+  canAccessReimbursement,
 } from "@/lib/members/access";
 
 type PortalAuthContextValue = {
@@ -23,6 +24,7 @@ type PortalAuthContextValue = {
   canRecruitment: boolean;
   canMembers: boolean;
   canCompose: boolean;
+  canReimburse: boolean;
 };
 
 const PortalAuthContext = createContext<PortalAuthContextValue | null>(null);
@@ -186,6 +188,7 @@ export function PortalAuthProvider({ children }: { children: React.ReactNode }) 
         canRecruitment: canAccessRecruitment(member.role),
         canMembers: canAccessAllMembers(member.role),
         canCompose: canAccessCompose(member.role),
+        canReimburse: canAccessReimbursement(member.role),
       }}
     >
       {children}
