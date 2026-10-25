@@ -159,6 +159,7 @@ export const LidarScene: React.FC<{
       geometry,
       new THREE.LineBasicMaterial({ color: "#3DDC84", transparent: true, opacity: 0.9 }),
     );
+    line.frustumCulled = false;
     return { line, positions, count: 0, lastDistance: -Infinity };
   }, []);
 
@@ -384,7 +385,7 @@ export const LidarScene: React.FC<{
       <directionalLight position={[10, 20, 5]} intensity={1.2} />
 
       {/* The map built so far */}
-      <points geometry={map.geometry}>
+      <points geometry={map.geometry} frustumCulled={false}>        
         <pointsMaterial
           size={0.22}
           map={dot}
@@ -398,7 +399,7 @@ export const LidarScene: React.FC<{
       </points>
 
       {/* The latest full rotation, drawn bright on top */}
-      <points geometry={live.geometry}>
+      <points geometry={live.geometry} frustumCulled={false}>
         <pointsMaterial
           size={0.2}
           map={dot}
