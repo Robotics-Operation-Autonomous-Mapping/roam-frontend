@@ -16,28 +16,7 @@ export const CONTACT_SUBJECTS = [
 
 export type ContactSubject = (typeof CONTACT_SUBJECTS)[number];
 
-export const SOCIAL_LINKS = [
-  {
-    label: "Instagram",
-    href: "https://www.instagram.com/schulichroam/",
-    srOnly: "Instagram",
-  },
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/company/schulichroam/",
-    srOnly: "LinkedIn",
-  },
-  {
-    label: "GitHub",
-    href: "https://github.com/Robotics-Operation-Autonomous-Mapping",
-    srOnly: "GitHub",
-  },
-  {
-    label: "Linktree",
-    href: "https://linktr.ee/schulichroam",
-    srOnly: "Linktree",
-  },
-] as const;
+export { SOCIAL_LINKS } from "@/lib/site";
 
 export const CAPTAIN = {
   name: "Vyapak Bansal",

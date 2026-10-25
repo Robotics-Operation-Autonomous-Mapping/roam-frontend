@@ -9,6 +9,7 @@ import { PointCloudVisualization } from "@/components/sections/demo/PointCloudVi
 import { ProgressTracker } from "@/components/sections/demo/ProgressTracker";
 import { TechStackTable } from "@/components/sections/demo/TechStackTable";
 import { UpcomingGrid } from "@/components/sections/demo/UpcomingGrid";
+import { LazyMount } from "@/components/ui/LazyMount";
 
 const AutoNavigationSimulation = dynamic(
   () =>
@@ -25,7 +26,9 @@ export default function DemoClient() {
       <StatusBanner />
       <LiveMetrics />
       <PointCloudVisualization />
-      <AutoNavigationSimulation />
+      <LazyMount className="min-h-[600px]">
+        <AutoNavigationSimulation />
+      </LazyMount>
       <ProgressTracker />
       <TechStackTable />
       <UpcomingGrid />

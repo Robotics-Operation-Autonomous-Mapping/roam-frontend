@@ -44,16 +44,16 @@ export default function PortalEntryPage() {
 
   if (!isLoaded || (isSignedIn && checking && !denied)) {
     return (
-      <main className="min-h-screen bg-bg flex items-center justify-center px-6">
+      <div className="min-h-screen bg-bg flex items-center justify-center px-6">
         <p className="font-mono text-[11px] tracking-[0.2em] text-cream/40 uppercase">
           Checking access…
         </p>
-      </main>
+      </div>
     );
   }
 
   return (
-    <main className="min-h-screen bg-bg flex items-center justify-center px-6">
+    <div className="min-h-screen bg-bg flex items-center justify-center px-6">
       <div className="max-w-md w-full text-center border border-border bg-surface p-8 md:p-10">
         <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-primary mb-4">
           Team Portal
@@ -96,6 +96,6 @@ export default function PortalEntryPage() {
           </Link>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

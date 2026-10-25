@@ -4,6 +4,7 @@ import React from "react";
 import { motion, useAnimation, Variants } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { HERO_H1_SR } from "@/components/hero/heroCopy";
 import { RECRUITMENT } from "@/lib/site";
 
 export const MarsHeroContent = ({
@@ -43,7 +44,7 @@ export const MarsHeroContent = ({
             variants={item}
             className="font-display text-[clamp(4rem,11vw,8.5rem)] leading-[0.86] tracking-tight text-cream mb-7"
           >
-            <span className="sr-only">ROAM Robotics Club - Schulich School of Engineering, University of Calgary</span>
+            <span className="sr-only">{HERO_H1_SR}</span>
             EXPLORE.
             <br />
             <span className="text-primary">UNDERSTAND.</span>
@@ -84,7 +85,8 @@ export const MarsHeroContent = ({
                 variant="ghost"
                 disabled
                 className="disabled:opacity-100 disabled:hover:bg-transparent disabled:hover:text-primary"
-              >                Recruitment is closed for this term.
+              >
+                Recruitment is closed for this term.
               </Button>
             )}
             <Button href="/demo" variant="ghost">

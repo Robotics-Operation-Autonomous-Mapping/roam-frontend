@@ -4,6 +4,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 import { TechSpecs } from "./tech-stack/TechSpecs";
 import { SystemDiagram } from "./tech-stack/SystemDiagram";
+import { LazyMount } from "@/components/ui/LazyMount";
 
 const ExplodedSensorRig = dynamic(
   () =>
@@ -53,7 +54,9 @@ export const TechStackSection = () => {
             Tap nodes to inspect the high-precision perception array.
           </p>
         </div>
-        <ExplodedSensorRig />
+        <LazyMount className="min-h-[760px]">
+          <ExplodedSensorRig />
+        </LazyMount>
       </div>
     </section>
   );

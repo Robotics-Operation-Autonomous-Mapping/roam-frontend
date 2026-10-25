@@ -1,49 +1,16 @@
 import React from "react";
 
-export const JsonLd = () => {
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "ROAM Robotics Club",
-    "alternateName": [
-      "schulichroam",
-      "Schulich ROAM",
-      "Robotics Operation for Autonomous Mapping"
-    ],
-    "url": "https://schulichroam.com",
-    "logo": "https://schulichroam.com/logo.png",
-    "sameAs": [
-      "https://www.instagram.com/schulichroam/",
-      "https://www.linkedin.com/company/schulichroam/",
-      "https://github.com/Robotics-Operation-Autonomous-Mapping",
-      "https://linktr.ee/schulichroam"
-    ],
-    "description": "ROAM (Robotics Operation for Autonomous Mapping) is a premier student-led robotics club building intelligent autonomous systems at the Schulich School of Engineering, University of Calgary.",
-    "email": "contact@schulichroam.com",
-    "parentOrganization": {
-      "@type": "EducationalOrganization",
-      "name": "Schulich School of Engineering, University of Calgary",
-      "url": "https://schulich.ucalgary.ca"
-    }
-  };
-
-  const websiteSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "ROAM Robotics Club",
-    "url": "https://schulichroam.com"
-  };
-
-  return (
-    <>
+/** Renders one or more JSON-LD blocks. `<` is escaped so data can't close the script tag. */
+export const JsonLd = ({ data }: { data: object | object[] }) => (
+  <>
+    {(Array.isArray(data) ? data : [data]).map((item, i) => (
       <script
+        key={i}
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(item).replace(/</g, "\\u003c"),
+        }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
-      />
-    </>
-  );
-};
+    ))}
+  </>
+);

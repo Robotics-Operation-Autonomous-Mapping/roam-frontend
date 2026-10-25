@@ -189,6 +189,7 @@ export function ApplicationForm() {
               </div>
               <h1 className="font-display text-3xl m-0 text-[var(--color-cream)] uppercase tracking-wide">
                 Recruitment Application
+                <span className="sr-only">: Schulich ROAM, University of Calgary</span>
               </h1>
             </div>
             <div className="font-mono text-[11px] text-[var(--color-muted)] text-right">

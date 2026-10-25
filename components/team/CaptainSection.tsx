@@ -60,7 +60,7 @@ function CaptainCard({
           {photo ? (
             <Image
               src={photo}
-              alt={captain.full_name}
+              alt={`Portrait of ${captain.full_name}`}
               fill
               priority={index === 0}
               className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"

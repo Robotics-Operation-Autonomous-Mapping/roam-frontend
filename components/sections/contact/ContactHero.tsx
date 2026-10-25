@@ -28,6 +28,7 @@ export const ContactHero = () => (
         <SectionLabel className="mb-6">Get in Touch</SectionLabel>
         <h1 className="font-display text-[clamp(3rem,10vw,6.5rem)] leading-[0.85] tracking-tighter text-cream uppercase mb-6">
           Contact <span className="text-primary">Us</span>
+          <span className="sr-only">: Schulich ROAM, University of Calgary</span>
         </h1>
         <p className="font-mono text-sm md:text-base text-cream/55 leading-relaxed tracking-wide max-w-xl">
           Partnerships, sponsorships, media, or joining the team — send us a message

@@ -1,0 +1,27 @@
+# Schulich ROAM
+
+> ROAM (Robotics Operation for Autonomous Mapping) is a student robotics club at the Schulich School of Engineering, University of Calgary (Calgary, Alberta, Canada). The club is building ATLAS-1, an autonomous rover for LiDAR mapping and 3D digital-twin generation.
+
+Not to be confused with Roam Research, Roam Robotics, or other companies named Roam.
+
+- Website: https://schulichroam.com
+- Disciplines: mechanical, electrical, software, geomatics, business operations, content and media
+- Tech focus: ROS 2, dual LiDAR, stereo cameras, RTK-GNSS, sensor fusion, LiDAR SLAM, point cloud processing
+- Contact: contact@schulichroam.com (general), team@schulichroam.com (recruitment), sponsorship@schulichroam.com (sponsorship)
+
+## Pages
+
+- [Home](https://schulichroam.com/): what ROAM is and what it builds
+- [Team](https://schulichroam.com/team): captain, subteam leads and members
+- [Join](https://schulichroam.com/join): open roles and how to join
+- [Apply](https://schulichroam.com/apply): membership application form
+- [ATLAS-1 demo](https://schulichroam.com/demo): rover prototype progress and tech stack
+- [Projects](https://schulichroam.com/projects): rigs and rovers, including ARGOS
+- [Sponsors](https://schulichroam.com/sponsors): sponsorship packages and current sponsors
+- [Contact](https://schulichroam.com/contact): contact form and inboxes
+
+## Social
+
+- Instagram: https://www.instagram.com/schulichroam/
+- LinkedIn: https://www.linkedin.com/company/schulichroam/
+- GitHub: https://github.com/Robotics-Operation-Autonomous-Mapping

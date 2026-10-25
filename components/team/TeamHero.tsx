@@ -28,6 +28,7 @@ export function TeamHero() {
         >
           <SectionLabel className="mb-4">THE BUILDERS</SectionLabel>
           <h1 className="font-display text-4xl sm:text-5xl md:text-7xl text-cream leading-[0.95]">
+            <span className="sr-only">Schulich ROAM team, University of Calgary: </span>
             THE PEOPLE BEHIND ATLAS-1.
           </h1>
           <p className="mt-5 sm:mt-6 max-w-xl font-sans text-cream/60 text-sm sm:text-base md:text-lg leading-relaxed">

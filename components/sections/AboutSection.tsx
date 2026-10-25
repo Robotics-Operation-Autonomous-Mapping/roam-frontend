@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { StatCounter } from "@/components/ui/StatCounter";
+import { LazyMount } from "@/components/ui/LazyMount";
 
 const PathPlanningSandbox = dynamic(
   () =>
@@ -33,8 +34,10 @@ export const AboutSection = () => {
             BUILT BY BUILDERS
           </h2>
           <p className="font-sans text-lg text-cream/80 mb-12 max-w-xl leading-relaxed">
-            ROAM is a newly founded robotics club driven by curiosity,
-            innovation, and hands-on engineering. Our mission is to bring
+            ROAM (Robotics Operation for Autonomous Mapping) is a newly founded
+            student robotics club at the Schulich School of Engineering,
+            University of Calgary, driven by curiosity, innovation, and
+            hands-on engineering. Our mission is to bring
             together students from different technical backgrounds to build
             advanced autonomous systems from the ground up.
           </p>
@@ -64,9 +67,9 @@ export const AboutSection = () => {
         </div>
 
         {/* Right: Interactive 3D sandbox */}
-        <div className="pointer-events-auto mt-12 md:mt-0 md:pl-8">
+        <LazyMount className="pointer-events-auto mt-12 md:mt-0 md:pl-8 min-h-[360px]">
           <PathPlanningSandbox />
-        </div>
+        </LazyMount>
       </div>
     </section>
   );

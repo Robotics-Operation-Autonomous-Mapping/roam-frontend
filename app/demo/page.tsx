@@ -1,23 +1,28 @@
-import { Metadata } from "next";
 import DemoClient from "@/components/sections/demo/DemoClient";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema, pageMetadata, projectSchema, webPageSchema } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Mission Control Telemetry Demo",
-  description:
-    "Explore the live mission telemetry dashboard, point cloud visualizations, and autonomous navigation simulations built by the ROAM Robotics engineering team.",
-  alternates: {
-    canonical: "https://schulichroam.com/demo",
-  },
-  keywords: [
-    "mission control telemetry",
-    "ROAM demo",
-    "autonomous rover simulator",
-    "point cloud visualization",
-    "LiDAR data stream",
-    "student robotics demo"
-  ],
-};
+const TITLE = "ATLAS-1 Autonomous Mapping Rover Prototype";
+const DESCRIPTION =
+  "Follow ATLAS-1, the autonomous LiDAR mapping rover built by Schulich ROAM at UCalgary: build progress, tech stack (ROS 2, dual LiDAR, RTK-GNSS) and simulations.";
+
+export const metadata = pageMetadata({
+  title: TITLE,
+  description: DESCRIPTION,
+  path: "/demo",
+});
 
 export default function DemoPage() {
-  return <DemoClient />;
+  return (
+    <>
+      <JsonLd
+        data={[
+          webPageSchema({ name: TITLE, description: DESCRIPTION, path: "/demo" }),
+          breadcrumbSchema([{ name: "ATLAS-1 Demo", path: "/demo" }]),
+          projectSchema(),
+        ]}
+      />
+      <DemoClient />
+    </>
+  );
 }

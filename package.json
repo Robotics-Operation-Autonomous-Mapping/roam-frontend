@@ -12,7 +12,8 @@
     "seed:preview": "node scripts/seed-preview-members.cjs",
     "seed:wipe": "node scripts/seed-preview-members.cjs --wipe",
     "clerk:allowlist": "node scripts/sync-clerk-allowlist.cjs",
-    "photos:recompress": "node scripts/recompress-member-photos.cjs"
+    "photos:recompress": "node scripts/recompress-member-photos.cjs",
+    "og:generate": "node scripts/generate-og-images.cjs"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.39.7",

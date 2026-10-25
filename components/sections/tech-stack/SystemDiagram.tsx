@@ -163,6 +163,7 @@ export const SystemDiagram = () => {
             <motion.circle
               cx="200" cy="200" r="35"
               fill="none" stroke="#E8512A" strokeWidth="1"
+              initial={{ r: 35, opacity: 0.3 }}
               animate={{ r: [35, 42, 35], opacity: [0.3, 0.1, 0.3] }}
               transition={{ duration: 4, repeat: Infinity }}
             />

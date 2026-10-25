@@ -1,20 +1,26 @@
 import { ApplicationForm } from "@/components/sections/ApplicationForm";
-import { Metadata } from "next";
 import { RecruitmentClosed } from "@/components/sections/RecruitmentClosed";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { RECRUITMENT } from "@/lib/site";
+import { breadcrumbSchema, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Apply",
-  description: "Apply to join ROAM Robotics, the University of Calgary's student team building autonomous mapping rovers.",
-  alternates: {
-    canonical: "https://schulichroam.com/apply",
-  },
-};
+export const metadata = pageMetadata({
+  title: "Membership Application",
+  description:
+    "Apply to join Schulich ROAM, the University of Calgary robotics and autonomous mapping club. Short multi-step application for UCalgary students.",
+  path: "/apply",
+});
 
 export default function ApplyPage() {
   return (
-    <main className="w-full bg-bg min-h-screen">
+    <div className="w-full bg-bg min-h-screen">
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Join", path: "/join" },
+          { name: "Apply", path: "/apply" },
+        ])}
+      />
       {RECRUITMENT.open ? <ApplicationForm /> : <RecruitmentClosed />}
-    </main>
+    </div>
   );
 }

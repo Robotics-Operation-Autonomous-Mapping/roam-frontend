@@ -60,12 +60,14 @@ function ContactForm() {
         <input
           className={inputClass}
           placeholder="Your Name"
+          aria-label="Your name"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
         <input
           className={inputClass}
           placeholder="Organization"
+          aria-label="Organization"
           value={org}
           onChange={(e) => setOrg(e.target.value)}
         />
@@ -73,6 +75,7 @@ function ContactForm() {
 
       <select
         className={`${inputClass} cursor-pointer`}
+        aria-label="Sponsorship package"
         value={pkg}
         onChange={(e) => setPkg(e.target.value)}
         style={{ background: "#0A0A0B" }}
@@ -88,6 +91,7 @@ function ContactForm() {
         className={`${inputClass} resize-none`}
         rows={4}
         placeholder="Tell us about your organization and what excites you about ROAM..."
+        aria-label="Message"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
       />

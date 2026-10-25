@@ -12,7 +12,8 @@ export const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
   const pathname = usePathname();
 
   return (
-    <AnimatePresence mode="wait">
+    // initial={false}: server HTML must not ship at opacity 0 (delays LCP until hydration).
+    <AnimatePresence mode="wait" initial={false}>
       <motion.div
         key={pathname}
         initial={{ opacity: 0 }}

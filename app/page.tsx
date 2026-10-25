@@ -1,16 +1,21 @@
-import { Metadata } from "next";
 import HomeClient from "@/components/home/HomeClient";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { HOME_DESCRIPTION, HOME_TITLE, pageMetadata, webPageSchema } from "@/lib/seo";
 
-
-export const metadata: Metadata = {
-  title: "ROAM Robotics Club | Autonomous Systems & AI",
-  description:
-    "ROAM (Robotics Operation for Autonomous Mapping) is a premier student-led robotics club at the Schulich School of Engineering, University of Calgary. We build intelligent autonomous systems, LiDAR mapping rigs, and advanced Mars rovers.",
-  alternates: {
-    canonical: "https://schulichroam.com",
-  },
-};
+export const metadata = pageMetadata({
+  title: HOME_TITLE,
+  absoluteTitle: true,
+  description: HOME_DESCRIPTION,
+  path: "/",
+});
 
 export default function Home() {
-  return <HomeClient />;
+  return (
+    <>
+      <JsonLd
+        data={webPageSchema({ name: HOME_TITLE, description: HOME_DESCRIPTION, path: "/" })}
+      />
+      <HomeClient />
+    </>
+  );
 }

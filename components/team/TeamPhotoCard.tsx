@@ -61,7 +61,7 @@ export function TeamPhotoCard({
         {photo ? (
           <Image
             src={photo}
-            alt={name}
+            alt={`Portrait of ${name}`}
             fill
             className={[
               "object-cover transition-[transform,filter] duration-500 ease-out",

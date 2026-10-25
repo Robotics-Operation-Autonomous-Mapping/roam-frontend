@@ -47,6 +47,7 @@ export const SponsorHero = () => {
               transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="font-display text-[clamp(3.5rem,12vw,8rem)] leading-[0.85] tracking-tighter text-cream mb-6 max-w-4xl uppercase"
             >
+              <span className="sr-only">Sponsor Schulich ROAM, a University of Calgary student robotics team: </span>
               THE ROVER<br />
               DOESN&apos;T BUILD<br />
               <span className="text-primary" style={{ textShadow: "0 0 40px rgba(232,81,42,0.3)" }}>ITSELF.</span>

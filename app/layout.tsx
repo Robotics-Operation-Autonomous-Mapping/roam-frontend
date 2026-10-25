@@ -8,6 +8,14 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import Script from "next/script";
 import { ClerkProvider } from "@clerk/nextjs";
 import { clerkAppearance } from "@/lib/clerk-appearance";
+import { SITE_NAME, SITE_URL } from "@/lib/site";
+import {
+  HOME_DESCRIPTION,
+  HOME_TITLE,
+  ogImage,
+  organizationSchema,
+  websiteSchema,
+} from "@/lib/seo";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -17,35 +25,42 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "ROAM Robotics Club | Autonomous Systems & AI",
-    template: "%s | ROAM Robotics",
+    default: HOME_TITLE,
+    template: `%s | ${SITE_NAME}`,
   },
-  description:
-    "ROAM (Robotics Operation for Autonomous Mapping) is a premier student-led robotics club building intelligent autonomous systems that explore, understand, and digitally recreate the world using advanced LiDAR and AI technology.",
+  description: HOME_DESCRIPTION,
+  applicationName: SITE_NAME,
   keywords: [
     "schulichroam",
     "Schulich ROAM",
     "schulich roam",
     "ROAM Robotics Club",
     "ROAM Robotics Calgary",
+    "ROAM UCalgary",
+    "ROAM University of Calgary",
+    "Robotics Operation for Autonomous Mapping",
     "UCalgary Robotics",
+    "UCalgary robotics club",
     "University of Calgary robotics club",
+    "University of Calgary robotics team",
     "Schulich School of Engineering",
-    "Autonomous mapping",
+    "autonomous mapping",
     "LiDAR mapping",
     "AI robotics",
     "autonomous vehicles",
+    "autonomous rover",
     "robotics engineering",
     "student engineering club",
-    "Mars Rover Calgary"
+    "Calgary student engineering team",
+    "Mars Rover Calgary",
+    "ROS 2",
   ],
-  authors: [{ name: "ROAM Robotics Team" }],
-  creator: "ROAM Robotics",
-  metadataBase: new URL("https://schulichroam.com"),
-  alternates: {
-    canonical: "./",
-  },
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  formatDetection: { telephone: false, address: false, email: false },
   robots: {
     index: true,
     follow: true,
@@ -62,41 +77,25 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    locale: "en_US",
-    url: "https://schulichroam.com",
-    title: "ROAM Robotics Club | Building the Future of Autonomy",
-    description: "Building intelligent systems that explore, understand, and digitally recreate the world.",
-    siteName: "ROAM Robotics",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "ROAM Robotics Logo",
-      },
-    ],
+    locale: "en_CA",
+    siteName: SITE_NAME,
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+    images: [ogImage("home", HOME_TITLE)],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ROAM Robotics Club",
-    description: "Building the future of autonomous robotics and AI.",
-    images: ["/og-image.png"],
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+    images: ["/og/home.png"],
   },
   icons: {
     icon: [
-      { url: "/favicon.ico" },
+      { url: "/favicon.ico", sizes: "any" },
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
     ],
-    apple: [
-      { url: "/apple-touch-icon.png" },
-    ],
-    other: [
-      {
-        rel: "manifest",
-        url: "/site.webmanifest",
-      },
-    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },
 };
 
@@ -111,7 +110,7 @@ export default function RootLayout({
       className={`${bebasNeue.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}
     >
       <head>
-        <JsonLd />
+        <JsonLd data={[organizationSchema(), websiteSchema()]} />
       </head>
       <body className="font-sans antialiased bg-bg text-cream selection:bg-primary selection:text-white">
         <ClerkProvider appearance={clerkAppearance}>
@@ -127,9 +126,15 @@ export default function RootLayout({
           gtag('config', 'G-5RFTEQ19RQ');
           `}
           </Script>
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-bg focus:text-primary focus:px-4 focus:py-2 focus:border focus:border-primary font-mono text-xs uppercase tracking-widest"
+          >
+            Skip to content
+          </a>
           <Navbar />
           <PageTransition>
-          <main>{children}</main>
+          <main id="main-content">{children}</main>
           </PageTransition>
           <Footer />
         </ClerkProvider>

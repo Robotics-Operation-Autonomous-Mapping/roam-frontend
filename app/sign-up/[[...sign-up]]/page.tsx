@@ -1,5 +1,9 @@
 import { SignUp } from "@clerk/nextjs";
+import type { Metadata } from "next";
 import { clerkAppearance } from "@/lib/clerk-appearance";
+import { NO_INDEX } from "@/lib/seo";
+
+export const metadata: Metadata = { title: "Sign Up", ...NO_INDEX };
 
 export default function SignUpPage() {
   return (

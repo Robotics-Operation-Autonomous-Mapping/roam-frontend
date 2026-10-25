@@ -1,19 +1,37 @@
-import { Metadata } from "next";
 import { TeamClient } from "@/components/team/TeamClient";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { fetchPublicMembers } from "@/lib/members/public";
+import {
+  breadcrumbSchema,
+  pageMetadata,
+  teamMembersSchema,
+  webPageSchema,
+} from "@/lib/seo";
 
 export const revalidate = 3600;
 
-export const metadata: Metadata = {
-  title: "Our Team",
-  description:
-    "Meet the ROAM Robotics subteam leads and crew building ATLAS-1 — software, electrical, mechanical, geomatics, business operations, and content.",
-  alternates: {
-    canonical: "https://schulichroam.com/team",
-  },
-};
+const TITLE = "Our Team: UCalgary Robotics Students";
+const DESCRIPTION =
+  "Meet the Schulich ROAM team at the University of Calgary: the captain, subteam leads and members building the ATLAS-1 autonomous mapping rover.";
+
+export const metadata = pageMetadata({
+  title: TITLE,
+  description: DESCRIPTION,
+  path: "/team",
+});
 
 export default async function TeamPage() {
   const members = await fetchPublicMembers();
-  return <TeamClient members={members} />;
+  return (
+    <>
+      <JsonLd
+        data={[
+          webPageSchema({ type: "AboutPage", name: TITLE, description: DESCRIPTION, path: "/team" }),
+          breadcrumbSchema([{ name: "Team", path: "/team" }]),
+          ...(members.length ? [teamMembersSchema(members)] : []),
+        ]}
+      />
+      <TeamClient members={members} />
+    </>
+  );
 }

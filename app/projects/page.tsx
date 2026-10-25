@@ -1,15 +1,27 @@
-import { Metadata } from "next";
 import ProjectsClient from "@/components/sections/projects/ProjectsClient";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema, pageMetadata, webPageSchema } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Projects",
-  description:
-    "The rigs and rovers built by ROAM Robotics at the University of Calgary, starting with ARGOS, our first LiDAR mapping rig.",
-  alternates: {
-    canonical: "https://schulichroam.com/projects",
-  },
-};
+const TITLE = "Projects";
+const DESCRIPTION =
+  "The rigs and rovers built by Schulich ROAM at the University of Calgary, starting with ARGOS, the first LiDAR mapping rig.";
+
+export const metadata = pageMetadata({
+  title: TITLE,
+  description: DESCRIPTION,
+  path: "/projects",
+});
 
 export default function ProjectsPage() {
-  return <ProjectsClient />;
+  return (
+    <>
+      <JsonLd
+        data={[
+          webPageSchema({ name: TITLE, description: DESCRIPTION, path: "/projects" }),
+          breadcrumbSchema([{ name: "Projects", path: "/projects" }]),
+        ]}
+      />
+      <ProjectsClient />
+    </>
+  );
 }

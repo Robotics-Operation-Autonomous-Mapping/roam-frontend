@@ -3,6 +3,7 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Logo } from "@/components/ui/Logo";
+import { PUBLIC_ROUTES, SOCIAL } from "@/lib/site";
 
 export const Footer = () => {
   const pathname = usePathname();
@@ -28,12 +29,12 @@ export const Footer = () => {
           <div className="flex flex-col items-center lg:items-end justify-center text-center lg:text-right">
             <div className="flex gap-4">
               <a
-                href="https://www.instagram.com/schulichroam/"
+                href={SOCIAL.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 border border-border flex items-center justify-center hover:border-primary hover:text-primary transition-colors group"
               >
-                <span className="sr-only">Instagram</span>
+                <span className="sr-only">Schulich ROAM on Instagram</span>
                 <svg
                   width="20"
                   height="20"
@@ -51,12 +52,12 @@ export const Footer = () => {
                 </svg>
               </a>
               <a
-                href="https://www.linkedin.com/company/schulichroam/"
+                href={SOCIAL.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 border border-border flex items-center justify-center hover:border-primary hover:text-primary transition-colors group"
               >
-                <span className="sr-only">LinkedIn</span>
+                <span className="sr-only">Schulich ROAM on LinkedIn</span>
                 <svg
                   width="20"
                   height="20"
@@ -74,12 +75,12 @@ export const Footer = () => {
                 </svg>
               </a>
               <a
-                href="https://github.com/Robotics-Operation-Autonomous-Mapping"
+                href={SOCIAL.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 border border-border flex items-center justify-center hover:border-primary hover:text-primary transition-colors group"
               >
-                <span className="sr-only">GitHub</span>
+                <span className="sr-only">Schulich ROAM on GitHub</span>
                 <svg
                   width="20"
                   height="20"
@@ -95,12 +96,12 @@ export const Footer = () => {
                 </svg>
               </a>
               <a
-                href="https://linktr.ee/schulichroam"
+                href={SOCIAL.linktree}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 border border-border flex items-center justify-center hover:border-primary hover:text-primary transition-colors group"
               >
-                <span className="sr-only">Linktree</span>
+                <span className="sr-only">Schulich ROAM on Linktree</span>
                 <svg
                   width="20"
                   height="20"
@@ -123,9 +124,21 @@ export const Footer = () => {
           </div>
         </div>
 
+        <nav aria-label="Footer" className="mb-10">
+          <ul className="flex flex-wrap justify-center lg:justify-start gap-x-8 gap-y-3 font-mono text-[11px] uppercase tracking-[0.2em]">
+            {PUBLIC_ROUTES.map((route) => (
+              <li key={route.href}>
+                <Link href={route.href} className="text-cream/50 hover:text-primary transition-colors">
+                  {route.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-mono text-muted uppercase">
-          <p>© 2026 ROAM Robotics Club</p>
+          <p>© 2026 Schulich ROAM · University of Calgary</p>
           <div className="flex gap-4 items-center">
             <p>Built by Builders</p>
             <Link

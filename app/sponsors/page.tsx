@@ -1,23 +1,27 @@
-import { Metadata } from "next";
 import SponsorsClient from "@/components/sections/sponsors/SponsorsClient";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema, pageMetadata, webPageSchema } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Sponsor Us & Partner with ROAM",
-  description:
-    "Support next-generation engineering talent. Partner with ROAM Robotics to fuel hands-on autonomous systems education and state-of-the-art rover development.",
-  alternates: {
-    canonical: "https://schulichroam.com/sponsors",
-  },
-  keywords: [
-    "sponsor ROAM robotics",
-    "engineering sponsorship",
-    "University of Calgary sponsors",
-    "rover team funding",
-    "partner with student engineering",
-    "Calgary corporate sponsorships"
-  ],
-};
+const TITLE = "Sponsor a Student Robotics Team in Calgary";
+const DESCRIPTION =
+  "Sponsor Schulich ROAM, a University of Calgary student robotics team building an autonomous mapping rover. Platinum, Gold and Basic sponsorship packages.";
+
+export const metadata = pageMetadata({
+  title: TITLE,
+  description: DESCRIPTION,
+  path: "/sponsors",
+});
 
 export default function SponsorPage() {
-  return <SponsorsClient />;
+  return (
+    <>
+      <JsonLd
+        data={[
+          webPageSchema({ name: TITLE, description: DESCRIPTION, path: "/sponsors" }),
+          breadcrumbSchema([{ name: "Sponsors", path: "/sponsors" }]),
+        ]}
+      />
+      <SponsorsClient />
+    </>
+  );
 }

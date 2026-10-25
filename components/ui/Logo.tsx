@@ -29,7 +29,7 @@ export const Logo: React.FC<LogoProps> = ({
         >
           <Image
             src="/logo.png"
-            alt="ROAM Icon"
+            alt="Schulich ROAM logo"
             fill
             sizes={`${iconSize}px`}
             style={{

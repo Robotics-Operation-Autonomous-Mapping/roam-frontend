@@ -1,12 +1,15 @@
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/lib/site";
 
+// Portal and auth pages stay crawlable so their noindex tag is seen.
+// Admin and API routes are disallowed outright.
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
       allow: "/",
-            disallow: ["/admin", "/portal", "/sign-in", "/sign-up"], // Keep private and login pages out of search results // Protect admin crawling and optimize crawling budget
+      disallow: ["/admin", "/api/"],
     },
-    sitemap: "https://schulichroam.com/sitemap.xml",
+    sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }

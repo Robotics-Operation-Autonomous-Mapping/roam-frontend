@@ -7,11 +7,15 @@ import { VisionSection } from "@/components/sections/VisionSection";
 import { TechStackSection } from "@/components/sections/TechStackSection";
 import { JoinCTASection } from "@/components/sections/JoinCTASection";
 import { SponsorCTA } from "@/components/sections/SponsorCTA";
+import { HERO_H1_SR } from "@/components/hero/heroCopy";
 
 const MarsHero = dynamic(() => import("@/components/hero/MarsHero"), {
   ssr: false,
+  // The hero is client-only; this placeholder carries the same h1 so it is in the server HTML.
   loading: () => (
-    <div className="w-full min-h-screen bg-[#0A0A0B]" aria-hidden="true" />
+    <div className="w-full min-h-screen bg-[#0A0A0B]">
+      <h1 className="sr-only">{HERO_H1_SR}</h1>
+    </div>
   ),
 });
 

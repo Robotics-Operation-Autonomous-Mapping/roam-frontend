@@ -330,39 +330,38 @@ The number appears in three places. Keep them in sync:
 
 ## Add a link to the top menu
 
-**File:** `components/nav/Navbar.tsx`, the `NAV_LINKS` list. Add an object where the link should appear:
+**File:** `lib/site.ts`, the `PUBLIC_ROUTES` list. Add an object where the link should appear:
 
 ```ts
 { label: "Projects", href: "/projects" },
 ```
 
-It shows on desktop and in the phone menu. Also add new pages to `app/sitemap.ts` so search engines find them.
+That list drives the top menu, the footer, and `app/sitemap.ts`. It shows on desktop and in the phone menu. Give the new page a priority in `app/sitemap.ts` if it should rank above the default.
 
 ---
 
 ## Page titles, search results and link previews
 
-**Adding or editing a page's title:** in that page's `page.tsx`, write only the page name:
+**Adding or editing a page's title:** in that page's `page.tsx`, use `pageMetadata` from `lib/seo.ts` and write only the page name:
 
 ```ts
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Projects",
   description: "One or two sentences Google shows under the link.",
-  alternates: {
-    canonical: "https://schulichroam.com/projects",
-  },
-};
+  path: "/projects",
+});
 ```
 
-Don't add ` | ROAM Robotics` yourself. `app/layout.tsx` adds it to every page through `title.template`, so writing it again shows it twice. The homepage (`app/page.tsx`) is the exception and keeps its full title.
+Don't add ` | Schulich ROAM` yourself. `app/layout.tsx` adds it through `title.template`, so writing it again shows it twice. The homepage (`app/page.tsx`) is the exception and sets `absoluteTitle: true`.
 
 Every new public page should also have:
-- a `canonical` link with its full address, as above;
-- an entry in `app/sitemap.ts`.
+- a `path` passed to `pageMetadata` (that sets the canonical URL);
+- an entry in `PUBLIC_ROUTES` in `lib/site.ts` so it lands in the sitemap;
+- a card in `scripts/generate-og-images.cjs`, then `npm run og:generate`.
 
-**Keeping pages out of Google:** add the path to `disallow` in `app/robots.ts`. `/admin`, `/portal`, `/sign-in` and `/sign-up` are already there.
+**Keeping pages out of Google:** portal, sign-in, and sign-up already export `NO_INDEX` from `lib/seo.ts`, and they stay crawlable so Google can see that tag. `/admin` and `/api/` are disallowed in `app/robots.ts`.
 
-**Link preview image:** when the site is shared on LinkedIn, Discord, texts and so on, the preview uses `public/og-image.png` (set in `app/layout.tsx` under `openGraph` and `twitter`). To change it, replace that file with a new **1200 × 630** PNG under the same name. Apps cache previews, so updates can take a few days to appear; LinkedIn's Post Inspector forces a refresh.
+**Link preview image:** when the site is shared on LinkedIn, Discord, texts and so on, each page uses `public/og/<slug>.png` (1200 × 630). Add a line to `scripts/generate-og-images.cjs` and run `npm run og:generate`. Apps cache previews, so updates can take a few days to appear; LinkedIn's Post Inspector forces a refresh.
 
 **Checking:** Chrome DevTools → Lighthouse → SEO, on the live site. Google Search Console (ask the website lead for access) shows which pages Google has indexed and any errors.
 

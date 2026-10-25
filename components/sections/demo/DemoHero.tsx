@@ -13,6 +13,7 @@ export const DemoHero = () => (
     >
       <SectionLabel className="mb-4">ROAM V1 — DESIGN & SYSTEMS PHASE</SectionLabel>
       <h1 className="font-display text-[clamp(3rem,10vw,7rem)] text-cream leading-[0.85] mb-6">
+        <span className="sr-only">ATLAS-1 autonomous mapping rover by Schulich ROAM: </span>
         PROTOTYPE SHOWCASE
       </h1>
       <p className="font-sans text-lg text-cream/80 max-w-2xl leading-relaxed">

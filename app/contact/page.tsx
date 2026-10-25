@@ -1,21 +1,27 @@
-import { Metadata } from "next";
 import ContactClient from "@/components/sections/contact/ContactClient";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema, pageMetadata, webPageSchema } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Contact Us",
-  description:
-    "Get in touch with ROAM Robotics — partnerships, sponsorships, media, recruitment, and general inquiries.",
-  alternates: {
-    canonical: "https://schulichroam.com/contact",
-  },
-  keywords: [
-    "contact ROAM",
-    "Schulich ROAM email",
-    "robotics club Calgary contact",
-    "sponsorship inquiry ROAM",
-  ],
-};
+const TITLE = "Contact Us";
+const DESCRIPTION =
+  "Contact Schulich ROAM, the University of Calgary robotics and autonomous mapping club, about sponsorship, partnerships, media, or joining the team.";
+
+export const metadata = pageMetadata({
+  title: TITLE,
+  description: DESCRIPTION,
+  path: "/contact",
+});
 
 export default function ContactPage() {
-  return <ContactClient />;
+  return (
+    <>
+      <JsonLd
+        data={[
+          webPageSchema({ type: "ContactPage", name: TITLE, description: DESCRIPTION, path: "/contact" }),
+          breadcrumbSchema([{ name: "Contact", path: "/contact" }]),
+        ]}
+      />
+      <ContactClient />
+    </>
+  );
 }

@@ -37,7 +37,8 @@ export const JoinCTASection = () => {
                 variant="ghost"
                 disabled
                 className="disabled:opacity-100 disabled:hover:bg-transparent disabled:hover:text-primary"
-              >                Recruitment is closed for this term.
+              >
+                Recruitment is closed for this term.
               </Button>
             )}
             <Button href="/demo" variant="ghost">

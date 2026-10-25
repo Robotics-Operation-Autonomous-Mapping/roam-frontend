@@ -26,6 +26,7 @@ export const JoinHero = () => (
       >
         <SectionLabel className="mb-6">RECRUITMENT</SectionLabel>
         <h1 className="font-display text-[clamp(3.5rem,12vw,8rem)] text-cream leading-[0.85] mb-8">
+          <span className="sr-only">Join Schulich ROAM, a University of Calgary robotics club: </span>
           JOIN THE MISSION.
         </h1>
         <p className="font-sans text-xl text-primary font-bold mb-4">

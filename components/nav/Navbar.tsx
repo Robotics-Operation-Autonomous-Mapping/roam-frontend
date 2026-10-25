@@ -7,16 +7,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { SignedIn, UserButton } from "@clerk/nextjs";
 import { Logo } from "@/components/ui/Logo";
 import { cn } from "@/lib/utils";
+import { PUBLIC_ROUTES } from "@/lib/site";
 
-const NAV_LINKS = [
-  { label: "Home", href: "/" },
-  { label: "Team", href: "/team" },
-  { label: "Join Us", href: "/join" },
-  { label: "Demo", href: "/demo" },
-  { label: "Projects", href: "/projects" },
-  { label: "Sponsors", href: "/sponsors" },
-  { label: "Contact", href: "/contact" },
-];
+const NAV_LINKS = PUBLIC_ROUTES;
 
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -66,11 +59,11 @@ export const Navbar = () => {
         )}
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between pointer-events-auto">
-          <Link href="/" className="relative z-50">
+          <Link href="/" aria-label="Schulich ROAM home" className="relative z-50">
             <Logo size={40} />
           </Link>
 
-          <nav className="hidden md:flex items-center gap-8">
+          <nav aria-label="Main" className="hidden md:flex items-center gap-8">
             {NAV_LINKS.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -117,6 +110,7 @@ export const Navbar = () => {
             className="md:hidden relative z-50 w-8 h-8 flex flex-col items-center justify-center gap-2 focus:outline-none"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle Menu"
+            aria-expanded={mobileMenuOpen}
           >
             <motion.div
               animate={{
@@ -155,7 +149,7 @@ export const Navbar = () => {
           >
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
 
-            <nav className="flex flex-col gap-8 items-center text-center">
+            <nav aria-label="Mobile" className="flex flex-col gap-8 items-center text-center">
               {NAV_LINKS.map((link, i) => (
                 <motion.div
                   key={link.label}

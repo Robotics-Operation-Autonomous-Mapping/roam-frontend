@@ -55,9 +55,9 @@ export const TechSpecs = () => {
                   </div>
                   <div className="flex-1">
                     <div className="flex items-baseline justify-between mb-1">
-                      <h4 className="font-mono text-[13px] text-cream uppercase font-bold tracking-wider group-hover:text-primary transition-colors">
+                      <h3 className="font-mono text-[13px] text-cream uppercase font-bold tracking-wider group-hover:text-primary transition-colors">
                         {spec.component}
-                      </h4>
+                      </h3>
                       <div className="h-[1px] flex-1 mx-4 bg-border/20 border-dotted border-b" />
                       <span className="font-mono text-[9px] text-primary/60 uppercase">Operational</span>
                     </div>

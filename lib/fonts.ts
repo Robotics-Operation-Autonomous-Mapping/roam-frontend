@@ -4,7 +4,8 @@ export const bebasNeue = Bebas_Neue({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-display",
-  display: "swap",
+  // Condensed face: an Arial fallback wraps differently, so a late swap shifts hero layouts (CLS).
+  display: "optional",
 });
 
 export const dmSans = DM_Sans({
@@ -16,5 +17,6 @@ export const dmSans = DM_Sans({
 export const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
-  display: "swap",
+  // Same reason as the display face: the generated fallback is not monospaced.
+  display: "optional",
 });

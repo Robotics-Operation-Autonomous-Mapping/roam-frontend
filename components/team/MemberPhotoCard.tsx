@@ -34,7 +34,7 @@ export function MemberPhotoCard({
   const revealed = open || hovered;
 
   return (
-    <motion.article
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
@@ -90,7 +90,7 @@ export function MemberPhotoCard({
         {photo ? (
           <Image
             src={photo}
-            alt={name}
+            alt={`Portrait of ${name}`}
             fill
             className={[
               "object-cover transition-[transform,filter] duration-500 ease-out",
@@ -150,6 +150,6 @@ export function MemberPhotoCard({
           )}
         </div>
       </div>
-    </motion.article>
+    </motion.div>
   );
 }
