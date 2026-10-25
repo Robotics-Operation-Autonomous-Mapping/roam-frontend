@@ -1,77 +1,52 @@
 "use client";
 
-import React, { useRef, useEffect, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 
-import { gsap } from "@/lib/gsap";
-import {
-  IS_MOBILE,
-  POINT_COUNT,
-  SCAN_DURATION,
-  INTRO_HOLD,
-} from "./parts/constants";
-import { PointCloudScene } from "./parts/PointCloudScene";
-import { PointCloudHUD } from "./parts/PointCloudHUD";
+import { BG, IS_MOBILE } from "./parts/constants";
+import { LidarScene, type CameraMode, type ColorMode, type LidarStats } from "./parts/LidarScene";
+import { LidarHUD } from "./parts/LidarHUD";
 
 export default function PointCloudCanvas() {
-  const [scanProgress, setScanProgress] = useState(0);
-  const [scanDone, setScanDone] = useState(false);
+  const [cameraMode, setCameraMode] = useState<CameraMode>("chase");
+  const [colorMode, setColorMode] = useState<ColorMode>("height");
+  const [resetKey, setResetKey] = useState(0);
 
-  const [userControl, setUserControl] = useState(false);
-  const rafScan = useRef<gsap.core.Tween | null>(null);
+  // The scene writes live numbers here; the HUD reads them
+  const stats = useRef<LidarStats>({
+    mapPoints: 0, pointsPerSec: 0, x: 0, z: 0, heading: 0, distance: 0, lap: 0,
+  });
 
-  // Start scan sweep as soon as canvas mounts
+  // Pause the simulation while it's scrolled off screen
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const [onScreen, setOnScreen] = useState(false);
   useEffect(() => {
-    const proxy = { p: 0 };
-    rafScan.current = gsap.to(proxy, {
-      p: 1,
-      duration: SCAN_DURATION,
-      ease: "power1.inOut",
-      delay: 0.5,
-      onUpdate: () => setScanProgress(proxy.p),
-      onComplete: () => {
-        setScanDone(true);
-        // After the scan + intro camera hold, hand off to user
-        setTimeout(() => setUserControl(true), (INTRO_HOLD + 0.8) * 1000);
-      },
-    });
-    return () => {
-      rafScan.current?.kill();
-    };
+    const el = wrapperRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => setOnScreen(entry.isIntersecting));
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
-  const handleIntroComplete = useCallback(() => {}, []);
-
   return (
-    <div
-      className="relative w-full h-full bg-[#080909]"
-      onPointerDown={() => {
-        if (scanDone) setUserControl(true);
-      }}
-    >
+    <div ref={wrapperRef} className="relative w-full h-full" style={{ background: BG }}>
       <Canvas
-        camera={{ position: [0, 28, 8], fov: 52 }}
-        dpr={
-          typeof window !== "undefined"
-            ? Math.min(window.devicePixelRatio, IS_MOBILE ? 1 : 2)
-            : 1
-        }
-        gl={{ antialias: false, powerPreference: "high-performance" }}
-        aria-label="Interactive 3D LiDAR point cloud of Earth terrain — forest, rock outcrops and path"
+        frameloop={onScreen ? "always" : "never"}
+        camera={{ position: [0, 40, -45], fov: 55, near: 0.1, far: 200 }}
+        dpr={typeof window !== "undefined" ? Math.min(window.devicePixelRatio, IS_MOBILE ? 1 : 2) : 1}
+        gl={{ antialias: true, powerPreference: "high-performance" }}
+        aria-label="Simulated rover driving a loop while its spinning LiDAR builds a 3D point cloud map"
       >
-        <PointCloudScene
-          scanProgress={scanProgress}
-          scanDone={scanDone}
-          userControl={userControl}
-          onIntroComplete={handleIntroComplete}
-        />
+        <LidarScene stats={stats} cameraMode={cameraMode} colorMode={colorMode} resetKey={resetKey} />
       </Canvas>
 
-      <PointCloudHUD
-        scanProgress={scanProgress}
-        scanDone={scanDone}
-        pointCount={POINT_COUNT}
-        userControl={userControl}
+      <LidarHUD
+        stats={stats}
+        cameraMode={cameraMode}
+        setCameraMode={setCameraMode}
+        colorMode={colorMode}
+        setColorMode={setColorMode}
+        onReset={() => setResetKey((k) => k + 1)}
       />
     </div>
   );
