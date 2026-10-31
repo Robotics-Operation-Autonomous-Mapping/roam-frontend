@@ -52,19 +52,21 @@ export async function PATCH(request: Request, { params }: Params) {
 
   const supabase = createServiceClient();
 
+  // Each subteam can have up to two leads (a lead and a co-lead)
+  const MAX_LEADS_PER_SUBTEAM = 2;
   if (patch.role === "lead" && patch.subteam) {
-    const { data: existingLead } = await supabase
+    const { data: otherLeads } = await supabase
       .from("members")
       .select("id, full_name")
       .eq("role", "lead")
       .eq("subteam", patch.subteam)
-      .neq("id", params.id)
-      .maybeSingle();
+      .neq("id", params.id);
 
-    if (existingLead) {
+    if (otherLeads && otherLeads.length >= MAX_LEADS_PER_SUBTEAM) {
+      const names = otherLeads.map((l) => l.full_name).join(" and ");
       return NextResponse.json(
         {
-          error: `${existingLead.full_name} is already the lead for this subteam. Demote them first.`,
+          error: `${names} already lead this subteam. Demote one of them first.`,
           warning: true,
         },
         { status: 409 },
