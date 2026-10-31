@@ -21,6 +21,13 @@ export function LeadsSection({ leads }: { leads: PublicMember[] }) {
     return (a.sort_order ?? 0) - (b.sort_order ?? 0);
   });
 
+  // Two leads on the same subteam are shown as co-leads
+  const roleLabel = (lead: PublicMember) => {
+    if (!lead.subteam) return lead.title || "Lead";
+    const sharing = leads.filter((l) => l.subteam === lead.subteam).length;
+    return `${SUBTEAM_LABELS[lead.subteam]} ${sharing > 1 ? "Co-Lead" : "Lead"}`;
+  };
+
   const isTouchLike = () =>
     pointerType.current === "touch" || pointerType.current === "pen";
 
@@ -74,11 +81,7 @@ export function LeadsSection({ leads }: { leads: PublicMember[] }) {
                 role="button"
                 tabIndex={0}
                 aria-expanded={isActive}
-                aria-label={`${lead.full_name}, ${
-                  lead.subteam
-                    ? `${SUBTEAM_LABELS[lead.subteam]} Lead`
-                    : lead.title || "Lead"
-                }`}
+                aria-label={`${lead.full_name}, ${roleLabel(lead)}`}
                 onPointerDown={(e) => {
                   pointerType.current =
                     e.pointerType === "mouse" ||
@@ -130,11 +133,7 @@ export function LeadsSection({ leads }: { leads: PublicMember[] }) {
                   index={index}
                   expanded={isActive}
                   name={lead.full_name}
-                  roleLabel={
-                    lead.subteam
-                      ? `${SUBTEAM_LABELS[lead.subteam]} Lead`
-                      : lead.title || "Lead"
-                  }
+                  roleLabel={roleLabel(lead)}
                   bio={lead.bio || lead.interesting_thing}
                   photoPath={lead.photo_path}
                   linkedinUrl={lead.linkedin_url}
