@@ -87,25 +87,19 @@ export const SystemDiagram = () => {
                   strokeDasharray="5 5"
                   opacity="0.3"
                 />
-                {/* Data Packet Animation - Responsive count */}
+                  {/* Data packets moving along the line. <animateMotion> is SVG's
+                    built-in path animation: the browser runs it, no JavaScript per
+                    frame. A negative begin starts it part-way through, so the
+                    second packet trails the first by half a cycle. */}
                 {particleCount.map((offset) => (
-                  <motion.circle
-                    key={offset}
-                    r="2"
-                    fill={from.color}
-                    initial={{ offsetDistance: "0%" }}
-                    animate={{ offsetDistance: "100%" }}
-                    transition={{
-                      duration: edge.dur,
-                      repeat: Infinity,
-                      ease: "linear",
-                      delay: i * 0.2 + (offset * edge.dur)
-                    }}
-                    style={{
-                      offsetPath: `path('M${from.cx},${from.cy} L${to.cx},${to.cy}')`,
-                      motionPath: `path('M${from.cx},${from.cy} L${to.cx},${to.cy}')`
-                    }}
-                  />
+                  <circle key={offset} r="2" fill={from.color}>
+                    <animateMotion
+                      path={`M${from.cx},${from.cy} L${to.cx},${to.cy}`}
+                      dur={`${edge.dur}s`}
+                      begin={`-${i * 0.2 + offset * edge.dur}s`}
+                      repeatCount="indefinite"
+                    />
+                  </circle>
                 ))}
               </g>
             );

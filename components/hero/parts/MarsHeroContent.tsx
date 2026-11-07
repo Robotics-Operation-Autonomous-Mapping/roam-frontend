@@ -14,7 +14,7 @@ export const MarsHeroContent = ({
 }) => {
   const container: Variants = {
     hidden: {},
-    visible: { transition: { staggerChildren: 0.12, delayChildren: 0.2 } },
+    visible: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } },
   };
   const item: Variants = {
     hidden: { opacity: 0, y: 22 },

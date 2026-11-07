@@ -87,23 +87,69 @@ export function useMarsHeroCanvas({
     let currentRoverY = -1;
     let uiStarted = false;
 
+    // The sky and the mountains never change, so they're drawn once into
+    // two off-screen canvases (again only when the window is resized), and
+    // each frame just copies them in. Stars go between the two layers so
+    // the ridges still cover them.
+    const skyLayer = document.createElement("canvas");
+    const groundLayer = document.createElement("canvas");
+
+    const paintStaticLayers = () => {
+      skyLayer.width = groundLayer.width = W;
+      skyLayer.height = groundLayer.height = H;
+
+      const sctx = skyLayer.getContext("2d");
+      const gctx = groundLayer.getContext("2d");
+      if (!sctx || !gctx) return;
+
+      const sky = sctx.createLinearGradient(0, 0, 0, H * 0.85);
+      sky.addColorStop(0, "#08080C");
+      sky.addColorStop(0.35, "#12121D");
+      sky.addColorStop(0.72, "#2A1810");
+      sky.addColorStop(1, "#3D2212");
+      sctx.fillStyle = sky;
+      sctx.fillRect(0, 0, W, H);
+
+      gctx.beginPath();
+      gctx.moveTo(0, H);
+      for (let i = 0; i <= W; i += 4) {
+        const nx = i / W;
+        let y = 0.62;
+        for (let o = 1; o <= 4; o++)
+          y += ((Math.sin(nx * o * 7.3 + 2.1) * 0.5 + 0.5) * 0.038) / o;
+        gctx.lineTo(i, y * H);
+      }
+      gctx.lineTo(W, H);
+      gctx.fillStyle = "#0c0907";
+      gctx.fill();
+
+      drawTerrain(gctx, ridge1, W, H, "#120F0C", "rgba(75,42,20,0.4)");
+      drawTerrain(gctx, ridge2, W, H, "#18120D", "rgba(85,47,22,0.35)");
+      drawTerrain(gctx, ridge3, W, H, "#221811", "rgba(95,52,24,0.3)");
+
+      gctx.fillStyle = "#251B15";
+      gctx.fillRect(0, H * 0.91, W, H * 0.09);
+    };
+
     const resize = () => {
       if (!canvasRef.current || !wrap) return;
       W = canvasRef.current.width = wrap.offsetWidth;
       H = canvasRef.current.height = wrap.offsetHeight;
+      if (W > 0 && H > 0) paintStaticLayers();
     };
     resize();
     const ro = new ResizeObserver(resize);
     ro.observe(wrap);
 
+    // Stop drawing while the hero is scrolled off screen
+    let onScreen = true;
+    const io = new IntersectionObserver(([entry]) => {
+      onScreen = entry.isIntersecting;
+    });
+    io.observe(wrap);
+
     const drawEnvironment = (ctx: CanvasRenderingContext2D, px: number) => {
-      const sky = ctx.createLinearGradient(0, 0, 0, H * 0.85);
-      sky.addColorStop(0, "#08080C");
-      sky.addColorStop(0.35, "#12121D");
-      sky.addColorStop(0.72, "#2A1810");
-      sky.addColorStop(1, "#3D2212");
-      ctx.fillStyle = sky;
-      ctx.fillRect(0, 0, W, H);
+      ctx.drawImage(skyLayer, 0, 0);
 
       for (const s of stars) {
         s.flicker += s.speed;
@@ -146,25 +192,7 @@ export function useMarsHeroCanvas({
         shootingStar.opacity -= 0.02;
       }
 
-      ctx.beginPath();
-      ctx.moveTo(0, H);
-      for (let i = 0; i <= W; i += 4) {
-        const nx = i / W;
-        let y = 0.62;
-        for (let o = 1; o <= 4; o++)
-          y += ((Math.sin(nx * o * 7.3 + 2.1) * 0.5 + 0.5) * 0.038) / o;
-        ctx.lineTo(i, y * H);
-      }
-      ctx.lineTo(W, H);
-      ctx.fillStyle = "#0c0907";
-      ctx.fill();
-
-      drawTerrain(ctx, ridge1, W, H, "#120F0C", "rgba(75,42,20,0.4)");
-      drawTerrain(ctx, ridge2, W, H, "#18120D", "rgba(85,47,22,0.35)");
-      drawTerrain(ctx, ridge3, W, H, "#221811", "rgba(95,52,24,0.3)");
-
-      ctx.fillStyle = "#251B15";
-      ctx.fillRect(0, H * 0.91, W, H * 0.09);
+      ctx.drawImage(groundLayer, 0, 0);
     };
 
     const drawActors = (
@@ -284,6 +312,7 @@ export function useMarsHeroCanvas({
 
       const dt = Math.min((now - lastTime) / 1000, 0.1);
       lastTime = now;
+      if (!onScreen) return;
 
       const t = (now - startTime) / 1000;
       const scanPct = Math.min(1, (now - scanStart) / SCAN_DURATION);
@@ -292,7 +321,9 @@ export function useMarsHeroCanvas({
         canvasRef.current.style.clipPath = `inset(0 0 ${(1 - scanPct) * 100}% 0)`;
       }
 
-      if (scanPct >= 1 && !uiStarted) {
+      // Bring the headline in straight away (it used to wait for the scan
+      // to finish, which made the page's main content appear late)
+      if (!uiStarted) {
         uiStarted = true;
         uiControls.start("visible");
       }
@@ -323,6 +354,7 @@ export function useMarsHeroCanvas({
     return () => {
       cancelAnimationFrame(rafRef.current);
       ro.disconnect();
+      io.disconnect();
       wrap.removeEventListener("mousemove", onMove);
       wrap.removeEventListener("mouseleave", onLeave);
     };
